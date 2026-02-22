@@ -16,285 +16,245 @@
       --border: #ddd9d0;
       --card: #ffffff;
     }
-
     * { box-sizing: border-box; }
-
-    body {
-      font-family: 'Syne', sans-serif;
-      background-color: var(--paper);
-      color: var(--ink);
-      min-height: 100vh;
-    }
-
+    body { font-family: 'Syne', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; }
     .mono { font-family: 'DM Mono', monospace; }
 
+    /* Tabs */
     .tab-btn {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.5rem 1.25rem;
-      border-bottom: 3px solid transparent;
-      color: var(--muted);
-      transition: color 0.2s, border-color 0.2s;
-      background: none;
-      border-top: none;
-      border-left: none;
-      border-right: none;
-      cursor: pointer;
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.78rem;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      padding: 0.5rem 1rem; border-bottom: 3px solid transparent;
+      color: var(--muted); transition: color 0.2s, border-color 0.2s;
+      background: none; border-top: none; border-left: none; border-right: none; cursor: pointer;
+      white-space: nowrap;
     }
-
-    .tab-btn.active {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
-    }
-
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
     .tab-btn:hover:not(.active) { color: var(--ink); }
-
-    input, textarea, select {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.9rem;
-      background: var(--paper);
-      border: 1.5px solid var(--border);
-      border-radius: 6px;
-      padding: 0.55rem 0.75rem;
-      width: 100%;
-      color: var(--ink);
-      transition: border-color 0.2s;
-      outline: none;
-      -webkit-appearance: none;
-    }
-
-    input:focus, textarea:focus, select:focus { border-color: var(--accent); }
-
-    label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: var(--muted);
-      display: block;
-      margin-bottom: 0.3rem;
-    }
-
-    .rpe-btn {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.85rem;
-      width: 2.4rem;
-      height: 2.4rem;
-      border-radius: 6px;
-      border: 1.5px solid var(--border);
-      background: var(--paper);
-      color: var(--muted);
-      cursor: pointer;
-      transition: all 0.15s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .rpe-btn.selected {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: white;
-      font-weight: 500;
-    }
-
-    .rpe-btn:hover:not(.selected) {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .btn-primary {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 0.75rem 2rem;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-    }
-
-    .btn-primary:hover { background: #b8401e; }
-    .btn-primary:active { transform: scale(0.98); }
-
-    .btn-secondary {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 0.85rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      background: transparent;
-      color: var(--muted);
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      padding: 0.75rem 1.5rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--muted);
-      color: var(--ink);
-    }
-
-    .pace-display {
-      background: var(--accent-light);
-      border: 1.5px solid #e8c8bc;
-      border-radius: 8px;
-      padding: 0.55rem 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      height: 100%;
-    }
-
-    .training-card {
-      background: var(--card);
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      padding: 1.25rem 1.5rem;
-      position: relative;
-      transition: box-shadow 0.2s;
-    }
-
-    .training-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
-
-    .training-card.editing {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-light);
-    }
-
-    .card-action-btn {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      font-weight: 500;
-      padding: 0.25rem 0.6rem;
-      border-radius: 5px;
-      border: 1.5px solid var(--border);
-      background: none;
-      color: var(--muted);
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .card-action-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .card-action-btn.delete:hover { border-color: #c62828; color: #c62828; }
-
-    .stat-chip {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.78rem;
-      background: var(--paper);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 0.2rem 0.5rem;
-      color: var(--muted);
-    }
-
-    .stat-chip span { color: var(--ink); font-weight: 500; }
-
-    .tag-chip {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      border-radius: 4px;
-      padding: 0.2rem 0.55rem;
-      font-weight: 500;
-    }
-
-    .rpe-badge {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.78rem;
-      font-weight: 500;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-    }
-
-    .empty-state {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: var(--muted);
-    }
-
-    .empty-state .big { font-size: 3rem; margin-bottom: 0.5rem; }
-
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-
-    @keyframes fadeSlideIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .animate-in { animation: fadeSlideIn 0.3s ease forwards; }
-
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
-    /* Edit mode banner */
-    .edit-banner {
-      background: var(--accent-light);
-      border: 1.5px solid #e8c8bc;
-      border-radius: 8px;
-      padding: 0.6rem 1rem;
-      margin-bottom: 1rem;
-      font-size: 0.82rem;
-      color: var(--accent);
-      font-weight: 600;
-      display: none;
-      align-items: center;
-      gap: 0.5rem;
+    /* Form inputs */
+    input, textarea, select {
+      font-family: 'DM Mono', monospace; font-size: 0.88rem;
+      background: var(--paper); border: 1.5px solid var(--border);
+      border-radius: 6px; padding: 0.5rem 0.7rem;
+      width: 100%; color: var(--ink); transition: border-color 0.2s;
+      outline: none; -webkit-appearance: none;
+    }
+    input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+    input[readonly] { background: #edeae3; color: var(--muted); cursor: default; }
+    input::placeholder { color: #bbb8b0; }
+    label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em;
+      text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.25rem;
     }
 
+    /* RPE */
+    .rpe-btn {
+      font-family: 'DM Mono', monospace; font-size: 0.82rem;
+      width: 2.2rem; height: 2.2rem; border-radius: 6px;
+      border: 1.5px solid var(--border); background: var(--paper);
+      color: var(--muted); cursor: pointer; transition: all 0.15s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .rpe-btn.selected { background: var(--accent); border-color: var(--accent); color: white; font-weight: 500; }
+    .rpe-btn:hover:not(.selected) { border-color: var(--accent); color: var(--accent); }
+
+    /* Buttons */
+    .btn-primary {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.82rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      background: var(--accent); color: white; border: none;
+      border-radius: 8px; padding: 0.65rem 1.75rem; cursor: pointer; transition: background 0.2s, transform 0.1s;
+    }
+    .btn-primary:hover { background: #b8401e; }
+    .btn-primary:active { transform: scale(0.98); }
+    .btn-secondary {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.82rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      background: transparent; color: var(--muted);
+      border: 1.5px solid var(--border); border-radius: 8px;
+      padding: 0.65rem 1.25rem; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--muted); color: var(--ink); }
+
+    /* Form card */
+    .form-card {
+      background: var(--card); border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 1.25rem 1.25rem;
+    }
+    .form-card.editing { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
+
+    /* Edit banner */
+    .edit-banner {
+      background: var(--accent-light); border: 1.5px solid #e8c8bc;
+      border-radius: 8px; padding: 0.55rem 1rem; margin-bottom: 0.75rem;
+      font-size: 0.8rem; color: var(--accent); font-weight: 600;
+      display: none; align-items: center; gap: 0.5rem;
+    }
     .edit-banner.visible { display: flex; }
+
+    /* ── TABLE ── */
+    .data-table { width: 100%; border-collapse: collapse; font-family: 'DM Mono', monospace; font-size: 0.78rem; }
+    .data-table thead th {
+      background: var(--ink); color: var(--paper);
+      padding: 0.5rem 0.6rem; text-align: left;
+      font-family: 'Syne', sans-serif; font-size: 0.65rem;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      font-weight: 700; white-space: nowrap; cursor: pointer;
+      user-select: none; position: relative;
+    }
+    .data-table thead th:hover { background: #333; }
+    .data-table thead th .sort-icon { margin-left: 4px; opacity: 0.5; font-size: 0.6rem; }
+    .data-table thead th.sort-asc .sort-icon::after { content: ' ▲'; opacity: 1; }
+    .data-table thead th.sort-desc .sort-icon::after { content: ' ▼'; opacity: 1; }
+    .data-table thead th:not(.sort-asc):not(.sort-desc) .sort-icon::after { content: ' ⇅'; }
+    .data-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
+    .data-table tbody tr:hover { background: #faf8f4; }
+    .data-table tbody td { padding: 0.5rem 0.6rem; vertical-align: middle; color: var(--ink); }
+    .data-table tbody td.muted { color: var(--muted); }
+
+    /* Tag chips in table */
+    .tag-sm {
+      display: inline-block; font-family: 'DM Mono', monospace;
+      font-size: 0.65rem; border-radius: 3px; padding: 0.1rem 0.4rem; white-space: nowrap;
+    }
+    .tag-activity { background: #e8f0fe; color: #1a56db; }
+    .tag-type     { background: #f3e8ff; color: #7e22ce; }
+    .rpe-dot {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 1.5rem; height: 1.5rem; border-radius: 50%;
+      font-size: 0.72rem; font-weight: 700; font-family: 'DM Mono', monospace;
+    }
+
+    /* Tooltip / comment */
+    .comment-cell { position: relative; cursor: pointer; }
+    .comment-icon { font-size: 0.9rem; }
+    .tooltip-box {
+      display: none; position: absolute; z-index: 100;
+      background: var(--ink); color: var(--paper);
+      border-radius: 8px; padding: 0.6rem 0.8rem;
+      font-family: 'Syne', sans-serif; font-size: 0.78rem;
+      max-width: 220px; white-space: normal; line-height: 1.4;
+      bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      pointer-events: none;
+    }
+    .tooltip-box::after {
+      content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      border: 6px solid transparent; border-top-color: var(--ink);
+    }
+    .comment-cell.open .tooltip-box { display: block; }
+
+    /* Row action buttons */
+    .row-btn {
+      font-family: 'DM Mono', monospace; font-size: 0.65rem;
+      padding: 0.15rem 0.45rem; border-radius: 4px;
+      border: 1px solid var(--border); background: none;
+      color: var(--muted); cursor: pointer; transition: all 0.15s;
+    }
+    .row-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .row-btn.del:hover { border-color: #c62828; color: #c62828; }
+
+    /* History filters */
+    .filter-bar {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      align-items: center; margin-bottom: 1rem;
+    }
+    .filter-bar select, .filter-bar input {
+      width: auto; font-size: 0.78rem; padding: 0.35rem 0.6rem;
+    }
+    .filter-bar label { display: inline; font-size: 0.65rem; margin: 0 0.2rem 0 0; }
+
+    /* Profile table */
+    .zone-table { width: 100%; border-collapse: collapse; font-family: 'DM Mono', monospace; font-size: 0.82rem; }
+    .zone-table th {
+      background: var(--ink); color: var(--paper);
+      padding: 0.45rem 0.6rem; text-align: center;
+      font-family: 'Syne', sans-serif; font-size: 0.65rem;
+      letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700;
+    }
+    .zone-table td { padding: 0.4rem 0.5rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .zone-table td:first-child { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.78rem; white-space: nowrap; }
+    .zone-table input { font-size: 0.82rem; padding: 0.3rem 0.5rem; text-align: center; }
+    .zone-label-1 { color: #2e7d32; } .zone-label-2 { color: #1565c0; }
+    .zone-label-3 { color: #e65100; } .zone-label-4 { color: #b71c1c; }
+    .zone-label-5 { color: #6a1b9a; }
+
+    /* Empty state */
+    .empty-state { text-align: center; padding: 2.5rem 1rem; color: var(--muted); }
+    .empty-state .big { font-size: 2.5rem; margin-bottom: 0.4rem; }
+
+    /* Animations */
+    @keyframes fadeSlideIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+    .animate-in { animation: fadeSlideIn 0.25s ease forwards; }
+
+    /* Show-all link */
+    .show-all-link {
+      font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700;
+      color: var(--accent); text-decoration: none; letter-spacing: 0.04em;
+      cursor: pointer; border: none; background: none; padding: 0;
+    }
+    .show-all-link:hover { text-decoration: underline; }
+
+    /* Scrollable table wrapper */
+    .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 10px; border: 1.5px solid var(--border); }
+
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* Profile section card */
+    .profile-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem; }
+    .section-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+
+    .validation-error { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: #c62828; margin-top: 0.25rem; display: none; }
   </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <header class="sticky top-0 z-50" style="background: var(--paper); border-bottom: 1.5px solid var(--border);">
-  <div class="max-w-3xl mx-auto px-4">
-    <div class="flex items-baseline gap-3 pt-4 pb-1">
-      <h1 class="text-2xl font-extrabold tracking-tight">Train<span style="color:var(--accent)">Log</span></h1>
-      <span class="mono text-xs" style="color: var(--muted);">v0.2</span>
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="flex items-baseline gap-3 pt-3 pb-1">
+      <h1 class="text-xl font-extrabold tracking-tight">Train<span style="color:var(--accent)">Log</span></h1>
+      <span class="mono text-xs" style="color:var(--muted);">v0.3</span>
     </div>
-    <nav class="flex gap-1 mt-1">
+    <nav class="flex gap-0 mt-1 overflow-x-auto" style="-webkit-overflow-scrolling:touch;">
       <button class="tab-btn active" data-tab="endurance">Wytrzymałość</button>
+      <button class="tab-btn" data-tab="history">Historia</button>
       <button class="tab-btn" data-tab="fitness">Sprawność</button>
       <button class="tab-btn" data-tab="summary">Podsumowanie</button>
+      <button class="tab-btn" data-tab="profile">Profil</button>
     </nav>
   </div>
 </header>
 
-<main class="max-w-3xl mx-auto px-4 py-6">
+<main class="max-w-4xl mx-auto px-4 py-5">
 
-  <!-- ── TAB: WYTRZYMAŁOŚĆ ── -->
+  <!-- ══════════════════════════════════════════
+       TAB: WYTRZYMAŁOŚĆ
+  ══════════════════════════════════════════ -->
   <div id="tab-endurance" class="tab-content active animate-in">
-    <h2 class="text-xl font-bold mb-4" style="color: var(--ink);">Wytrzymałość</h2>
+    <h2 class="text-lg font-bold mb-3">Wytrzymałość</h2>
 
-    <!-- Edit mode banner -->
     <div class="edit-banner" id="edit-banner">
       ✏️ Tryb edycji — wprowadź zmiany i kliknij "Zapisz zmiany"
-      <button onclick="cancelEdit()" style="margin-left:auto; font-size:0.75rem; text-decoration:underline; background:none; border:none; color:var(--accent); cursor:pointer; font-family:'Syne',sans-serif; font-weight:700;">Anuluj</button>
+      <button onclick="cancelEdit()" style="margin-left:auto;font-size:0.73rem;text-decoration:underline;background:none;border:none;color:var(--accent);cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;">Anuluj</button>
     </div>
 
-    <!-- Form -->
-    <div class="training-card mb-6" id="form-card">
-      <div class="grid grid-cols-2 gap-4 mb-4">
+    <div class="form-card mb-5" id="form-card">
 
-        <!-- Data -->
-        <div class="col-span-2 sm:col-span-1">
-          <label>Data treningu</label>
-          <input type="date" id="f-date" />
-        </div>
+      <!-- Row 1: Date -->
+      <div class="mb-3">
+        <label>Data treningu</label>
+        <input type="date" id="f-date" style="width:auto; min-width:160px;" />
+      </div>
 
-        <!-- Rodzaj aktywności -->
-        <div class="col-span-2 sm:col-span-1">
+      <!-- Row 2: Activity | Type -->
+      <div class="grid grid-cols-2 gap-3 mb-3">
+        <div>
           <label>Rodzaj aktywności</label>
           <select id="f-activity">
             <option value="bieg">Bieg</option>
@@ -303,9 +263,7 @@
             <option value="inny">Inny</option>
           </select>
         </div>
-
-        <!-- Rodzaj treningu -->
-        <div class="col-span-2">
+        <div>
           <label>Rodzaj treningu</label>
           <select id="f-type">
             <option value="baza tlenowa">Baza tlenowa</option>
@@ -316,34 +274,30 @@
             <option value="inny">Inny</option>
           </select>
         </div>
+      </div>
 
-        <!-- Dystans -->
+      <!-- Row 3: Distance | Accent -->
+      <div class="grid grid-cols-2 gap-3 mb-3">
         <div>
           <label>Dystans (km)</label>
           <input type="number" id="f-distance" placeholder="0.00" step="0.01" min="0" />
         </div>
-
-        <!-- Czas — format mm:ss lub hh:mm:ss -->
-        <div>
-          <label>Czas (mm:ss lub hh:mm:ss)</label>
-          <input type="text" id="f-duration" placeholder="35:29" inputmode="numeric" />
-        </div>
-
-        <!-- Akcent -->
         <div>
           <label>Akcent (km)</label>
           <input type="number" id="f-accent" placeholder="0.00" step="0.01" min="0" />
         </div>
+      </div>
 
-        <!-- Tempo (live) -->
+      <!-- Row 4: Time | Pace -->
+      <div class="grid grid-cols-2 gap-3 mb-4">
         <div>
-          <label>Średnie tempo</label>
-          <div class="pace-display">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span class="mono font-medium text-sm" id="pace-display" style="color: var(--accent);">— min/km</span>
-          </div>
+          <label>Czas</label>
+          <input type="text" id="f-duration" placeholder="00:00" inputmode="numeric" />
         </div>
-
+        <div>
+          <label>Średnie tempo (min/km)</label>
+          <input type="text" id="f-pace" readonly placeholder="—" />
+        </div>
       </div>
 
       <!-- RPE -->
@@ -352,390 +306,679 @@
         <div class="flex flex-wrap gap-2 mt-1" id="rpe-buttons"></div>
       </div>
 
-      <!-- Notatka -->
-      <div class="mb-5">
-        <label>Notatka</label>
-        <textarea id="f-note" rows="2" placeholder="Krótka notatka o treningu..." style="resize:none;"></textarea>
+      <!-- Note -->
+      <div class="mb-4">
+        <label>Komentarz</label>
+        <textarea id="f-note" rows="2" placeholder="Krótki komentarz..." style="resize:none;"></textarea>
       </div>
 
       <div class="flex items-center gap-3 flex-wrap">
         <button class="btn-primary" id="add-btn">+ Dodaj trening</button>
         <button class="btn-secondary" id="cancel-btn" onclick="cancelEdit()" style="display:none;">Anuluj</button>
-        <span class="mono text-xs" id="form-error" style="color: var(--accent); display:none;"></span>
+        <span class="mono text-xs" id="form-error" style="color:var(--accent);display:none;"></span>
       </div>
     </div>
 
-    <!-- Training list -->
-    <div id="training-list"></div>
-  </div>
-
-  <!-- ── TAB: SPRAWNOŚĆ ── -->
-  <div id="tab-fitness" class="tab-content">
-    <h2 class="text-xl font-bold mb-3">Sprawność</h2>
-    <div class="empty-state">
-      <div class="big">🏋️</div>
-      <p class="font-semibold" style="color:var(--muted);">Wkrótce tutaj</p>
-      <p class="text-sm mt-1" style="color:var(--border);">Sekcja w budowie</p>
+    <!-- Last 5 trainings -->
+    <div class="flex items-center justify-between mb-2">
+      <span class="section-title" style="margin:0;">Ostatnie treningi</span>
+      <button class="show-all-link" onclick="switchTab('history')">Zobacz wszystkie →</button>
+    </div>
+    <div class="table-scroll" id="endurance-table-wrap">
+      <div id="endurance-table-body"></div>
     </div>
   </div>
 
-  <!-- ── TAB: PODSUMOWANIE ── -->
+  <!-- ══════════════════════════════════════════
+       TAB: HISTORIA
+  ══════════════════════════════════════════ -->
+  <div id="tab-history" class="tab-content">
+    <h2 class="text-lg font-bold mb-4">Historia</h2>
+
+    <!-- Filters -->
+    <div class="filter-bar">
+      <div style="display:flex;align-items:center;gap:0.3rem;">
+        <label>Rok</label>
+        <select id="h-filter-year" onchange="renderHistory()"><option value="">Wszystkie</option></select>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.3rem;">
+        <label>Miesiąc</label>
+        <select id="h-filter-month" onchange="renderHistory()">
+          <option value="">Wszystkie</option>
+          <option value="01">Styczeń</option><option value="02">Luty</option>
+          <option value="03">Marzec</option><option value="04">Kwiecień</option>
+          <option value="05">Maj</option><option value="06">Czerwiec</option>
+          <option value="07">Lipiec</option><option value="08">Sierpień</option>
+          <option value="09">Wrzesień</option><option value="10">Październik</option>
+          <option value="11">Listopad</option><option value="12">Grudzień</option>
+        </select>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.3rem;">
+        <label>Aktywność</label>
+        <select id="h-filter-activity" onchange="renderHistory()">
+          <option value="">Wszystkie</option>
+          <option value="bieg">Bieg</option>
+          <option value="bieżnia lekkoatletyczna">Bieżnia lekkoatletyczna</option>
+          <option value="bieżnia mechaniczna">Bieżnia mechaniczna</option>
+          <option value="inny">Inny</option>
+        </select>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.3rem;">
+        <label>Trening</label>
+        <select id="h-filter-type" onchange="renderHistory()">
+          <option value="">Wszystkie</option>
+          <option value="baza tlenowa">Baza tlenowa</option>
+          <option value="zabawa biegowa">Zabawa biegowa</option>
+          <option value="około progowy">Około progowy</option>
+          <option value="bieg ciągły">Bieg ciągły</option>
+          <option value="bieg interwałowy">Bieg interwałowy</option>
+          <option value="inny">Inny</option>
+        </select>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.3rem;">
+        <label>RPE</label>
+        <select id="h-filter-rpe" onchange="renderHistory()">
+          <option value="">Wszystkie</option>
+          <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+          <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+          <option value="7">7</option><option value="8">8</option><option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+      <button class="btn-secondary" style="padding:0.35rem 0.75rem;font-size:0.72rem;" onclick="clearHistoryFilters()">Wyczyść</button>
+    </div>
+
+    <div class="table-scroll">
+      <div id="history-table-body"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       TAB: SPRAWNOŚĆ
+  ══════════════════════════════════════════ -->
+  <div id="tab-fitness" class="tab-content">
+    <h2 class="text-lg font-bold mb-3">Sprawność</h2>
+    <div class="empty-state">
+      <div class="big">🏋️</div>
+      <p class="font-semibold" style="color:var(--muted);">Wkrótce tutaj</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       TAB: PODSUMOWANIE
+  ══════════════════════════════════════════ -->
   <div id="tab-summary" class="tab-content">
-    <h2 class="text-xl font-bold mb-3">Podsumowanie</h2>
+    <h2 class="text-lg font-bold mb-3">Podsumowanie</h2>
     <div class="empty-state">
       <div class="big">📊</div>
-      <p class="font-semibold" style="color:var(--muted);">Wkrótce tutaj</p>
-      <p class="text-sm mt-1" style="color:var(--border);">Statystyki dzienne, tygodniowe, YTD i więcej</p>
+      <p class="font-semibold" style="color:var(--muted);">Statystyki dzienne, tygodniowe, YTD — wkrótce</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       TAB: PROFIL
+  ══════════════════════════════════════════ -->
+  <div id="tab-profile" class="tab-content">
+    <h2 class="text-lg font-bold mb-4">Profil</h2>
+
+    <!-- Body metrics -->
+    <div class="profile-card">
+      <div class="section-title">Dane fizyczne</div>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label>Wzrost (cm)</label>
+          <input type="number" id="p-height" placeholder="175" min="100" max="250" />
+        </div>
+        <div>
+          <label>Waga (kg)</label>
+          <input type="number" id="p-weight" placeholder="70.0" step="0.1" min="30" max="250" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Zone table -->
+    <div class="profile-card">
+      <div class="section-title">Strefy treningowe</div>
+      <div class="table-scroll">
+        <table class="zone-table">
+          <thead>
+            <tr>
+              <th>Strefa</th>
+              <th colspan="2">Tętno (BPM)</th>
+              <th colspan="2">Moc (W)</th>
+              <th colspan="2">Tempo (min/km)</th>
+            </tr>
+            <tr style="background:#222;">
+              <th></th>
+              <th style="font-size:0.6rem;">Min</th>
+              <th style="font-size:0.6rem;">Max</th>
+              <th style="font-size:0.6rem;">Min</th>
+              <th style="font-size:0.6rem;">Max</th>
+              <th style="font-size:0.6rem;">Min</th>
+              <th style="font-size:0.6rem;">Max</th>
+            </tr>
+          </thead>
+          <tbody id="zone-tbody"></tbody>
+        </table>
+      </div>
+      <div class="validation-error" id="zone-error">Minimum strefy wyższej musi być większe niż maksimum strefy niższej.</div>
+      <div style="margin-top:1rem;">
+        <button class="btn-primary" onclick="saveProfile()">Zapisz profil</button>
+        <span class="mono text-xs ml-3" id="profile-saved" style="color:#2e7d32;display:none;">✓ Zapisano</span>
+      </div>
     </div>
   </div>
 
 </main>
 
 <script>
-  // ─── STORAGE ───────────────────────────────────────────────
-  const STORAGE_KEY = 'trainlog_endurance_v1';
+// ══════════════════════════════════════════════════
+// STORAGE KEYS
+// ══════════════════════════════════════════════════
+const STORAGE_KEY   = 'trainlog_endurance_v1';
+const PROFILE_KEY   = 'trainlog_profile_v1';
 
-  function loadTrainings() {
-    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-    catch { return []; }
-  }
+// ══════════════════════════════════════════════════
+// SEED DATA (runs once if storage is empty)
+// ══════════════════════════════════════════════════
+function seedData() {
+  const existing = loadTrainings();
+  if (existing.length > 0) return;
+  const seeds = [
+    {
+      id: 1738800000000,
+      date: '2025-02-06',
+      activity: 'bieg',
+      type: 'baza tlenowa',
+      rpe: 6,
+      distance: 6.06,
+      durationSeconds: 2129, // 35:29
+      accent: 0,
+      note: ''
+    },
+    {
+      id: 1738886400000,
+      date: '2025-02-07',
+      activity: 'bieg',
+      type: 'około progowy',
+      rpe: 8,
+      distance: 8.05,
+      durationSeconds: 2717, // 45:17
+      accent: 0,
+      note: ''
+    }
+  ];
+  saveTrainings(seeds);
+}
 
-  function saveTrainings(data) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  }
+// ══════════════════════════════════════════════════
+// LOAD / SAVE
+// ══════════════════════════════════════════════════
+function loadTrainings() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; }
+}
+function saveTrainings(d) { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
+function loadProfile() {
+  try { return JSON.parse(localStorage.getItem(PROFILE_KEY)) || {}; } catch { return {}; }
+}
+function saveProfileData(d) { localStorage.setItem(PROFILE_KEY, JSON.stringify(d)); }
 
-  // ─── TABS ──────────────────────────────────────────────────
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-      btn.classList.add('active');
-      const tab = document.getElementById('tab-' + btn.dataset.tab);
-      tab.classList.add('active');
-      tab.classList.remove('animate-in');
-      void tab.offsetWidth;
-      tab.classList.add('animate-in');
-    });
-  });
+// ══════════════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════════════
+function switchTab(name) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  const el = document.getElementById('tab-' + name);
+  el.classList.add('active');
+  el.classList.remove('animate-in'); void el.offsetWidth; el.classList.add('animate-in');
+  if (name === 'history') { populateYearFilter(); renderHistory(); }
+  if (name === 'endurance') renderEndurance();
+}
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+});
 
-  // ─── RPE BUTTONS ───────────────────────────────────────────
-  let selectedRPE = null;
-
-  const rpeContainer = document.getElementById('rpe-buttons');
+// ══════════════════════════════════════════════════
+// RPE BUTTONS
+// ══════════════════════════════════════════════════
+let selectedRPE = null;
+(function buildRPE() {
+  const c = document.getElementById('rpe-buttons');
   for (let i = 1; i <= 10; i++) {
-    const btn = document.createElement('button');
-    btn.className = 'rpe-btn';
-    btn.textContent = i;
-    btn.dataset.rpe = i;
-    btn.addEventListener('click', () => {
-      selectedRPE = (selectedRPE === i) ? null : i;
-      refreshRPEButtons();
+    const b = document.createElement('button');
+    b.className = 'rpe-btn'; b.textContent = i; b.dataset.rpe = i;
+    b.addEventListener('click', () => {
+      selectedRPE = selectedRPE === i ? null : i;
+      refreshRPE();
     });
-    rpeContainer.appendChild(btn);
+    c.appendChild(b);
   }
+})();
+function refreshRPE() {
+  document.querySelectorAll('.rpe-btn').forEach(b =>
+    b.classList.toggle('selected', parseInt(b.dataset.rpe) === selectedRPE));
+}
 
-  function refreshRPEButtons() {
-    document.querySelectorAll('.rpe-btn').forEach(b => {
-      b.classList.toggle('selected', parseInt(b.dataset.rpe) === selectedRPE);
-    });
+// ══════════════════════════════════════════════════
+// TIME & PACE UTILS
+// ══════════════════════════════════════════════════
+function parseTime(str) {
+  if (!str) return null;
+  const parts = str.trim().split(':');
+  if (parts.length === 2) {
+    const m = parseInt(parts[0], 10), s = parseInt(parts[1], 10);
+    if (isNaN(m) || isNaN(s) || s < 0 || s > 59) return null;
+    return m * 60 + s;
+  } else if (parts.length === 3) {
+    const h = parseInt(parts[0], 10), m = parseInt(parts[1], 10), s = parseInt(parts[2], 10);
+    if (isNaN(h) || isNaN(m) || isNaN(s) || m > 59 || s > 59) return null;
+    return h * 3600 + m * 60 + s;
   }
+  return null;
+}
+function formatDuration(sec) {
+  if (!sec || sec <= 0) return '—';
+  const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60;
+  if (h > 0) return `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  return `${m}:${String(s).padStart(2,'0')}`;
+}
+function calcPaceStr(distKm, totalSec) {
+  if (!distKm || !totalSec || distKm <= 0 || totalSec <= 0) return null;
+  const ps = totalSec / distKm;
+  const pm = Math.floor(ps / 60), ss = Math.round(ps % 60);
+  if (ss === 60) return `${pm+1}:00`;
+  return `${pm}:${String(ss).padStart(2,'0')}`;
+}
 
-  // ─── TIME PARSING & PACE CALCULATION ───────────────────────
-  // Accepts: "35:29" (mm:ss) or "1:05:30" (hh:mm:ss)
-  // Returns total seconds or null if invalid
-  function parseTime(str) {
-    if (!str) return null;
-    const parts = str.trim().split(':');
-    if (parts.length === 2) {
-      const m = parseInt(parts[0], 10);
-      const s = parseInt(parts[1], 10);
-      if (isNaN(m) || isNaN(s) || s < 0 || s > 59) return null;
-      return m * 60 + s;
-    } else if (parts.length === 3) {
-      const h = parseInt(parts[0], 10);
-      const m = parseInt(parts[1], 10);
-      const s = parseInt(parts[2], 10);
-      if (isNaN(h) || isNaN(m) || isNaN(s) || m < 0 || m > 59 || s < 0 || s > 59) return null;
-      return h * 3600 + m * 60 + s;
+// Live pace update
+const distInp = document.getElementById('f-distance');
+const durInp  = document.getElementById('f-duration');
+const paceInp = document.getElementById('f-pace');
+
+function updatePaceLive() {
+  const dist = parseFloat(distInp.value);
+  const secs = parseTime(durInp.value);
+  const p = calcPaceStr(dist, secs);
+  paceInp.value = p ? p + ' min/km' : '';
+}
+distInp.addEventListener('input', updatePaceLive);
+durInp.addEventListener('input', updatePaceLive);
+
+// Auto-format time on blur
+durInp.addEventListener('blur', () => {
+  const raw = durInp.value.trim();
+  if (/^\d{3,4}$/.test(raw)) {
+    durInp.value = `${raw.slice(0, raw.length-2)}:${raw.slice(-2)}`;
+    updatePaceLive();
+  }
+});
+
+// ══════════════════════════════════════════════════
+// DEFAULT DATE
+// ══════════════════════════════════════════════════
+function todayISO() { return new Date().toISOString().split('T')[0]; }
+document.getElementById('f-date').value = todayISO();
+
+// ══════════════════════════════════════════════════
+// EDIT STATE
+// ══════════════════════════════════════════════════
+let editingId = null;
+
+function enterEditMode(id) {
+  const t = loadTrainings().find(x => x.id === id);
+  if (!t) return;
+  editingId = id;
+  document.getElementById('f-date').value     = t.date || todayISO();
+  document.getElementById('f-activity').value = t.activity || 'bieg';
+  document.getElementById('f-type').value     = t.type || 'baza tlenowa';
+  distInp.value = t.distance || '';
+  durInp.value  = formatDuration(t.durationSeconds) !== '—' ? formatDuration(t.durationSeconds) : '';
+  document.getElementById('f-accent').value   = t.accent || '';
+  document.getElementById('f-note').value     = t.note || '';
+  selectedRPE = t.rpe || null; refreshRPE(); updatePaceLive();
+  document.getElementById('add-btn').textContent = '💾 Zapisz zmiany';
+  document.getElementById('cancel-btn').style.display = 'inline-block';
+  document.getElementById('edit-banner').classList.add('visible');
+  document.getElementById('form-card').classList.add('editing');
+  document.getElementById('form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  switchTab('endurance');
+}
+
+function cancelEdit() {
+  editingId = null; resetForm();
+}
+
+function resetForm() {
+  editingId = null;
+  document.getElementById('f-date').value     = todayISO();
+  document.getElementById('f-activity').value = 'bieg';
+  document.getElementById('f-type').value     = 'baza tlenowa';
+  distInp.value = ''; durInp.value = '';
+  document.getElementById('f-accent').value = '';
+  document.getElementById('f-note').value   = '';
+  selectedRPE = null; refreshRPE(); paceInp.value = '';
+  document.getElementById('add-btn').textContent = '+ Dodaj trening';
+  document.getElementById('cancel-btn').style.display = 'none';
+  document.getElementById('edit-banner').classList.remove('visible');
+  document.getElementById('form-card').classList.remove('editing');
+  document.getElementById('form-error').style.display = 'none';
+  renderEndurance();
+}
+
+// ══════════════════════════════════════════════════
+// ADD / SAVE
+// ══════════════════════════════════════════════════
+document.getElementById('add-btn').addEventListener('click', () => {
+  const date     = document.getElementById('f-date').value;
+  const activity = document.getElementById('f-activity').value;
+  const type     = document.getElementById('f-type').value;
+  const distance = parseFloat(distInp.value);
+  const durationSeconds = parseTime(durInp.value);
+  const accent   = parseFloat(document.getElementById('f-accent').value) || 0;
+  const note     = document.getElementById('f-note').value.trim();
+
+  if (!date)                      { showError('Podaj datę.'); return; }
+  if (!distance || distance <= 0) { showError('Podaj dystans.'); return; }
+  if (!durationSeconds || durationSeconds <= 0) { showError('Podaj czas w formacie mm:ss lub hh:mm:ss.'); return; }
+
+  document.getElementById('form-error').style.display = 'none';
+  const trainings = loadTrainings();
+
+  if (editingId !== null) {
+    const idx = trainings.findIndex(x => x.id === editingId);
+    if (idx !== -1) trainings[idx] = { ...trainings[idx], date, activity, type, distance, durationSeconds, accent, rpe: selectedRPE, note };
+  } else {
+    trainings.push({ id: Date.now(), date, activity, type, distance, durationSeconds, accent, rpe: selectedRPE, note });
+  }
+  saveTrainings(trainings);
+  resetForm();
+});
+
+function showError(msg) {
+  const el = document.getElementById('form-error');
+  el.textContent = msg; el.style.display = 'inline';
+  setTimeout(() => el.style.display = 'none', 4000);
+}
+
+// ══════════════════════════════════════════════════
+// DELETE
+// ══════════════════════════════════════════════════
+window.deleteTraining = function(id) {
+  if (!confirm('Usunąć ten trening?')) return;
+  if (editingId === id) cancelEdit();
+  saveTrainings(loadTrainings().filter(x => x.id !== id));
+  renderEndurance();
+  renderHistory();
+};
+window.editTraining = function(id) { enterEditMode(id); };
+
+// ══════════════════════════════════════════════════
+// HELPERS: display
+// ══════════════════════════════════════════════════
+function formatDatePL(iso) {
+  if (!iso) return '—';
+  const [y,m,d] = iso.split('-'); return `${d}.${m}.${y}`;
+}
+function rpeColor(rpe) {
+  if (!rpe) return '#aaa';
+  if (rpe <= 3) return '#2e7d32';
+  if (rpe <= 6) return '#e65100';
+  return '#b71c1c';
+}
+function rpeBg(rpe) {
+  if (!rpe) return '#eee';
+  if (rpe <= 3) return '#e8f5e9';
+  if (rpe <= 6) return '#fff3e0';
+  return '#fce4ec';
+}
+
+// Tooltip toggle — close others first
+document.addEventListener('click', e => {
+  if (!e.target.closest('.comment-cell')) {
+    document.querySelectorAll('.comment-cell.open').forEach(c => c.classList.remove('open'));
+  }
+});
+
+function buildTableHTML(rows, limit) {
+  const displayed = limit ? rows.slice(0, limit) : rows;
+  if (displayed.length === 0) return `<div class="empty-state"><div class="big">🏃</div><p class="font-semibold" style="color:var(--muted);">Brak treningów</p></div>`;
+
+  const thead = `
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th data-col="date">Data<span class="sort-icon"></span></th>
+          <th data-col="activity">Aktywność<span class="sort-icon"></span></th>
+          <th data-col="type">Trening<span class="sort-icon"></span></th>
+          <th data-col="rpe">RPE<span class="sort-icon"></span></th>
+          <th data-col="distance">Dystans<span class="sort-icon"></span></th>
+          <th data-col="time">Czas<span class="sort-icon"></span></th>
+          <th data-col="pace">Tempo<span class="sort-icon"></span></th>
+          <th>Kom.</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>`;
+
+  const tbody = displayed.map(t => {
+    const pace = calcPaceStr(t.distance, t.durationSeconds) || '—';
+    const dur  = formatDuration(t.durationSeconds);
+    const hasNote = t.note && t.note.trim().length > 0;
+    return `<tr>
+      <td class="mono" style="white-space:nowrap;">${formatDatePL(t.date)}</td>
+      <td><span class="tag-sm tag-activity">${t.activity || '—'}</span></td>
+      <td><span class="tag-sm tag-type">${t.type || '—'}</span></td>
+      <td>
+        ${t.rpe
+          ? `<span class="rpe-dot" style="background:${rpeBg(t.rpe)};color:${rpeColor(t.rpe)};">${t.rpe}</span>`
+          : '<span style="color:var(--border);">—</span>'}
+      </td>
+      <td class="mono font-medium">${t.distance} km</td>
+      <td class="mono">${dur}</td>
+      <td class="mono">${pace !== '—' ? pace + ' /km' : '—'}</td>
+      <td>
+        ${hasNote
+          ? `<span class="comment-cell" onclick="this.classList.toggle('open');event.stopPropagation();">
+               <span class="comment-icon">💬</span>
+               <div class="tooltip-box">${escHtml(t.note)}</div>
+             </span>`
+          : '<span style="color:var(--border);">—</span>'}
+      </td>
+      <td style="white-space:nowrap;">
+        <button class="row-btn" onclick="editTraining(${t.id})">Edytuj</button>
+        <button class="row-btn del" onclick="deleteTraining(${t.id})">Usuń</button>
+      </td>
+    </tr>`;
+  }).join('');
+
+  return thead + tbody + '</tbody></table>';
+}
+
+function escHtml(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ══════════════════════════════════════════════════
+// RENDER ENDURANCE (last 5)
+// ══════════════════════════════════════════════════
+function renderEndurance() {
+  const all = loadTrainings().sort((a,b) => b.date.localeCompare(a.date));
+  const wrap = document.getElementById('endurance-table-wrap');
+  wrap.innerHTML = buildTableHTML(all, 5);
+  // no sort on endurance mini-table
+}
+
+// ══════════════════════════════════════════════════
+// HISTORY — sort state
+// ══════════════════════════════════════════════════
+let hSortCol = 'date', hSortDir = 'desc';
+
+function populateYearFilter() {
+  const sel = document.getElementById('h-filter-year');
+  const current = sel.value;
+  const years = [...new Set(loadTrainings().map(t => t.date.split('-')[0]))].sort((a,b) => b-a);
+  sel.innerHTML = '<option value="">Wszystkie</option>' + years.map(y => `<option value="${y}"${y===current?'selected':''}>${y}</option>`).join('');
+}
+
+function clearHistoryFilters() {
+  ['h-filter-year','h-filter-month','h-filter-activity','h-filter-type','h-filter-rpe']
+    .forEach(id => document.getElementById(id).value = '');
+  renderHistory();
+}
+
+function renderHistory() {
+  let data = loadTrainings();
+
+  // Filters
+  const fy = document.getElementById('h-filter-year').value;
+  const fm = document.getElementById('h-filter-month').value;
+  const fa = document.getElementById('h-filter-activity').value;
+  const ft = document.getElementById('h-filter-type').value;
+  const fr = document.getElementById('h-filter-rpe').value;
+
+  if (fy) data = data.filter(t => t.date.startsWith(fy));
+  if (fm) data = data.filter(t => t.date.split('-')[1] === fm);
+  if (fa) data = data.filter(t => t.activity === fa);
+  if (ft) data = data.filter(t => t.type === ft);
+  if (fr) data = data.filter(t => String(t.rpe) === fr);
+
+  // Sort
+  data.sort((a, b) => {
+    let va, vb;
+    switch (hSortCol) {
+      case 'date':     va = a.date; vb = b.date; break;
+      case 'activity': va = a.activity||''; vb = b.activity||''; break;
+      case 'type':     va = a.type||''; vb = b.type||''; break;
+      case 'rpe':      va = a.rpe||0; vb = b.rpe||0; break;
+      case 'distance': va = a.distance||0; vb = b.distance||0; break;
+      case 'time':     va = a.durationSeconds||0; vb = b.durationSeconds||0; break;
+      case 'pace':
+        va = (a.distance && a.durationSeconds) ? a.durationSeconds/a.distance : 0;
+        vb = (b.distance && b.durationSeconds) ? b.durationSeconds/b.distance : 0;
+        break;
+      default: va = a.date; vb = b.date;
     }
-    return null;
-  }
-
-  // Format total seconds → "mm:ss" or "h:mm:ss"
-  function formatDuration(totalSeconds) {
-    if (!totalSeconds || totalSeconds <= 0) return '—';
-    const h = Math.floor(totalSeconds / 3600);
-    const m = Math.floor((totalSeconds % 3600) / 60);
-    const s = totalSeconds % 60;
-    if (h > 0) return `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-    return `${m}:${String(s).padStart(2,'0')}`;
-  }
-
-  // Returns "m:ss min/km" string or null
-  function calcPace(distKm, totalSeconds) {
-    if (!distKm || !totalSeconds || distKm <= 0 || totalSeconds <= 0) return null;
-    const paceSeconds = totalSeconds / distKm;
-    const pm = Math.floor(paceSeconds / 60);
-    const ps = Math.round(paceSeconds % 60);
-    // handle rounding edge: 60s → bump minute
-    if (ps === 60) return `${pm + 1}:00 min/km`;
-    return `${pm}:${String(ps).padStart(2,'0')} min/km`;
-  }
-
-  const distInput = document.getElementById('f-distance');
-  const durInput  = document.getElementById('f-duration');
-  const paceDisp  = document.getElementById('pace-display');
-
-  function updatePace() {
-    const dist = parseFloat(distInput.value);
-    const secs = parseTime(durInput.value);
-    const pace = calcPace(dist, secs);
-    paceDisp.textContent = pace || '— min/km';
-  }
-
-  distInput.addEventListener('input', updatePace);
-  durInput.addEventListener('input', updatePace);
-
-  // Auto-format time input: insert colon after digits for usability
-  durInput.addEventListener('blur', () => {
-    const raw = durInput.value.trim();
-    // If user typed only digits (e.g. 3529), try to auto-colon it as mm:ss
-    if (/^\d{3,4}$/.test(raw)) {
-      const s = raw.slice(-2);
-      const m = raw.slice(0, raw.length - 2);
-      durInput.value = `${m}:${s}`;
-      updatePace();
-    }
+    if (va < vb) return hSortDir === 'asc' ? -1 : 1;
+    if (va > vb) return hSortDir === 'asc' ? 1 : -1;
+    return 0;
   });
 
-  // ─── DEFAULT DATE ───────────────────────────────────────────
-  function todayISO() {
-    return new Date().toISOString().split('T')[0];
-  }
-  document.getElementById('f-date').value = todayISO();
+  const wrap = document.getElementById('history-table-body');
+  wrap.innerHTML = buildTableHTML(data, null);
 
-  // ─── EDIT STATE ─────────────────────────────────────────────
-  let editingId = null;
-
-  function enterEditMode(id) {
-    const trainings = loadTrainings();
-    const t = trainings.find(x => x.id === id);
-    if (!t) return;
-
-    editingId = id;
-
-    // Populate form
-    document.getElementById('f-date').value     = t.date || todayISO();
-    document.getElementById('f-activity').value = t.activity || 'bieg';
-    document.getElementById('f-type').value     = t.type || 'baza tlenowa';
-    distInput.value                              = t.distance || '';
-    durInput.value                               = formatDuration(t.durationSeconds);
-    document.getElementById('f-accent').value   = t.accent || '';
-    document.getElementById('f-note').value     = t.note || '';
-
-    selectedRPE = t.rpe || null;
-    refreshRPEButtons();
-    updatePace();
-
-    // UI changes
-    document.getElementById('add-btn').textContent = '💾 Zapisz zmiany';
-    document.getElementById('cancel-btn').style.display = 'inline-block';
-    document.getElementById('edit-banner').classList.add('visible');
-    document.getElementById('form-card').classList.add('editing');
-
-    // Highlight edited card
-    document.querySelectorAll('.training-card[data-id]').forEach(c => {
-      c.classList.toggle('editing', parseInt(c.dataset.id) === id);
+  // Attach sort listeners
+  wrap.querySelectorAll('th[data-col]').forEach(th => {
+    const col = th.dataset.col;
+    th.classList.toggle('sort-asc',  col === hSortCol && hSortDir === 'asc');
+    th.classList.toggle('sort-desc', col === hSortCol && hSortDir === 'desc');
+    th.addEventListener('click', () => {
+      if (hSortCol === col) hSortDir = hSortDir === 'asc' ? 'desc' : 'asc';
+      else { hSortCol = col; hSortDir = 'asc'; }
+      renderHistory();
     });
-
-    // Scroll to form
-    document.getElementById('form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  function cancelEdit() {
-    editingId = null;
-    resetForm();
-  }
-
-  function resetForm() {
-    editingId = null;
-    document.getElementById('f-date').value     = todayISO();
-    document.getElementById('f-activity').value = 'bieg';
-    document.getElementById('f-type').value     = 'baza tlenowa';
-    distInput.value                              = '';
-    durInput.value                               = '';
-    document.getElementById('f-accent').value   = '';
-    document.getElementById('f-note').value     = '';
-    selectedRPE = null;
-    refreshRPEButtons();
-    paceDisp.textContent = '— min/km';
-
-    document.getElementById('add-btn').textContent = '+ Dodaj trening';
-    document.getElementById('cancel-btn').style.display = 'none';
-    document.getElementById('edit-banner').classList.remove('visible');
-    document.getElementById('form-card').classList.remove('editing');
-    document.getElementById('form-error').style.display = 'none';
-
-    renderList();
-  }
-
-  // ─── ADD / SAVE ─────────────────────────────────────────────
-  document.getElementById('add-btn').addEventListener('click', () => {
-    const date     = document.getElementById('f-date').value;
-    const activity = document.getElementById('f-activity').value;
-    const type     = document.getElementById('f-type').value;
-    const distance = parseFloat(distInput.value);
-    const durationSeconds = parseTime(durInput.value);
-    const accent   = parseFloat(document.getElementById('f-accent').value) || 0;
-    const note     = document.getElementById('f-note').value.trim();
-
-    if (!date)                    { showError('Podaj datę treningu.'); return; }
-    if (!distance || distance<=0) { showError('Podaj poprawny dystans.'); return; }
-    if (!durationSeconds || durationSeconds<=0) {
-      showError('Podaj czas w formacie mm:ss lub hh:mm:ss (np. 35:29).'); return;
-    }
-
-    document.getElementById('form-error').style.display = 'none';
-
-    const trainings = loadTrainings();
-
-    if (editingId !== null) {
-      // Update existing
-      const idx = trainings.findIndex(x => x.id === editingId);
-      if (idx !== -1) {
-        trainings[idx] = { ...trainings[idx], date, activity, type, distance, durationSeconds, accent, rpe: selectedRPE, note };
-        saveTrainings(trainings);
-      }
-    } else {
-      // New entry
-      const training = { id: Date.now(), date, activity, type, distance, durationSeconds, accent, rpe: selectedRPE, note };
-      trainings.push(training);
-      saveTrainings(trainings);
-    }
-
-    resetForm();
   });
+}
 
-  function showError(msg) {
-    const el = document.getElementById('form-error');
-    el.textContent = msg;
-    el.style.display = 'inline';
-    setTimeout(() => el.style.display = 'none', 4000);
+// ══════════════════════════════════════════════════
+// PROFILE — ZONES
+// ══════════════════════════════════════════════════
+const zoneNames  = ['Strefa 1', 'Strefa 2', 'Strefa 3', 'Strefa 4', '> Strefa 5'];
+const zoneColors = ['zone-label-1','zone-label-2','zone-label-3','zone-label-4','zone-label-5'];
+const zoneFields = ['bpm','power','pace'];  // field groups per zone
+const zoneFieldLabels = { bpm:'bpm', power:'power', pace:'pace' };
+
+function buildZoneTable() {
+  const tbody = document.getElementById('zone-tbody');
+  tbody.innerHTML = '';
+  for (let z = 1; z <= 5; z++) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><span class="${zoneColors[z-1]}">${zoneNames[z-1]}</span></td>
+      <td><input type="number" id="z${z}-bpm-min" placeholder="—" min="0" oninput="validateZones()" /></td>
+      <td><input type="number" id="z${z}-bpm-max" placeholder="—" min="0" oninput="validateZones()" /></td>
+      <td><input type="number" id="z${z}-power-min" placeholder="—" min="0" oninput="validateZones()" /></td>
+      <td><input type="number" id="z${z}-power-max" placeholder="—" min="0" oninput="validateZones()" /></td>
+      <td><input type="text"   id="z${z}-pace-min"  placeholder="5:00" style="text-align:center;" oninput="validateZones()" /></td>
+      <td><input type="text"   id="z${z}-pace-max"  placeholder="6:30" style="text-align:center;" oninput="validateZones()" /></td>
+    `;
+    tbody.appendChild(tr);
   }
+}
 
-  // ─── DELETE ─────────────────────────────────────────────────
-  window.deleteTraining = function(id) {
-    if (!confirm('Usunąć ten trening?')) return;
-    if (editingId === id) cancelEdit();
-    const trainings = loadTrainings().filter(x => x.id !== id);
-    saveTrainings(trainings);
-    renderList();
-  };
-
-  window.editTraining = function(id) {
-    enterEditMode(id);
-  };
-
-  // ─── HELPERS ────────────────────────────────────────────────
-  function formatDate(iso) {
-    if (!iso) return '—';
-    const [y, m, d] = iso.split('-');
-    return `${d}.${m}.${y}`;
-  }
-
-  function rpeStyle(rpe) {
-    if (rpe <= 3) return 'background:#e8f5e9; color:#2e7d32;';
-    if (rpe <= 6) return 'background:#fff8e1; color:#f57f17;';
-    return 'background:#fce4ec; color:#c62828;';
-  }
-
-  // Tag styles for activity & type
-  function activityStyle() {
-    return 'background:#e8f0fe; color:#1a56db;';
-  }
-
-  function typeStyle() {
-    return 'background:#f3e8ff; color:#7e22ce;';
-  }
-
-  // ─── RENDER LIST ───────────────────────────────────────────
-  function renderList() {
-    const trainings = loadTrainings();
-    const container = document.getElementById('training-list');
-
-    if (trainings.length === 0) {
-      container.innerHTML = `
-        <div class="empty-state">
-          <div class="big">🏃</div>
-          <p class="font-semibold">Brak treningów</p>
-          <p class="text-sm mt-1" style="color:var(--border);">Dodaj swój pierwszy trening powyżej</p>
-        </div>`;
-      return;
+function validateZones() {
+  const errorEl = document.getElementById('zone-error');
+  let valid = true;
+  // Check BPM and power: min of zone N+1 > max of zone N
+  for (let z = 1; z <= 4; z++) {
+    const maxBpm  = parseInt(document.getElementById(`z${z}-bpm-max`).value)||0;
+    const minBpm  = parseInt(document.getElementById(`z${z+1}-bpm-min`).value)||0;
+    const maxPow  = parseInt(document.getElementById(`z${z}-power-max`).value)||0;
+    const minPow  = parseInt(document.getElementById(`z${z+1}-power-min`).value)||0;
+    if ((maxBpm > 0 && minBpm > 0 && minBpm <= maxBpm) ||
+        (maxPow > 0 && minPow > 0 && minPow <= maxPow)) {
+      valid = false; break;
     }
-
-    const sorted = [...trainings].sort((a, b) => b.date.localeCompare(a.date));
-
-    container.innerHTML = sorted.map((t, idx) => {
-      const pace = calcPace(t.distance, t.durationSeconds) || '—';
-      const dur  = formatDuration(t.durationSeconds);
-      const isEditing = t.id === editingId;
-
-      return `
-      <div class="training-card mb-3 animate-in ${isEditing ? 'editing' : ''}" 
-           data-id="${t.id}"
-           style="animation-delay:${idx * 0.04}s">
-
-        <!-- Action buttons -->
-        <div style="position:absolute; top:0.9rem; right:1rem; display:flex; gap:0.4rem;">
-          <button class="card-action-btn" onclick="editTraining(${t.id})">Edytuj</button>
-          <button class="card-action-btn delete" onclick="deleteTraining(${t.id})">Usuń</button>
-        </div>
-
-        <!-- Date + RPE row -->
-        <div class="flex items-center gap-2 mb-2 flex-wrap" style="padding-right: 7rem;">
-          <span class="mono text-xs" style="color:var(--muted);">${formatDate(t.date)}</span>
-          ${t.rpe ? `<span class="rpe-badge" style="${rpeStyle(t.rpe)}">RPE ${t.rpe}</span>` : ''}
-        </div>
-
-        <!-- Distance big -->
-        <div class="font-bold text-xl leading-none mb-3">
-          ${t.distance} <span class="text-sm font-normal" style="color:var(--muted);">km</span>
-        </div>
-
-        <!-- Tags: activity & type -->
-        <div class="flex flex-wrap gap-2 mb-3">
-          ${t.activity ? `<span class="tag-chip" style="${activityStyle()}">${t.activity}</span>` : ''}
-          ${t.type     ? `<span class="tag-chip" style="${typeStyle()}">${t.type}</span>` : ''}
-        </div>
-
-        <!-- Stat chips -->
-        <div class="flex flex-wrap gap-2 mb-2">
-          <span class="stat-chip">⏱ <span>${dur}</span></span>
-          <span class="stat-chip">⚡ <span>${pace}</span></span>
-          ${t.accent > 0 ? `<span class="stat-chip">🎯 Akcent <span>${t.accent} km</span></span>` : ''}
-        </div>
-
-        ${t.note ? `<p class="text-sm mt-2" style="color:var(--muted); font-style:italic;">"${t.note}"</p>` : ''}
-      </div>`;
-    }).join('');
   }
+  errorEl.style.display = valid ? 'none' : 'block';
+  return valid;
+}
 
-  // ─── MIGRATION: old entries without durationSeconds ─────────
-  // Convert old `duration` (minutes float) → durationSeconds if needed
-  (function migrateOldData() {
-    const trainings = loadTrainings();
-    let changed = false;
-    trainings.forEach(t => {
-      if (t.durationSeconds == null && t.duration != null) {
-        t.durationSeconds = Math.round(t.duration * 60);
-        changed = true;
-      }
-    });
-    if (changed) saveTrainings(trainings);
-  })();
+function saveProfile() {
+  if (!validateZones()) return;
+  const profile = {
+    height: document.getElementById('p-height').value,
+    weight: document.getElementById('p-weight').value,
+    zones: {}
+  };
+  for (let z = 1; z <= 5; z++) {
+    profile.zones[z] = {
+      bpmMin:   document.getElementById(`z${z}-bpm-min`).value,
+      bpmMax:   document.getElementById(`z${z}-bpm-max`).value,
+      powerMin: document.getElementById(`z${z}-power-min`).value,
+      powerMax: document.getElementById(`z${z}-power-max`).value,
+      paceMin:  document.getElementById(`z${z}-pace-min`).value,
+      paceMax:  document.getElementById(`z${z}-pace-max`).value,
+    };
+  }
+  saveProfileData(profile);
+  const saved = document.getElementById('profile-saved');
+  saved.style.display = 'inline';
+  setTimeout(() => saved.style.display = 'none', 2500);
+}
 
-  // ─── INIT ───────────────────────────────────────────────────
-  renderList();
+function loadProfileUI() {
+  const p = loadProfile();
+  if (p.height) document.getElementById('p-height').value = p.height;
+  if (p.weight) document.getElementById('p-weight').value = p.weight;
+  if (p.zones) {
+    for (let z = 1; z <= 5; z++) {
+      const zd = p.zones[z];
+      if (!zd) continue;
+      document.getElementById(`z${z}-bpm-min`).value   = zd.bpmMin   || '';
+      document.getElementById(`z${z}-bpm-max`).value   = zd.bpmMax   || '';
+      document.getElementById(`z${z}-power-min`).value = zd.powerMin || '';
+      document.getElementById(`z${z}-power-max`).value = zd.powerMax || '';
+      document.getElementById(`z${z}-pace-min`).value  = zd.paceMin  || '';
+      document.getElementById(`z${z}-pace-max`).value  = zd.paceMax  || '';
+    }
+  }
+}
+
+// Migration: old float duration → seconds
+(function migrate() {
+  const t = loadTrainings(); let changed = false;
+  t.forEach(x => { if (x.durationSeconds == null && x.duration != null) { x.durationSeconds = Math.round(x.duration * 60); changed = true; } });
+  if (changed) saveTrainings(t);
+})();
+
+// ══════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════
+seedData();
+buildZoneTable();
+loadProfileUI();
+renderEndurance();
 </script>
 </body>
 </html>
