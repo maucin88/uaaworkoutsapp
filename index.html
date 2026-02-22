@@ -28,7 +28,6 @@
 
     .mono { font-family: 'DM Mono', monospace; }
 
-    /* Tab nav */
     .tab-btn {
       font-family: 'Syne', sans-serif;
       font-weight: 700;
@@ -51,11 +50,8 @@
       border-bottom-color: var(--accent);
     }
 
-    .tab-btn:hover:not(.active) {
-      color: var(--ink);
-    }
+    .tab-btn:hover:not(.active) { color: var(--ink); }
 
-    /* Form inputs */
     input, textarea, select {
       font-family: 'DM Mono', monospace;
       font-size: 0.9rem;
@@ -70,9 +66,7 @@
       -webkit-appearance: none;
     }
 
-    input:focus, textarea:focus {
-      border-color: var(--accent);
-    }
+    input:focus, textarea:focus, select:focus { border-color: var(--accent); }
 
     label {
       font-size: 0.72rem;
@@ -84,7 +78,6 @@
       margin-bottom: 0.3rem;
     }
 
-    /* RPE buttons */
     .rpe-btn {
       font-family: 'DM Mono', monospace;
       font-size: 0.85rem;
@@ -113,7 +106,6 @@
       color: var(--accent);
     }
 
-    /* Primary button */
     .btn-primary {
       font-family: 'Syne', sans-serif;
       font-weight: 700;
@@ -132,18 +124,37 @@
     .btn-primary:hover { background: #b8401e; }
     .btn-primary:active { transform: scale(0.98); }
 
-    /* Pace display */
+    .btn-secondary {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: transparent;
+      color: var(--muted);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--muted);
+      color: var(--ink);
+    }
+
     .pace-display {
       background: var(--accent-light);
       border: 1.5px solid #e8c8bc;
       border-radius: 8px;
-      padding: 0.75rem 1rem;
+      padding: 0.55rem 0.75rem;
       display: flex;
       align-items: center;
       gap: 0.75rem;
+      height: 100%;
     }
 
-    /* Training card */
     .training-card {
       background: var(--card);
       border: 1.5px solid var(--border);
@@ -153,24 +164,28 @@
       transition: box-shadow 0.2s;
     }
 
-    .training-card:hover {
-      box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    .training-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+
+    .training-card.editing {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-light);
     }
 
-    .delete-btn {
-      position: absolute;
-      top: 0.9rem;
-      right: 1rem;
-      font-size: 1.1rem;
-      color: var(--border);
+    .card-action-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.25rem 0.6rem;
+      border-radius: 5px;
+      border: 1.5px solid var(--border);
       background: none;
-      border: none;
+      color: var(--muted);
       cursor: pointer;
-      line-height: 1;
-      transition: color 0.15s;
+      transition: all 0.15s;
     }
 
-    .delete-btn:hover { color: var(--accent); }
+    .card-action-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .card-action-btn.delete:hover { border-color: #c62828; color: #c62828; }
 
     .stat-chip {
       font-family: 'DM Mono', monospace;
@@ -182,12 +197,16 @@
       color: var(--muted);
     }
 
-    .stat-chip span {
-      color: var(--ink);
+    .stat-chip span { color: var(--ink); font-weight: 500; }
+
+    .tag-chip {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      border-radius: 4px;
+      padding: 0.2rem 0.55rem;
       font-weight: 500;
     }
 
-    /* RPE badge colors */
     .rpe-badge {
       font-family: 'DM Mono', monospace;
       font-size: 0.78rem;
@@ -204,12 +223,10 @@
 
     .empty-state .big { font-size: 3rem; margin-bottom: 0.5rem; }
 
-    /* Scrollbar */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-    /* Animations */
     @keyframes fadeSlideIn {
       from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
@@ -219,18 +236,33 @@
 
     .tab-content { display: none; }
     .tab-content.active { display: block; }
+
+    /* Edit mode banner */
+    .edit-banner {
+      background: var(--accent-light);
+      border: 1.5px solid #e8c8bc;
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.82rem;
+      color: var(--accent);
+      font-weight: 600;
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .edit-banner.visible { display: flex; }
   </style>
 </head>
 <body>
 
-<!-- Header -->
 <header class="sticky top-0 z-50" style="background: var(--paper); border-bottom: 1.5px solid var(--border);">
   <div class="max-w-3xl mx-auto px-4">
     <div class="flex items-baseline gap-3 pt-4 pb-1">
-      <h1 class="text-2xl font-extrabold tracking-tight" style="color: var(--ink);">Train<span style="color:var(--accent)">Log</span></h1>
-      <span class="mono text-xs" style="color: var(--muted);">v0.1</span>
+      <h1 class="text-2xl font-extrabold tracking-tight">Train<span style="color:var(--accent)">Log</span></h1>
+      <span class="mono text-xs" style="color: var(--muted);">v0.2</span>
     </div>
-    <!-- Tabs -->
     <nav class="flex gap-1 mt-1">
       <button class="tab-btn active" data-tab="endurance">Wytrzymałość</button>
       <button class="tab-btn" data-tab="fitness">Sprawność</button>
@@ -243,11 +275,17 @@
 
   <!-- ── TAB: WYTRZYMAŁOŚĆ ── -->
   <div id="tab-endurance" class="tab-content active animate-in">
-    <h2 class="text-xl font-bold mb-5" style="color: var(--ink);">Wytrzymałość</h2>
+    <h2 class="text-xl font-bold mb-4" style="color: var(--ink);">Wytrzymałość</h2>
+
+    <!-- Edit mode banner -->
+    <div class="edit-banner" id="edit-banner">
+      ✏️ Tryb edycji — wprowadź zmiany i kliknij "Zapisz zmiany"
+      <button onclick="cancelEdit()" style="margin-left:auto; font-size:0.75rem; text-decoration:underline; background:none; border:none; color:var(--accent); cursor:pointer; font-family:'Syne',sans-serif; font-weight:700;">Anuluj</button>
+    </div>
 
     <!-- Form -->
-    <div class="training-card mb-6">
-      <div class="grid grid-cols-2 gap-4 mb-4" style="grid-template-columns: 1fr 1fr;">
+    <div class="training-card mb-6" id="form-card">
+      <div class="grid grid-cols-2 gap-4 mb-4">
 
         <!-- Data -->
         <div class="col-span-2 sm:col-span-1">
@@ -255,29 +293,53 @@
           <input type="date" id="f-date" />
         </div>
 
+        <!-- Rodzaj aktywności -->
+        <div class="col-span-2 sm:col-span-1">
+          <label>Rodzaj aktywności</label>
+          <select id="f-activity">
+            <option value="bieg">Bieg</option>
+            <option value="bieżnia lekkoatletyczna">Bieżnia lekkoatletyczna</option>
+            <option value="bieżnia mechaniczna">Bieżnia mechaniczna</option>
+            <option value="inny">Inny</option>
+          </select>
+        </div>
+
+        <!-- Rodzaj treningu -->
+        <div class="col-span-2">
+          <label>Rodzaj treningu</label>
+          <select id="f-type">
+            <option value="baza tlenowa">Baza tlenowa</option>
+            <option value="zabawa biegowa">Zabawa biegowa</option>
+            <option value="około progowy">Około progowy</option>
+            <option value="bieg ciągły">Bieg ciągły</option>
+            <option value="bieg interwałowy">Bieg interwałowy</option>
+            <option value="inny">Inny</option>
+          </select>
+        </div>
+
         <!-- Dystans -->
         <div>
           <label>Dystans (km)</label>
-          <input type="number" id="f-distance" placeholder="0.0" step="0.1" min="0" />
+          <input type="number" id="f-distance" placeholder="0.00" step="0.01" min="0" />
         </div>
 
-        <!-- Czas -->
+        <!-- Czas — format mm:ss lub hh:mm:ss -->
         <div>
-          <label>Czas (min)</label>
-          <input type="number" id="f-duration" placeholder="0" step="1" min="0" />
+          <label>Czas (mm:ss lub hh:mm:ss)</label>
+          <input type="text" id="f-duration" placeholder="35:29" inputmode="numeric" />
         </div>
 
         <!-- Akcent -->
         <div>
           <label>Akcent (km)</label>
-          <input type="number" id="f-accent" placeholder="0.0" step="0.1" min="0" />
+          <input type="number" id="f-accent" placeholder="0.00" step="0.01" min="0" />
         </div>
 
         <!-- Tempo (live) -->
         <div>
           <label>Średnie tempo</label>
           <div class="pace-display">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             <span class="mono font-medium text-sm" id="pace-display" style="color: var(--accent);">— min/km</span>
           </div>
         </div>
@@ -287,9 +349,7 @@
       <!-- RPE -->
       <div class="mb-4">
         <label>Ocena wysiłku (RPE)</label>
-        <div class="flex flex-wrap gap-2 mt-1" id="rpe-buttons">
-          <!-- rendered by JS -->
-        </div>
+        <div class="flex flex-wrap gap-2 mt-1" id="rpe-buttons"></div>
       </div>
 
       <!-- Notatka -->
@@ -298,8 +358,9 @@
         <textarea id="f-note" rows="2" placeholder="Krótka notatka o treningu..." style="resize:none;"></textarea>
       </div>
 
-      <div class="flex items-center gap-4 flex-wrap">
+      <div class="flex items-center gap-3 flex-wrap">
         <button class="btn-primary" id="add-btn">+ Dodaj trening</button>
+        <button class="btn-secondary" id="cancel-btn" onclick="cancelEdit()" style="display:none;">Anuluj</button>
         <span class="mono text-xs" id="form-error" style="color: var(--accent); display:none;"></span>
       </div>
     </div>
@@ -310,21 +371,21 @@
 
   <!-- ── TAB: SPRAWNOŚĆ ── -->
   <div id="tab-fitness" class="tab-content">
-    <h2 class="text-xl font-bold mb-3" style="color: var(--ink);">Sprawność</h2>
+    <h2 class="text-xl font-bold mb-3">Sprawność</h2>
     <div class="empty-state">
       <div class="big">🏋️</div>
-      <p class="font-semibold" style="color: var(--muted);">Wkrótce tutaj</p>
-      <p class="text-sm mt-1" style="color: var(--border);">Sekcja w budowie</p>
+      <p class="font-semibold" style="color:var(--muted);">Wkrótce tutaj</p>
+      <p class="text-sm mt-1" style="color:var(--border);">Sekcja w budowie</p>
     </div>
   </div>
 
   <!-- ── TAB: PODSUMOWANIE ── -->
   <div id="tab-summary" class="tab-content">
-    <h2 class="text-xl font-bold mb-3" style="color: var(--ink);">Podsumowanie</h2>
+    <h2 class="text-xl font-bold mb-3">Podsumowanie</h2>
     <div class="empty-state">
       <div class="big">📊</div>
-      <p class="font-semibold" style="color: var(--muted);">Wkrótce tutaj</p>
-      <p class="text-sm mt-1" style="color: var(--border);">Statystyki dzienne, tygodniowe, YTD i więcej</p>
+      <p class="font-semibold" style="color:var(--muted);">Wkrótce tutaj</p>
+      <p class="text-sm mt-1" style="color:var(--border);">Statystyki dzienne, tygodniowe, YTD i więcej</p>
     </div>
   </div>
 
@@ -352,7 +413,7 @@
       const tab = document.getElementById('tab-' + btn.dataset.tab);
       tab.classList.add('active');
       tab.classList.remove('animate-in');
-      void tab.offsetWidth; // reflow
+      void tab.offsetWidth;
       tab.classList.add('animate-in');
     });
   });
@@ -368,55 +429,236 @@
     btn.dataset.rpe = i;
     btn.addEventListener('click', () => {
       selectedRPE = (selectedRPE === i) ? null : i;
-      document.querySelectorAll('.rpe-btn').forEach(b => {
-        b.classList.toggle('selected', parseInt(b.dataset.rpe) === selectedRPE);
-      });
+      refreshRPEButtons();
     });
     rpeContainer.appendChild(btn);
   }
 
-  // ─── PACE CALCULATION (live) ───────────────────────────────
-  const distInput = document.getElementById('f-distance');
-  const durInput = document.getElementById('f-duration');
-  const paceDisplay = document.getElementById('pace-display');
-
-  function calcPace(distKm, durMin) {
-    if (!distKm || !durMin || distKm <= 0 || durMin <= 0) return null;
-    const paceDecimal = durMin / distKm;
-    const mins = Math.floor(paceDecimal);
-    const secs = Math.round((paceDecimal - mins) * 60);
-    return `${mins}:${String(secs).padStart(2, '0')} min/km`;
+  function refreshRPEButtons() {
+    document.querySelectorAll('.rpe-btn').forEach(b => {
+      b.classList.toggle('selected', parseInt(b.dataset.rpe) === selectedRPE);
+    });
   }
 
+  // ─── TIME PARSING & PACE CALCULATION ───────────────────────
+  // Accepts: "35:29" (mm:ss) or "1:05:30" (hh:mm:ss)
+  // Returns total seconds or null if invalid
+  function parseTime(str) {
+    if (!str) return null;
+    const parts = str.trim().split(':');
+    if (parts.length === 2) {
+      const m = parseInt(parts[0], 10);
+      const s = parseInt(parts[1], 10);
+      if (isNaN(m) || isNaN(s) || s < 0 || s > 59) return null;
+      return m * 60 + s;
+    } else if (parts.length === 3) {
+      const h = parseInt(parts[0], 10);
+      const m = parseInt(parts[1], 10);
+      const s = parseInt(parts[2], 10);
+      if (isNaN(h) || isNaN(m) || isNaN(s) || m < 0 || m > 59 || s < 0 || s > 59) return null;
+      return h * 3600 + m * 60 + s;
+    }
+    return null;
+  }
+
+  // Format total seconds → "mm:ss" or "h:mm:ss"
+  function formatDuration(totalSeconds) {
+    if (!totalSeconds || totalSeconds <= 0) return '—';
+    const h = Math.floor(totalSeconds / 3600);
+    const m = Math.floor((totalSeconds % 3600) / 60);
+    const s = totalSeconds % 60;
+    if (h > 0) return `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    return `${m}:${String(s).padStart(2,'0')}`;
+  }
+
+  // Returns "m:ss min/km" string or null
+  function calcPace(distKm, totalSeconds) {
+    if (!distKm || !totalSeconds || distKm <= 0 || totalSeconds <= 0) return null;
+    const paceSeconds = totalSeconds / distKm;
+    const pm = Math.floor(paceSeconds / 60);
+    const ps = Math.round(paceSeconds % 60);
+    // handle rounding edge: 60s → bump minute
+    if (ps === 60) return `${pm + 1}:00 min/km`;
+    return `${pm}:${String(ps).padStart(2,'0')} min/km`;
+  }
+
+  const distInput = document.getElementById('f-distance');
+  const durInput  = document.getElementById('f-duration');
+  const paceDisp  = document.getElementById('pace-display');
+
   function updatePace() {
-    const pace = calcPace(parseFloat(distInput.value), parseFloat(durInput.value));
-    paceDisplay.textContent = pace || '— min/km';
+    const dist = parseFloat(distInput.value);
+    const secs = parseTime(durInput.value);
+    const pace = calcPace(dist, secs);
+    paceDisp.textContent = pace || '— min/km';
   }
 
   distInput.addEventListener('input', updatePace);
   durInput.addEventListener('input', updatePace);
 
+  // Auto-format time input: insert colon after digits for usability
+  durInput.addEventListener('blur', () => {
+    const raw = durInput.value.trim();
+    // If user typed only digits (e.g. 3529), try to auto-colon it as mm:ss
+    if (/^\d{3,4}$/.test(raw)) {
+      const s = raw.slice(-2);
+      const m = raw.slice(0, raw.length - 2);
+      durInput.value = `${m}:${s}`;
+      updatePace();
+    }
+  });
+
   // ─── DEFAULT DATE ───────────────────────────────────────────
   function todayISO() {
-    const d = new Date();
-    return d.toISOString().split('T')[0];
+    return new Date().toISOString().split('T')[0];
   }
   document.getElementById('f-date').value = todayISO();
 
-  // ─── RPE COLORS ────────────────────────────────────────────
-  function rpeStyle(rpe) {
-    if (rpe <= 3) return 'background:#e8f5e9; color:#2e7d32;';
-    if (rpe <= 6) return 'background:#fff8e1; color:#f57f17;';
-    return 'background:#fce4ec; color:#c62828;';
+  // ─── EDIT STATE ─────────────────────────────────────────────
+  let editingId = null;
+
+  function enterEditMode(id) {
+    const trainings = loadTrainings();
+    const t = trainings.find(x => x.id === id);
+    if (!t) return;
+
+    editingId = id;
+
+    // Populate form
+    document.getElementById('f-date').value     = t.date || todayISO();
+    document.getElementById('f-activity').value = t.activity || 'bieg';
+    document.getElementById('f-type').value     = t.type || 'baza tlenowa';
+    distInput.value                              = t.distance || '';
+    durInput.value                               = formatDuration(t.durationSeconds);
+    document.getElementById('f-accent').value   = t.accent || '';
+    document.getElementById('f-note').value     = t.note || '';
+
+    selectedRPE = t.rpe || null;
+    refreshRPEButtons();
+    updatePace();
+
+    // UI changes
+    document.getElementById('add-btn').textContent = '💾 Zapisz zmiany';
+    document.getElementById('cancel-btn').style.display = 'inline-block';
+    document.getElementById('edit-banner').classList.add('visible');
+    document.getElementById('form-card').classList.add('editing');
+
+    // Highlight edited card
+    document.querySelectorAll('.training-card[data-id]').forEach(c => {
+      c.classList.toggle('editing', parseInt(c.dataset.id) === id);
+    });
+
+    // Scroll to form
+    document.getElementById('form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  // ─── RENDER LIST ───────────────────────────────────────────
+  function cancelEdit() {
+    editingId = null;
+    resetForm();
+  }
+
+  function resetForm() {
+    editingId = null;
+    document.getElementById('f-date').value     = todayISO();
+    document.getElementById('f-activity').value = 'bieg';
+    document.getElementById('f-type').value     = 'baza tlenowa';
+    distInput.value                              = '';
+    durInput.value                               = '';
+    document.getElementById('f-accent').value   = '';
+    document.getElementById('f-note').value     = '';
+    selectedRPE = null;
+    refreshRPEButtons();
+    paceDisp.textContent = '— min/km';
+
+    document.getElementById('add-btn').textContent = '+ Dodaj trening';
+    document.getElementById('cancel-btn').style.display = 'none';
+    document.getElementById('edit-banner').classList.remove('visible');
+    document.getElementById('form-card').classList.remove('editing');
+    document.getElementById('form-error').style.display = 'none';
+
+    renderList();
+  }
+
+  // ─── ADD / SAVE ─────────────────────────────────────────────
+  document.getElementById('add-btn').addEventListener('click', () => {
+    const date     = document.getElementById('f-date').value;
+    const activity = document.getElementById('f-activity').value;
+    const type     = document.getElementById('f-type').value;
+    const distance = parseFloat(distInput.value);
+    const durationSeconds = parseTime(durInput.value);
+    const accent   = parseFloat(document.getElementById('f-accent').value) || 0;
+    const note     = document.getElementById('f-note').value.trim();
+
+    if (!date)                    { showError('Podaj datę treningu.'); return; }
+    if (!distance || distance<=0) { showError('Podaj poprawny dystans.'); return; }
+    if (!durationSeconds || durationSeconds<=0) {
+      showError('Podaj czas w formacie mm:ss lub hh:mm:ss (np. 35:29).'); return;
+    }
+
+    document.getElementById('form-error').style.display = 'none';
+
+    const trainings = loadTrainings();
+
+    if (editingId !== null) {
+      // Update existing
+      const idx = trainings.findIndex(x => x.id === editingId);
+      if (idx !== -1) {
+        trainings[idx] = { ...trainings[idx], date, activity, type, distance, durationSeconds, accent, rpe: selectedRPE, note };
+        saveTrainings(trainings);
+      }
+    } else {
+      // New entry
+      const training = { id: Date.now(), date, activity, type, distance, durationSeconds, accent, rpe: selectedRPE, note };
+      trainings.push(training);
+      saveTrainings(trainings);
+    }
+
+    resetForm();
+  });
+
+  function showError(msg) {
+    const el = document.getElementById('form-error');
+    el.textContent = msg;
+    el.style.display = 'inline';
+    setTimeout(() => el.style.display = 'none', 4000);
+  }
+
+  // ─── DELETE ─────────────────────────────────────────────────
+  window.deleteTraining = function(id) {
+    if (!confirm('Usunąć ten trening?')) return;
+    if (editingId === id) cancelEdit();
+    const trainings = loadTrainings().filter(x => x.id !== id);
+    saveTrainings(trainings);
+    renderList();
+  };
+
+  window.editTraining = function(id) {
+    enterEditMode(id);
+  };
+
+  // ─── HELPERS ────────────────────────────────────────────────
   function formatDate(iso) {
     if (!iso) return '—';
     const [y, m, d] = iso.split('-');
     return `${d}.${m}.${y}`;
   }
 
+  function rpeStyle(rpe) {
+    if (rpe <= 3) return 'background:#e8f5e9; color:#2e7d32;';
+    if (rpe <= 6) return 'background:#fff8e1; color:#f57f17;';
+    return 'background:#fce4ec; color:#c62828;';
+  }
+
+  // Tag styles for activity & type
+  function activityStyle() {
+    return 'background:#e8f0fe; color:#1a56db;';
+  }
+
+  function typeStyle() {
+    return 'background:#f3e8ff; color:#7e22ce;';
+  }
+
+  // ─── RENDER LIST ───────────────────────────────────────────
   function renderList() {
     const trainings = loadTrainings();
     const container = document.getElementById('training-list');
@@ -431,87 +673,66 @@
       return;
     }
 
-    // newest first
     const sorted = [...trainings].sort((a, b) => b.date.localeCompare(a.date));
 
     container.innerHTML = sorted.map((t, idx) => {
-      const realIdx = trainings.indexOf(t);
-      const pace = calcPace(t.distance, t.duration) || '—';
-      const accentPct = t.accent > 0 && t.distance > 0
-        ? ((t.accent / t.distance) * 100).toFixed(1) + '%'
-        : null;
+      const pace = calcPace(t.distance, t.durationSeconds) || '—';
+      const dur  = formatDuration(t.durationSeconds);
+      const isEditing = t.id === editingId;
 
       return `
-      <div class="training-card mb-3 animate-in" style="animation-delay:${idx * 0.04}s">
-        <button class="delete-btn" onclick="deleteTraining(${realIdx})" title="Usuń">×</button>
+      <div class="training-card mb-3 animate-in ${isEditing ? 'editing' : ''}" 
+           data-id="${t.id}"
+           style="animation-delay:${idx * 0.04}s">
 
-        <div class="flex items-start gap-3 mb-3 flex-wrap">
-          <div>
-            <div class="mono text-xs mb-1" style="color:var(--muted);">${formatDate(t.date)}</div>
-            <div class="font-bold text-lg leading-none">${t.distance} <span class="text-sm font-normal" style="color:var(--muted);">km</span></div>
-          </div>
-          ${t.rpe ? `<span class="rpe-badge mt-1" style="${rpeStyle(t.rpe)}">RPE ${t.rpe}</span>` : ''}
+        <!-- Action buttons -->
+        <div style="position:absolute; top:0.9rem; right:1rem; display:flex; gap:0.4rem;">
+          <button class="card-action-btn" onclick="editTraining(${t.id})">Edytuj</button>
+          <button class="card-action-btn delete" onclick="deleteTraining(${t.id})">Usuń</button>
         </div>
 
+        <!-- Date + RPE row -->
+        <div class="flex items-center gap-2 mb-2 flex-wrap" style="padding-right: 7rem;">
+          <span class="mono text-xs" style="color:var(--muted);">${formatDate(t.date)}</span>
+          ${t.rpe ? `<span class="rpe-badge" style="${rpeStyle(t.rpe)}">RPE ${t.rpe}</span>` : ''}
+        </div>
+
+        <!-- Distance big -->
+        <div class="font-bold text-xl leading-none mb-3">
+          ${t.distance} <span class="text-sm font-normal" style="color:var(--muted);">km</span>
+        </div>
+
+        <!-- Tags: activity & type -->
         <div class="flex flex-wrap gap-2 mb-3">
-          <span class="stat-chip">⏱ <span>${t.duration} min</span></span>
-          <span class="stat-chip">⚡ <span>${pace}</span></span>
-          ${t.accent > 0 ? `<span class="stat-chip">🎯 Akcent <span>${t.accent} km${accentPct ? ' · ' + accentPct : ''}</span></span>` : ''}
+          ${t.activity ? `<span class="tag-chip" style="${activityStyle()}">${t.activity}</span>` : ''}
+          ${t.type     ? `<span class="tag-chip" style="${typeStyle()}">${t.type}</span>` : ''}
         </div>
 
-        ${t.note ? `<p class="text-sm mt-1" style="color:var(--muted); font-style:italic;">"${t.note}"</p>` : ''}
+        <!-- Stat chips -->
+        <div class="flex flex-wrap gap-2 mb-2">
+          <span class="stat-chip">⏱ <span>${dur}</span></span>
+          <span class="stat-chip">⚡ <span>${pace}</span></span>
+          ${t.accent > 0 ? `<span class="stat-chip">🎯 Akcent <span>${t.accent} km</span></span>` : ''}
+        </div>
+
+        ${t.note ? `<p class="text-sm mt-2" style="color:var(--muted); font-style:italic;">"${t.note}"</p>` : ''}
       </div>`;
     }).join('');
   }
 
-  // ─── ADD TRAINING ───────────────────────────────────────────
-  document.getElementById('add-btn').addEventListener('click', () => {
-    const errorEl = document.getElementById('form-error');
-    const date = document.getElementById('f-date').value;
-    const distance = parseFloat(document.getElementById('f-distance').value);
-    const duration = parseFloat(document.getElementById('f-duration').value);
-    const accent = parseFloat(document.getElementById('f-accent').value) || 0;
-    const note = document.getElementById('f-note').value.trim();
-
-    if (!date) { showError('Podaj datę treningu.'); return; }
-    if (!distance || distance <= 0) { showError('Podaj poprawny dystans.'); return; }
-    if (!duration || duration <= 0) { showError('Podaj czas trwania.'); return; }
-
-    errorEl.style.display = 'none';
-
-    const training = { date, distance, duration, accent, rpe: selectedRPE, note, id: Date.now() };
+  // ─── MIGRATION: old entries without durationSeconds ─────────
+  // Convert old `duration` (minutes float) → durationSeconds if needed
+  (function migrateOldData() {
     const trainings = loadTrainings();
-    trainings.push(training);
-    saveTrainings(trainings);
-
-    // Reset form
-    document.getElementById('f-distance').value = '';
-    document.getElementById('f-duration').value = '';
-    document.getElementById('f-accent').value = '';
-    document.getElementById('f-note').value = '';
-    document.getElementById('f-date').value = todayISO();
-    selectedRPE = null;
-    document.querySelectorAll('.rpe-btn').forEach(b => b.classList.remove('selected'));
-    paceDisplay.textContent = '— min/km';
-
-    renderList();
-  });
-
-  function showError(msg) {
-    const el = document.getElementById('form-error');
-    el.textContent = msg;
-    el.style.display = 'inline';
-    setTimeout(() => el.style.display = 'none', 3000);
-  }
-
-  // ─── DELETE ─────────────────────────────────────────────────
-  window.deleteTraining = function(idx) {
-    if (!confirm('Usunąć ten trening?')) return;
-    const trainings = loadTrainings();
-    trainings.splice(idx, 1);
-    saveTrainings(trainings);
-    renderList();
-  };
+    let changed = false;
+    trainings.forEach(t => {
+      if (t.durationSeconds == null && t.duration != null) {
+        t.durationSeconds = Math.round(t.duration * 60);
+        changed = true;
+      }
+    });
+    if (changed) saveTrainings(trainings);
+  })();
 
   // ─── INIT ───────────────────────────────────────────────────
   renderList();
