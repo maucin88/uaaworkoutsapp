@@ -20,6 +20,7 @@
     body { font-family: 'Syne', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; }
     .mono { font-family: 'DM Mono', monospace; }
 
+    /* ── TABS ── */
     .tab-btn {
       font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.78rem;
       letter-spacing: 0.07em; text-transform: uppercase;
@@ -33,6 +34,7 @@
     .tab-content { display: none; }
     .tab-content.active { display: block; }
 
+    /* ── INPUTS ── */
     input, textarea, select {
       font-family: 'DM Mono', monospace; font-size: 0.88rem;
       background: var(--paper); border: 1.5px solid var(--border);
@@ -43,12 +45,12 @@
     input:focus, textarea:focus, select:focus { border-color: var(--accent); }
     input[readonly] { background: #edeae3; color: var(--muted); cursor: default; }
     input::placeholder { color: #bbb8b0; }
-
     label {
       font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em;
       text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.25rem;
     }
 
+    /* ── RPE ── */
     .rpe-btn {
       font-family: 'DM Mono', monospace; font-size: 0.82rem;
       width: 2.2rem; height: 2.2rem; border-radius: 6px;
@@ -59,6 +61,7 @@
     .rpe-btn.selected { background: var(--accent); border-color: var(--accent); color: white; font-weight: 500; }
     .rpe-btn:hover:not(.selected) { border-color: var(--accent); color: var(--accent); }
 
+    /* ── BUTTONS ── */
     .btn-primary {
       font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.82rem;
       letter-spacing: 0.06em; text-transform: uppercase;
@@ -68,7 +71,6 @@
     }
     .btn-primary:hover { background: #b8401e; }
     .btn-primary:active { transform: scale(0.98); }
-
     .btn-secondary {
       font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.82rem;
       letter-spacing: 0.06em; text-transform: uppercase;
@@ -77,7 +79,17 @@
       padding: 0.65rem 1.25rem; cursor: pointer; transition: all 0.2s;
     }
     .btn-secondary:hover { border-color: var(--muted); color: var(--ink); }
+    .btn-ghost {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.75rem;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      background: transparent; color: var(--muted);
+      border: 1.5px solid var(--border); border-radius: 6px;
+      padding: 0.4rem 0.9rem; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-ghost.active-zone { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
 
+    /* ── FORM CARD ── */
     .form-card {
       background: var(--card); border: 1.5px solid var(--border);
       border-radius: 12px; padding: 1.25rem;
@@ -92,7 +104,7 @@
     }
     .edit-banner.visible { display: flex; }
 
-    /* TABLE */
+    /* ── TABLE ── */
     .data-table { width: 100%; border-collapse: collapse; font-family: 'DM Mono', monospace; font-size: 0.78rem; }
     .data-table thead th {
       background: var(--ink); color: var(--paper);
@@ -100,22 +112,28 @@
       font-family: 'Syne', sans-serif; font-size: 0.65rem;
       letter-spacing: 0.07em; text-transform: uppercase; font-weight: 700;
       white-space: nowrap; cursor: pointer; user-select: none;
+      position: relative; z-index: 10;
     }
     .data-table thead th:hover { background: #2a2a2a; }
     .data-table thead th .sort-icon { margin-left: 3px; font-size: 0.58rem; opacity: 0.5; }
-    .data-table thead th.sort-asc .sort-icon::after { content: '▲'; opacity: 1; }
+    .data-table thead th.sort-asc  .sort-icon::after { content: '▲'; opacity: 1; }
     .data-table thead th.sort-desc .sort-icon::after { content: '▼'; opacity: 1; }
     .data-table thead th:not(.sort-asc):not(.sort-desc) .sort-icon::after { content: '⇅'; }
     .data-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
     .data-table tbody tr:hover { background: #faf8f4; }
     .data-table tbody td { padding: 0.5rem 0.65rem; vertical-align: middle; }
 
+    /* ── TAGS ── */
     .tag-sm {
       display: inline-block; font-family: 'DM Mono', monospace;
-      font-size: 0.65rem; border-radius: 3px; padding: 0.1rem 0.4rem; white-space: nowrap;
+      font-size: 0.65rem; border-radius: 3px; padding: 0.1rem 0.42rem; white-space: nowrap;
     }
-    .tag-activity { background: #e8f0fe; color: #1a56db; }
-    .tag-type     { background: #f3e8ff; color: #7e22ce; }
+    /* Activity always purple */
+    .tag-activity { background: #ede9fe; color: #5b21b6; }
+    /* Training type colours */
+    .tag-type-blue   { background: #dbeafe; color: #1e40af; }
+    .tag-type-green  { background: #dcfce7; color: #15803d; }
+    .tag-type-orange { background: #ffedd5; color: #c2410c; }
 
     .rpe-dot {
       display: inline-flex; align-items: center; justify-content: center;
@@ -123,30 +141,53 @@
       font-size: 0.72rem; font-weight: 700; font-family: 'DM Mono', monospace;
     }
 
-    /* Tooltip */
-    .comment-cell { position: relative; cursor: pointer; display: inline-block; }
+    /* ── TOOLTIP / COMMENT ── */
+    .comment-cell { position: relative; display: inline-block; cursor: pointer; }
     .tooltip-box {
-      display: none; position: absolute; z-index: 200;
-      background: var(--ink); color: var(--paper);
-      border-radius: 8px; padding: 0.6rem 0.8rem;
-      font-family: 'Syne', sans-serif; font-size: 0.78rem;
-      max-width: 220px; white-space: normal; line-height: 1.45;
-      bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.25); pointer-events: none;
+      display: none;
+      position: absolute;
+      z-index: 50;
+      border-radius: 6px;
+      padding: 0.45rem 0.75rem;
+      font-family: 'Syne', sans-serif; font-size: 0.76rem;
+      white-space: nowrap;
+      line-height: 1.4;
+      /* appears to the RIGHT, vertically centered in the row */
+      top: 50%; left: calc(100% + 10px);
+      transform: translateY(-50%);
+      box-shadow: 0 3px 12px rgba(0,0,0,0.18);
+      pointer-events: none;
+      max-width: 260px;
+      white-space: normal;
     }
-    .tooltip-box::after {
-      content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-      border: 6px solid transparent; border-top-color: var(--ink);
+    .tooltip-box::before {
+      content: '';
+      position: absolute;
+      right: 100%; top: 50%; transform: translateY(-50%);
+      border: 6px solid transparent;
     }
+    /* colour variants */
+    .tooltip-box.tip-gray   { background: #4b5563; color: #f9fafb; }
+    .tooltip-box.tip-gray::before   { border-right-color: #4b5563; }
+    .tooltip-box.tip-green  { background: #15803d; color: #f0fdf4; }
+    .tooltip-box.tip-green::before  { border-right-color: #15803d; }
+    .tooltip-box.tip-yellow { background: #a16207; color: #fefce8; }
+    .tooltip-box.tip-yellow::before { border-right-color: #a16207; }
     .comment-cell.open .tooltip-box { display: block; }
 
+    /* comment icon colours */
+    .icon-gray   { color: #6b7280; }
+    .icon-green  { color: #16a34a; }
+    .icon-yellow { color: #ca8a04; }
+
+    /* ── ROW BUTTONS ── */
     .row-btn {
       font-family: 'DM Mono', monospace; font-size: 0.65rem;
       padding: 0.15rem 0.45rem; border-radius: 4px;
       border: 1px solid var(--border); background: none;
       color: var(--muted); cursor: pointer; transition: all 0.15s; margin-left: 2px;
     }
-    .row-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .row-btn:hover     { border-color: var(--accent); color: var(--accent); }
     .row-btn.del:hover { border-color: #c62828; color: #c62828; }
 
     .table-scroll {
@@ -154,13 +195,36 @@
       border-radius: 10px; border: 1.5px solid var(--border);
     }
 
-    /* HISTORY FILTERS */
+    /* ── ZONE TIME FIELDS ── */
+    .zone-time-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem;
+      margin-top: 0.6rem;
+    }
+    .zone-time-item label { font-size: 0.62rem; }
+
+    /* ── COMMENT OPTIONS ── */
+    .comment-options { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; align-items: center; }
+    .color-swatch {
+      width: 1.4rem; height: 1.4rem; border-radius: 50%; cursor: pointer;
+      border: 2.5px solid transparent; transition: border-color 0.15s;
+      display: inline-block;
+    }
+    .color-swatch.selected { border-color: var(--ink); }
+    .excl-toggle {
+      font-family: 'DM Mono', monospace; font-size: 0.8rem;
+      padding: 0.15rem 0.5rem; border-radius: 5px;
+      border: 1.5px solid var(--border); background: var(--paper);
+      cursor: pointer; color: var(--muted); transition: all 0.15s;
+    }
+    .excl-toggle.on { background: #fef3c7; border-color: #f59e0b; color: #92400e; }
+
+    /* ── HISTORY FILTERS ── */
     .filter-bar { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 1rem; }
     .filter-group { display: flex; align-items: center; gap: 0.3rem; }
     .filter-group label { display: inline; font-size: 0.65rem; margin: 0; white-space: nowrap; }
     .filter-group select { width: auto; font-size: 0.78rem; padding: 0.3rem 0.55rem; }
 
-    /* PROFILE */
+    /* ── PROFILE ── */
     .profile-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem; }
     .section-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
 
@@ -175,28 +239,32 @@
     .zone-table td:first-child { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.78rem; white-space: nowrap; }
     .zone-table input { font-size: 0.82rem; padding: 0.3rem 0.4rem; text-align: center; }
 
-    .zone-1 { color: #2e7d32; } .zone-2 { color: #1565c0; }
-    .zone-3 { color: #e65100; } .zone-4 { color: #b71c1c; }
-    .zone-5 { color: #6a1b9a; }
+    /* zone name colours: 1=light blue, 2=blue, 3=green, 4=orange, 5=red */
+    .zone-1 { color: #38bdf8; }
+    .zone-2 { color: #1d4ed8; }
+    .zone-3 { color: #16a34a; }
+    .zone-4 { color: #ea580c; }
+    .zone-5 { color: #dc2626; }
 
     .validation-error { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: #c62828; margin-top: 0.5rem; display: none; }
 
+    /* ── MISC ── */
     .empty-state { text-align: center; padding: 2.5rem 1rem; color: var(--muted); }
     .empty-state .big { font-size: 2.5rem; margin-bottom: 0.4rem; }
-
     .show-all-link {
       font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700;
-      color: var(--accent); cursor: pointer; border: none; background: none;
-      padding: 0; letter-spacing: 0.03em;
+      color: var(--accent); cursor: pointer; border: none; background: none; padding: 0;
     }
     .show-all-link:hover { text-decoration: underline; }
-
     @keyframes fadeSlideIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
     .animate-in { animation: fadeSlideIn 0.25s ease forwards; }
-
     ::-webkit-scrollbar { width: 5px; height: 5px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* zone time in table cell */
+    .zone-time-cell { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); line-height: 1.6; white-space: nowrap; }
+    .zone-time-cell span { display: inline-block; margin-right: 0.3rem; }
   </style>
 </head>
 <body>
@@ -206,14 +274,14 @@
   <div class="max-w-4xl mx-auto px-4">
     <div class="flex items-baseline gap-3 pt-3 pb-1">
       <h1 class="text-xl font-extrabold tracking-tight">Train<span style="color:var(--accent)">Log</span></h1>
-      <span class="mono text-xs" style="color:var(--muted);">v0.3</span>
+      <span class="mono text-xs" style="color:var(--muted);">v0.4</span>
     </div>
-    <nav class="flex mt-1" style="overflow-x:auto; -webkit-overflow-scrolling:touch; gap:0;">
+    <nav class="flex mt-1" style="overflow-x:auto;-webkit-overflow-scrolling:touch;gap:0;" id="main-nav">
+      <button class="tab-btn" data-tab="profile">Profil</button>
       <button class="tab-btn active" data-tab="endurance">Wytrzymałość</button>
-      <button class="tab-btn" data-tab="history">Historia</button>
       <button class="tab-btn" data-tab="fitness">Sprawność</button>
       <button class="tab-btn" data-tab="summary">Podsumowanie</button>
-      <button class="tab-btn" data-tab="profile">Profil</button>
+      <!-- History tab hidden from nav but kept in DOM for switchTab() -->
     </nav>
   </div>
 </header>
@@ -254,8 +322,8 @@
             <option value="baza tlenowa">Baza tlenowa</option>
             <option value="zabawa biegowa">Zabawa biegowa</option>
             <option value="około progowy">Około progowy</option>
-            <option value="bieg ciągły">Bieg ciągły</option>
-            <option value="bieg interwałowy">Bieg interwałowy</option>
+            <option value="ciągły">Ciągły</option>
+            <option value="interwałowy">Interwałowy</option>
             <option value="inny">Inny</option>
           </select>
         </div>
@@ -285,16 +353,52 @@
         </div>
       </div>
 
-      <!-- RPE -->
-      <div class="mb-4">
-        <label>Ocena wysiłku (RPE)</label>
-        <div class="flex flex-wrap gap-2 mt-1" id="rpe-buttons"></div>
+      <!-- RPE + Zone time toggle -->
+      <div class="mb-3">
+        <div class="flex items-center gap-3 mb-2 flex-wrap">
+          <label style="margin:0;">Ocena wysiłku (RPE)</label>
+          <button class="btn-ghost" id="zone-time-toggle-btn" onclick="toggleZoneTime()">Czas w strefach</button>
+        </div>
+        <div class="flex flex-wrap gap-2" id="rpe-buttons"></div>
       </div>
 
-      <!-- Note -->
+      <!-- Zone time fields (hidden by default) -->
+      <div id="zone-time-fields" style="display:none;" class="mb-4">
+        <div class="zone-time-grid">
+          <div class="zone-time-item">
+            <label style="color:#38bdf8;">Strefa 1</label>
+            <input type="text" id="zt-1" placeholder="00:00" inputmode="numeric" />
+          </div>
+          <div class="zone-time-item">
+            <label style="color:#1d4ed8;">Strefa 2</label>
+            <input type="text" id="zt-2" placeholder="00:00" inputmode="numeric" />
+          </div>
+          <div class="zone-time-item">
+            <label style="color:#16a34a;">Strefa 3</label>
+            <input type="text" id="zt-3" placeholder="00:00" inputmode="numeric" />
+          </div>
+          <div class="zone-time-item">
+            <label style="color:#ea580c;">Strefa 4</label>
+            <input type="text" id="zt-4" placeholder="00:00" inputmode="numeric" />
+          </div>
+          <div class="zone-time-item">
+            <label style="color:#dc2626;">Strefa 5</label>
+            <input type="text" id="zt-5" placeholder="00:00" inputmode="numeric" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Note + comment options -->
       <div class="mb-4">
         <label>Komentarz</label>
         <textarea id="f-note" rows="2" placeholder="Krótki komentarz..." style="resize:none;"></textarea>
+        <div class="comment-options">
+          <span style="font-size:0.68rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:var(--muted);">Kolor:</span>
+          <span class="color-swatch selected" style="background:#4b5563;" data-color="gray"  onclick="selectCommentColor('gray',this)"  title="Szary"></span>
+          <span class="color-swatch"          style="background:#16a34a;" data-color="green" onclick="selectCommentColor('green',this)" title="Zielony"></span>
+          <span class="color-swatch"          style="background:#ca8a04;" data-color="yellow" onclick="selectCommentColor('yellow',this)" title="Żółty"></span>
+          <button class="excl-toggle" id="excl-btn" onclick="toggleExcl()" title="Oznacz wykrzyknikiem">! Ważne</button>
+        </div>
       </div>
 
       <div class="flex items-center gap-3 flex-wrap">
@@ -307,16 +411,21 @@
     <!-- Last 5 -->
     <div class="flex items-center justify-between mb-2">
       <span class="section-title" style="margin:0;">Ostatnie treningi</span>
-      <button class="show-all-link" onclick="switchTab('history')">Zobacz wszystkie →</button>
     </div>
-    <div class="table-scroll" id="endurance-table-wrap">
+    <div class="table-scroll mb-3" id="endurance-table-wrap">
       <div id="endurance-table-body"></div>
+    </div>
+    <div style="text-align:right;">
+      <button class="show-all-link" onclick="openHistory()">Zobacz wszystkie →</button>
     </div>
   </div>
 
-  <!-- ══ TAB: HISTORIA ══ -->
+  <!-- ══ TAB: HISTORIA (hidden from nav, accessible via button) ══ -->
   <div id="tab-history" class="tab-content">
-    <h2 class="text-lg font-bold mb-4">Historia</h2>
+    <div class="flex items-center gap-3 mb-4">
+      <h2 class="text-lg font-bold">Historia</h2>
+      <button class="btn-ghost" onclick="switchTab('endurance')" style="font-size:0.7rem;">← Wróć</button>
+    </div>
 
     <div class="filter-bar">
       <div class="filter-group">
@@ -336,7 +445,7 @@
         </select>
       </div>
       <div class="filter-group">
-        <label>Aktywność</label>
+        <label>Akt.</label>
         <select id="h-filter-activity" onchange="renderHistory()">
           <option value="">Wszystkie</option>
           <option value="bieg">Bieg</option>
@@ -346,14 +455,14 @@
         </select>
       </div>
       <div class="filter-group">
-        <label>Trening</label>
+        <label>Typ</label>
         <select id="h-filter-type" onchange="renderHistory()">
           <option value="">Wszystkie</option>
           <option value="baza tlenowa">Baza tlenowa</option>
           <option value="zabawa biegowa">Zabawa biegowa</option>
           <option value="około progowy">Około progowy</option>
-          <option value="bieg ciągły">Bieg ciągły</option>
-          <option value="bieg interwałowy">Bieg interwałowy</option>
+          <option value="ciągły">Ciągły</option>
+          <option value="interwałowy">Interwałowy</option>
           <option value="inny">Inny</option>
         </select>
       </div>
@@ -378,19 +487,13 @@
   <!-- ══ TAB: SPRAWNOŚĆ ══ -->
   <div id="tab-fitness" class="tab-content">
     <h2 class="text-lg font-bold mb-3">Sprawność</h2>
-    <div class="empty-state">
-      <div class="big">🏋️</div>
-      <p class="font-semibold" style="color:var(--muted);">Wkrótce tutaj</p>
-    </div>
+    <div class="empty-state"><div class="big">🏋️</div><p class="font-semibold" style="color:var(--muted);">Wkrótce tutaj</p></div>
   </div>
 
   <!-- ══ TAB: PODSUMOWANIE ══ -->
   <div id="tab-summary" class="tab-content">
     <h2 class="text-lg font-bold mb-3">Podsumowanie</h2>
-    <div class="empty-state">
-      <div class="big">📊</div>
-      <p class="font-semibold" style="color:var(--muted);">Statystyki dzienne, tygodniowe, YTD — wkrótce</p>
-    </div>
+    <div class="empty-state"><div class="big">📊</div><p class="font-semibold" style="color:var(--muted);">Statystyki — wkrótce</p></div>
   </div>
 
   <!-- ══ TAB: PROFIL ══ -->
@@ -400,14 +503,8 @@
     <div class="profile-card">
       <div class="section-title">Dane fizyczne</div>
       <div class="grid grid-cols-2 gap-3">
-        <div>
-          <label>Wzrost (cm)</label>
-          <input type="number" id="p-height" placeholder="175" min="100" max="250" />
-        </div>
-        <div>
-          <label>Waga (kg)</label>
-          <input type="number" id="p-weight" placeholder="70.0" step="0.1" min="30" max="300" />
-        </div>
+        <div><label>Wzrost (cm)</label><input type="number" id="p-height" placeholder="175" min="100" max="250" /></div>
+        <div><label>Waga (kg)</label><input type="number" id="p-weight" placeholder="70.0" step="0.1" min="30" max="300" /></div>
       </div>
     </div>
 
@@ -417,10 +514,10 @@
         <table class="zone-table">
           <thead>
             <tr>
-              <th rowspan="2" style="text-align:left; padding-left:0.75rem;">Strefa</th>
+              <th rowspan="2" style="text-align:left;padding-left:0.75rem;">Strefa</th>
               <th colspan="2">Tętno (BPM)</th>
-              <th colspan="2">Moc (W)</th>
               <th colspan="2">Tempo (min/km)</th>
+              <th colspan="2">Moc (W)</th>
             </tr>
             <tr style="background:#222;">
               <th>Min</th><th>Max</th>
@@ -432,9 +529,9 @@
         </table>
       </div>
       <div class="validation-error" id="zone-error">⚠️ Minimum strefy wyższej musi być większe niż maksimum strefy niższej.</div>
-      <div style="margin-top:1rem; display:flex; align-items:center; gap:1rem;">
+      <div style="margin-top:1rem;display:flex;align-items:center;gap:1rem;">
         <button class="btn-primary" onclick="saveProfile()">Zapisz profil</button>
-        <span class="mono text-xs" id="profile-saved" style="color:#2e7d32; display:none;">✓ Zapisano</span>
+        <span class="mono text-xs" id="profile-saved" style="color:#2e7d32;display:none;">✓ Zapisano</span>
       </div>
     </div>
   </div>
@@ -443,20 +540,17 @@
 
 <script>
 // ══════════════════════════════════════════
-// CONSTANTS
+// CONSTANTS & STORAGE
 // ══════════════════════════════════════════
 const STORAGE_KEY = 'trainlog_endurance_v1';
 const PROFILE_KEY = 'trainlog_profile_v1';
 
-const ZONE_NAMES  = ['Strefa 1', 'Strefa 2', 'Strefa 3', 'Strefa 4', '> Strefa 5'];
-const ZONE_COLORS = ['zone-1', 'zone-2', 'zone-3', 'zone-4', 'zone-5'];
+// Zone display order in profile table: 5 → 1
+const ZONE_NAMES  = ['> Strefa 5', 'Strefa 4', 'Strefa 3', 'Strefa 2', 'Strefa 1'];
+const ZONE_NUMS   = [5, 4, 3, 2, 1];
+const ZONE_COLORS = ['zone-5', 'zone-4', 'zone-3', 'zone-2', 'zone-1'];
 
-// ══════════════════════════════════════════
-// STORAGE
-// ══════════════════════════════════════════
-function loadTrainings() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; }
-}
+function loadTrainings() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; } }
 function saveTrainings(d) { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
 function loadProfile()    { try { return JSON.parse(localStorage.getItem(PROFILE_KEY)) || {}; } catch { return {}; } }
 function saveProfileData(d) { localStorage.setItem(PROFILE_KEY, JSON.stringify(d)); }
@@ -467,20 +561,24 @@ function saveProfileData(d) { localStorage.setItem(PROFILE_KEY, JSON.stringify(d
 function seedData() {
   if (loadTrainings().length > 0) return;
   saveTrainings([
-    { id: 1738800000001, date: '2025-02-06', activity: 'bieg', type: 'baza tlenowa',    rpe: 6, distance: 6.06, durationSeconds: 2129, accent: 0, note: '' },
-    { id: 1738800000002, date: '2025-02-07', activity: 'bieg', type: 'około progowy',   rpe: 8, distance: 8.05, durationSeconds: 2717, accent: 0, note: '' }
+    { id: 1738800000001, date: '2025-02-06', activity: 'bieg', type: 'baza tlenowa',  rpe: 6, distance: 6.06, durationSeconds: 2129, accent: 0, note: '', commentColor: 'gray', commentExcl: false, zoneTimes: {} },
+    { id: 1738800000002, date: '2025-02-07', activity: 'bieg', type: 'około progowy', rpe: 8, distance: 8.05, durationSeconds: 2717, accent: 0, note: '', commentColor: 'gray', commentExcl: false, zoneTimes: {} }
   ]);
 }
 
 // ══════════════════════════════════════════
-// MIGRATION (old float duration)
+// MIGRATION
 // ══════════════════════════════════════════
 function migrateData() {
   const t = loadTrainings(); let changed = false;
   t.forEach(x => {
-    if (x.durationSeconds == null && x.duration != null) {
-      x.durationSeconds = Math.round(x.duration * 60); changed = true;
-    }
+    if (x.durationSeconds == null && x.duration != null) { x.durationSeconds = Math.round(x.duration * 60); changed = true; }
+    if (!x.commentColor) { x.commentColor = 'gray'; changed = true; }
+    if (x.commentExcl == null) { x.commentExcl = false; changed = true; }
+    if (!x.zoneTimes) { x.zoneTimes = {}; changed = true; }
+    // normalise old training type names
+    if (x.type === 'bieg ciągły')      { x.type = 'ciągły';      changed = true; }
+    if (x.type === 'bieg interwałowy') { x.type = 'interwałowy'; changed = true; }
   });
   if (changed) saveTrainings(t);
 }
@@ -489,14 +587,26 @@ function migrateData() {
 // TABS
 // ══════════════════════════════════════════
 function switchTab(name) {
+  // update nav buttons (history has no nav button, that's fine)
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
   document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
   const el = document.getElementById('tab-' + name);
   el.classList.add('active');
   el.classList.remove('animate-in'); void el.offsetWidth; el.classList.add('animate-in');
-  if (name === 'history')  { populateYearFilter(); renderHistory(); }
   if (name === 'endurance') renderEndurance();
 }
+
+function openHistory() {
+  // deactivate all nav buttons (history isn't in nav)
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  const el = document.getElementById('tab-history');
+  el.classList.add('active');
+  el.classList.remove('animate-in'); void el.offsetWidth; el.classList.add('animate-in');
+  populateYearFilter();
+  renderHistory();
+}
+
 document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
 
 // ══════════════════════════════════════════
@@ -517,7 +627,44 @@ function refreshRPE() {
 }
 
 // ══════════════════════════════════════════
-// TIME & PACE
+// ZONE TIME TOGGLE
+// ══════════════════════════════════════════
+let zoneTimeVisible = false;
+function toggleZoneTime() {
+  zoneTimeVisible = !zoneTimeVisible;
+  document.getElementById('zone-time-fields').style.display = zoneTimeVisible ? 'block' : 'none';
+  document.getElementById('zone-time-toggle-btn').classList.toggle('active-zone', zoneTimeVisible);
+}
+
+// ══════════════════════════════════════════
+// COMMENT OPTIONS
+// ══════════════════════════════════════════
+let commentColor = 'gray';
+let commentExcl  = false;
+
+function selectCommentColor(color, el) {
+  commentColor = color;
+  document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function toggleExcl() {
+  commentExcl = !commentExcl;
+  document.getElementById('excl-btn').classList.toggle('on', commentExcl);
+}
+function resetCommentOptions() {
+  commentColor = 'gray'; commentExcl = false;
+  document.querySelectorAll('.color-swatch').forEach(s => s.classList.toggle('selected', s.dataset.color === 'gray'));
+  document.getElementById('excl-btn').classList.remove('on');
+}
+function setCommentOptions(color, excl) {
+  commentColor = color || 'gray';
+  commentExcl  = !!excl;
+  document.querySelectorAll('.color-swatch').forEach(s => s.classList.toggle('selected', s.dataset.color === commentColor));
+  document.getElementById('excl-btn').classList.toggle('on', commentExcl);
+}
+
+// ══════════════════════════════════════════
+// TIME & PACE UTILS
 // ══════════════════════════════════════════
 function parseTime(str) {
   if (!str) return null;
@@ -534,18 +681,15 @@ function parseTime(str) {
   }
   return null;
 }
-
 function formatDuration(sec) {
   if (!sec || sec <= 0) return '—';
   const h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60;
   if (h > 0) return `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
   return `${m}:${String(s).padStart(2,'0')}`;
 }
-
 function calcPaceStr(distKm, totalSec) {
   if (!distKm || !totalSec || distKm <= 0 || totalSec <= 0) return null;
-  const ps = totalSec / distKm;
-  const pm = Math.floor(ps / 60), ss = Math.round(ps % 60);
+  const ps = totalSec / distKm, pm = Math.floor(ps / 60), ss = Math.round(ps % 60);
   return ss === 60 ? `${pm+1}:00` : `${pm}:${String(ss).padStart(2,'0')}`;
 }
 
@@ -561,10 +705,16 @@ distInp.addEventListener('input', updatePaceLive);
 durInp.addEventListener('input', updatePaceLive);
 durInp.addEventListener('blur', () => {
   const raw = durInp.value.trim();
-  if (/^\d{3,4}$/.test(raw)) {
-    durInp.value = `${raw.slice(0, raw.length - 2)}:${raw.slice(-2)}`;
-    updatePaceLive();
-  }
+  if (/^\d{3,4}$/.test(raw)) { durInp.value = `${raw.slice(0, raw.length-2)}:${raw.slice(-2)}`; updatePaceLive(); }
+});
+
+// auto-format zone time inputs
+[1,2,3,4,5].forEach(z => {
+  const inp = document.getElementById(`zt-${z}`);
+  inp.addEventListener('blur', () => {
+    const raw = inp.value.trim();
+    if (/^\d{3,4}$/.test(raw)) inp.value = `${raw.slice(0, raw.length-2)}:${raw.slice(-2)}`;
+  });
 });
 
 function todayISO() { return new Date().toISOString().split('T')[0]; }
@@ -588,12 +738,23 @@ function enterEditMode(id) {
   document.getElementById('f-accent').value = t.accent || '';
   document.getElementById('f-note').value   = t.note || '';
   selectedRPE = t.rpe || null; refreshRPE(); updatePaceLive();
+  setCommentOptions(t.commentColor, t.commentExcl);
+
+  // zone times
+  const zt = t.zoneTimes || {};
+  [1,2,3,4,5].forEach(z => {
+    const v = zt[z] ? formatDuration(zt[z]) : '';
+    document.getElementById(`zt-${z}`).value = (v !== '—' ? v : '');
+  });
+  const hasZone = Object.values(zt).some(v => v > 0);
+  if (hasZone && !zoneTimeVisible) toggleZoneTime();
+
   document.getElementById('add-btn').textContent = '💾 Zapisz zmiany';
   document.getElementById('cancel-btn').style.display = 'inline-block';
   document.getElementById('edit-banner').classList.add('visible');
   document.getElementById('form-card').classList.add('editing');
   switchTab('endurance');
-  document.getElementById('form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById('form-card').scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
 function cancelEdit() { editingId = null; resetForm(); }
@@ -607,6 +768,9 @@ function resetForm() {
   document.getElementById('f-accent').value = '';
   document.getElementById('f-note').value   = '';
   selectedRPE = null; refreshRPE(); paceInp.value = '';
+  resetCommentOptions();
+  [1,2,3,4,5].forEach(z => document.getElementById(`zt-${z}`).value = '');
+  if (zoneTimeVisible) toggleZoneTime();
   document.getElementById('add-btn').textContent = '+ Dodaj trening';
   document.getElementById('cancel-btn').style.display = 'none';
   document.getElementById('edit-banner').classList.remove('visible');
@@ -616,7 +780,7 @@ function resetForm() {
 }
 
 // ══════════════════════════════════════════
-// ADD / SAVE TRAINING
+// ADD / SAVE
 // ══════════════════════════════════════════
 document.getElementById('add-btn').addEventListener('click', () => {
   const date            = document.getElementById('f-date').value;
@@ -627,18 +791,27 @@ document.getElementById('add-btn').addEventListener('click', () => {
   const accent          = parseFloat(document.getElementById('f-accent').value) || 0;
   const note            = document.getElementById('f-note').value.trim();
 
-  if (!date)                       { showError('Podaj datę.'); return; }
-  if (!distance || distance <= 0)  { showError('Podaj dystans.'); return; }
+  if (!date)                      { showError('Podaj datę.'); return; }
+  if (!distance || distance <= 0) { showError('Podaj dystans.'); return; }
   if (!durationSeconds || durationSeconds <= 0) { showError('Podaj czas (mm:ss lub hh:mm:ss).'); return; }
 
   document.getElementById('form-error').style.display = 'none';
+
+  // collect zone times
+  const zoneTimes = {};
+  [1,2,3,4,5].forEach(z => {
+    const secs = parseTime(document.getElementById(`zt-${z}`).value);
+    if (secs && secs > 0) zoneTimes[z] = secs;
+  });
+
+  const record = { date, activity, type, distance, durationSeconds, accent, rpe: selectedRPE, note, commentColor, commentExcl, zoneTimes };
   const all = loadTrainings();
 
   if (editingId !== null) {
     const idx = all.findIndex(x => x.id === editingId);
-    if (idx !== -1) all[idx] = { ...all[idx], date, activity, type, distance, durationSeconds, accent, rpe: selectedRPE, note };
+    if (idx !== -1) all[idx] = { ...all[idx], ...record };
   } else {
-    all.push({ id: Date.now(), date, activity, type, distance, durationSeconds, accent, rpe: selectedRPE, note });
+    all.push({ id: Date.now(), ...record });
   }
   saveTrainings(all);
   resetForm();
@@ -667,24 +840,49 @@ window.editTraining = function(id) { enterEditMode(id); };
 // ══════════════════════════════════════════
 function formatDatePL(iso) {
   if (!iso) return '—';
-  const [y, m, d] = iso.split('-');
-  return `${d}.${m}.${y}`;
+  const [y,m,d] = iso.split('-'); return `${d}.${m}.${y}`;
 }
 function rpeBg(rpe) {
   if (!rpe) return '#eee';
-  if (rpe <= 3) return '#e8f5e9';
-  if (rpe <= 6) return '#fff3e0';
-  return '#fce4ec';
+  if (rpe <= 3) return '#e8f5e9'; if (rpe <= 6) return '#fff3e0'; return '#fce4ec';
 }
 function rpeColor(rpe) {
   if (!rpe) return '#aaa';
-  if (rpe <= 3) return '#2e7d32';
-  if (rpe <= 6) return '#e65100';
-  return '#b71c1c';
+  if (rpe <= 3) return '#2e7d32'; if (rpe <= 6) return '#e65100'; return '#b71c1c';
+}
+function typeTagClass(type) {
+  switch (type) {
+    case 'baza tlenowa':  return 'tag-type-blue';
+    case 'zabawa biegowa': return 'tag-type-green';
+    case 'około progowy':  return 'tag-type-orange';
+    case 'interwałowy':    return 'tag-type-orange';
+    case 'ciągły':         return 'tag-type-green';
+    default:               return 'tag-type-blue';
+  }
 }
 function escHtml(s) {
-  return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
+
+// Comment icon
+function commentIcon(color, excl) {
+  const cls = `icon-${color||'gray'}`;
+  return excl ? `<span class="${cls}" style="font-size:1rem;">💬❗</span>` : `<span class="${cls}" style="font-size:1rem;">💬</span>`;
+}
+
+// Zone times cell content
+function zoneTimesCell(zt) {
+  const parts = [];
+  for (let z = 1; z <= 5; z++) {
+    const secs = zt && zt[z] ? zt[z] : 0;
+    const dur = secs > 0 ? formatDuration(secs) : '00:00';
+    parts.push(`<span>S${z}-${dur}</span>`);
+  }
+  return `<div class="zone-time-cell">${parts.join(' ')}</div>`;
+}
+
+// Tooltip colour
+function tipClass(color) { return `tip-${color||'gray'}`; }
 
 // Close tooltips on outside click
 document.addEventListener('click', e => {
@@ -696,51 +894,52 @@ document.addEventListener('click', e => {
 // BUILD TABLE HTML
 // ══════════════════════════════════════════
 function buildTableHTML(rows, sortable) {
-  if (rows.length === 0) {
+  if (rows.length === 0)
     return `<div class="empty-state"><div class="big">🏃</div><p class="font-semibold" style="color:var(--muted);">Brak treningów</p></div>`;
-  }
 
-  const thAttr = sortable ? 'data-col' : '';
-
-  const headRow = [
-    { key:'date',     label:'Data'      },
-    { key:'activity', label:'Aktywność' },
-    { key:'type',     label:'Trening'   },
-    { key:'rpe',      label:'RPE'       },
-    { key:'distance', label:'Dystans'   },
-    { key:'time',     label:'Czas'      },
-    { key:'pace',     label:'Tempo'     },
-    { key:'',         label:'Kom.'      },
-    { key:'',         label:''          },
+  const cols = [
+    { key:'date',     label:'Data'    },
+    { key:'activity', label:'Akt.'    },
+    { key:'type',     label:'Typ'     },
+    { key:'rpe',      label:'RPE'     },
+    { key:'distance', label:'Dystans' },
+    { key:'time',     label:'Czas'    },
+    { key:'pace',     label:'Tempo'   },
+    { key:'',         label:'Kom.'    },
+    { key:'',         label:'Strefy'  },
+    { key:'',         label:''        },
   ];
 
   const thead = `<table class="data-table"><thead><tr>` +
-    headRow.map(h => {
-      if (!h.key) return `<th>${h.label}</th>`;
-      const cls = sortable && hSortCol === h.key ? (hSortDir === 'asc' ? 'sort-asc' : 'sort-desc') : '';
-      return `<th ${sortable ? `data-col="${h.key}"` : ''} class="${cls}">${h.label}<span class="sort-icon"></span></th>`;
-    }).join('') +
-    `</tr></thead><tbody>`;
+    cols.map(h => {
+      if (!h.key || !sortable) return `<th>${h.label}${sortable && h.key ? '<span class="sort-icon"></span>' : ''}</th>`;
+      const cls = hSortCol === h.key ? (hSortDir === 'asc' ? 'sort-asc' : 'sort-desc') : '';
+      return `<th data-col="${h.key}" class="${cls}">${h.label}<span class="sort-icon"></span></th>`;
+    }).join('') + `</tr></thead><tbody>`;
 
   const tbody = rows.map(t => {
-    const pace    = calcPaceStr(t.distance, t.durationSeconds);
-    const dur     = formatDuration(t.durationSeconds);
+    const pace = calcPaceStr(t.distance, t.durationSeconds);
+    const dur  = formatDuration(t.durationSeconds);
     const hasNote = t.note && t.note.trim().length > 0;
+    const icon = commentIcon(t.commentColor, t.commentExcl);
+    const tipCls = tipClass(t.commentColor);
     return `<tr>
       <td class="mono" style="white-space:nowrap;">${formatDatePL(t.date)}</td>
-      <td><span class="tag-sm tag-activity">${escHtml(t.activity || '—')}</span></td>
-      <td><span class="tag-sm tag-type">${escHtml(t.type || '—')}</span></td>
+      <td><span class="tag-sm tag-activity">${escHtml(t.activity||'—')}</span></td>
+      <td><span class="tag-sm ${typeTagClass(t.type)}">${escHtml(t.type||'—')}</span></td>
       <td>${t.rpe
         ? `<span class="rpe-dot" style="background:${rpeBg(t.rpe)};color:${rpeColor(t.rpe)};">${t.rpe}</span>`
         : `<span style="color:var(--border);">—</span>`}</td>
       <td class="mono">${t.distance} km</td>
       <td class="mono">${dur}</td>
-      <td class="mono">${pace ? pace + ' /km' : '—'}</td>
+      <td class="mono">${pace ? pace+' /km' : '—'}</td>
       <td>${hasNote
         ? `<span class="comment-cell" onclick="this.classList.toggle('open');event.stopPropagation();">
-             💬<div class="tooltip-box">${escHtml(t.note)}</div>
+             ${icon}
+             <div class="tooltip-box ${tipCls}">${escHtml(t.note)}</div>
            </span>`
         : `<span style="color:var(--border);">—</span>`}</td>
+      <td>${zoneTimesCell(t.zoneTimes)}</td>
       <td style="white-space:nowrap;">
         <button class="row-btn" onclick="editTraining(${t.id})">Edytuj</button>
         <button class="row-btn del" onclick="deleteTraining(${t.id})">Usuń</button>
@@ -755,7 +954,7 @@ function buildTableHTML(rows, sortable) {
 // RENDER ENDURANCE (last 5)
 // ══════════════════════════════════════════
 function renderEndurance() {
-  const sorted = loadTrainings().sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
+  const sorted = loadTrainings().sort((a,b) => b.date.localeCompare(a.date)).slice(0,5);
   document.getElementById('endurance-table-body').innerHTML = buildTableHTML(sorted, false);
 }
 
@@ -767,17 +966,15 @@ let hSortCol = 'date', hSortDir = 'desc';
 function populateYearFilter() {
   const sel = document.getElementById('h-filter-year');
   const current = sel.value;
-  const years = [...new Set(loadTrainings().map(t => t.date.split('-')[0]))].sort((a,b) => b - a);
+  const years = [...new Set(loadTrainings().map(t => t.date.split('-')[0]))].sort((a,b) => b-a);
   sel.innerHTML = '<option value="">Wszystkie</option>' +
-    years.map(y => `<option value="${y}"${y === current ? ' selected' : ''}>${y}</option>`).join('');
+    years.map(y => `<option value="${y}"${y===current?' selected':''}>${y}</option>`).join('');
 }
-
 function clearHistoryFilters() {
   ['h-filter-year','h-filter-month','h-filter-activity','h-filter-type','h-filter-rpe']
-    .forEach(id => document.getElementById(id).value = '');
+    .forEach(id => document.getElementById(id).value='');
   renderHistory();
 }
-
 function renderHistory() {
   let data = loadTrainings();
   const fy = document.getElementById('h-filter-year').value;
@@ -785,85 +982,74 @@ function renderHistory() {
   const fa = document.getElementById('h-filter-activity').value;
   const ft = document.getElementById('h-filter-type').value;
   const fr = document.getElementById('h-filter-rpe').value;
-
   if (fy) data = data.filter(t => t.date.startsWith(fy));
-  if (fm) data = data.filter(t => t.date.split('-')[1] === fm);
-  if (fa) data = data.filter(t => t.activity === fa);
-  if (ft) data = data.filter(t => t.type === ft);
-  if (fr) data = data.filter(t => String(t.rpe) === fr);
+  if (fm) data = data.filter(t => t.date.split('-')[1]===fm);
+  if (fa) data = data.filter(t => t.activity===fa);
+  if (ft) data = data.filter(t => t.type===ft);
+  if (fr) data = data.filter(t => String(t.rpe)===fr);
 
-  data.sort((a, b) => {
+  data.sort((a,b) => {
     let va, vb;
-    switch (hSortCol) {
-      case 'date':     va = a.date;          vb = b.date;          break;
-      case 'activity': va = a.activity||'';  vb = b.activity||'';  break;
-      case 'type':     va = a.type||'';      vb = b.type||'';      break;
-      case 'rpe':      va = a.rpe||0;        vb = b.rpe||0;        break;
-      case 'distance': va = a.distance||0;   vb = b.distance||0;   break;
-      case 'time':     va = a.durationSeconds||0; vb = b.durationSeconds||0; break;
+    switch(hSortCol) {
+      case 'date':     va=a.date;          vb=b.date;          break;
+      case 'activity': va=a.activity||'';  vb=b.activity||'';  break;
+      case 'type':     va=a.type||'';      vb=b.type||'';      break;
+      case 'rpe':      va=a.rpe||0;        vb=b.rpe||0;        break;
+      case 'distance': va=a.distance||0;   vb=b.distance||0;   break;
+      case 'time':     va=a.durationSeconds||0; vb=b.durationSeconds||0; break;
       case 'pace':
-        va = (a.distance && a.durationSeconds) ? a.durationSeconds / a.distance : 0;
-        vb = (b.distance && b.durationSeconds) ? b.durationSeconds / b.distance : 0;
-        break;
-      default: va = a.date; vb = b.date;
+        va=(a.distance&&a.durationSeconds)?a.durationSeconds/a.distance:0;
+        vb=(b.distance&&b.durationSeconds)?b.durationSeconds/b.distance:0; break;
+      default: va=a.date; vb=b.date;
     }
-    if (va < vb) return hSortDir === 'asc' ? -1 : 1;
-    if (va > vb) return hSortDir === 'asc' ?  1 : -1;
+    if (va<vb) return hSortDir==='asc'?-1:1;
+    if (va>vb) return hSortDir==='asc'?1:-1;
     return 0;
   });
 
   const wrap = document.getElementById('history-table-body');
   wrap.innerHTML = buildTableHTML(data, true);
-
-  // Attach sort click listeners
   wrap.querySelectorAll('th[data-col]').forEach(th => {
-    const col = th.dataset.col;
-    if (!col) return;
-    th.style.cursor = 'pointer';
     th.addEventListener('click', () => {
-      if (hSortCol === col) hSortDir = hSortDir === 'asc' ? 'desc' : 'asc';
-      else { hSortCol = col; hSortDir = 'asc'; }
+      const col = th.dataset.col;
+      if (hSortCol===col) hSortDir = hSortDir==='asc'?'desc':'asc';
+      else { hSortCol=col; hSortDir='asc'; }
       renderHistory();
     });
   });
 }
 
 // ══════════════════════════════════════════
-// PROFILE — ZONES
+// PROFILE — ZONES (reversed: 5 → 1)
 // ══════════════════════════════════════════
 function buildZoneTable() {
   const tbody = document.getElementById('zone-tbody');
   tbody.innerHTML = '';
-  for (let z = 1; z <= 5; z++) {
+  ZONE_NUMS.forEach((z, i) => {
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td><span class="${ZONE_COLORS[z-1]}">${ZONE_NAMES[z-1]}</span></td>
+      <td><span class="${ZONE_COLORS[i]}">${ZONE_NAMES[i]}</span></td>
       <td><input type="number" id="z${z}-bpm-min"   placeholder="—" min="0" oninput="validateZones()" /></td>
       <td><input type="number" id="z${z}-bpm-max"   placeholder="—" min="0" oninput="validateZones()" /></td>
-      <td><input type="number" id="z${z}-power-min" placeholder="—" min="0" oninput="validateZones()" /></td>
-      <td><input type="number" id="z${z}-power-max" placeholder="—" min="0" oninput="validateZones()" /></td>
       <td><input type="text"   id="z${z}-pace-min"  placeholder="5:00" oninput="validateZones()" /></td>
-      <td><input type="text"   id="z${z}-pace-max"  placeholder="6:30" oninput="validateZones()" /></td>`;
+      <td><input type="text"   id="z${z}-pace-max"  placeholder="6:30" oninput="validateZones()" /></td>
+      <td><input type="number" id="z${z}-power-min" placeholder="—" min="0" oninput="validateZones()" /></td>
+      <td><input type="number" id="z${z}-power-max" placeholder="—" min="0" oninput="validateZones()" /></td>`;
     tbody.appendChild(tr);
-  }
+  });
 }
-
 function validateZones() {
   let valid = true;
-  for (let z = 1; z <= 4; z++) {
-    const bpmMax  = parseInt(document.getElementById(`z${z}-bpm-max`).value)   || 0;
-    const bpmMin2 = parseInt(document.getElementById(`z${z+1}-bpm-min`).value) || 0;
-    const pwMax   = parseInt(document.getElementById(`z${z}-power-max`).value)   || 0;
-    const pwMin2  = parseInt(document.getElementById(`z${z+1}-power-min`).value) || 0;
-    if ((bpmMax > 0 && bpmMin2 > 0 && bpmMin2 <= bpmMax) ||
-        (pwMax  > 0 && pwMin2  > 0 && pwMin2  <= pwMax)) {
-      valid = false; break;
-    }
+  for (let z=1; z<=4; z++) {
+    const bMax = parseInt(document.getElementById(`z${z}-bpm-max`).value)||0;
+    const bMin2= parseInt(document.getElementById(`z${z+1}-bpm-min`).value)||0;
+    const pMax = parseInt(document.getElementById(`z${z}-power-max`).value)||0;
+    const pMin2= parseInt(document.getElementById(`z${z+1}-power-min`).value)||0;
+    if ((bMax>0&&bMin2>0&&bMin2<=bMax)||(pMax>0&&pMin2>0&&pMin2<=pMax)) { valid=false; break; }
   }
-  document.getElementById('zone-error').style.display = valid ? 'none' : 'block';
+  document.getElementById('zone-error').style.display = valid?'none':'block';
   return valid;
 }
-
 function saveProfile() {
   if (!validateZones()) return;
   const profile = {
@@ -871,7 +1057,7 @@ function saveProfile() {
     weight: document.getElementById('p-weight').value,
     zones: {}
   };
-  for (let z = 1; z <= 5; z++) {
+  for (let z=1; z<=5; z++) {
     profile.zones[z] = {
       bpmMin:   document.getElementById(`z${z}-bpm-min`).value,
       bpmMax:   document.getElementById(`z${z}-bpm-max`).value,
@@ -883,23 +1069,21 @@ function saveProfile() {
   }
   saveProfileData(profile);
   const el = document.getElementById('profile-saved');
-  el.style.display = 'inline';
-  setTimeout(() => el.style.display = 'none', 2500);
+  el.style.display='inline'; setTimeout(()=>el.style.display='none',2500);
 }
-
 function loadProfileUI() {
   const p = loadProfile();
   if (p.height) document.getElementById('p-height').value = p.height;
   if (p.weight) document.getElementById('p-weight').value = p.weight;
   if (p.zones) {
-    for (let z = 1; z <= 5; z++) {
-      const zd = p.zones[z]; if (!zd) continue;
-      document.getElementById(`z${z}-bpm-min`).value   = zd.bpmMin   || '';
-      document.getElementById(`z${z}-bpm-max`).value   = zd.bpmMax   || '';
-      document.getElementById(`z${z}-power-min`).value = zd.powerMin || '';
-      document.getElementById(`z${z}-power-max`).value = zd.powerMax || '';
-      document.getElementById(`z${z}-pace-min`).value  = zd.paceMin  || '';
-      document.getElementById(`z${z}-pace-max`).value  = zd.paceMax  || '';
+    for (let z=1; z<=5; z++) {
+      const zd=p.zones[z]; if (!zd) continue;
+      document.getElementById(`z${z}-bpm-min`).value   = zd.bpmMin   ||'';
+      document.getElementById(`z${z}-bpm-max`).value   = zd.bpmMax   ||'';
+      document.getElementById(`z${z}-power-min`).value = zd.powerMin ||'';
+      document.getElementById(`z${z}-power-max`).value = zd.powerMax ||'';
+      document.getElementById(`z${z}-pace-min`).value  = zd.paceMin  ||'';
+      document.getElementById(`z${z}-pace-max`).value  = zd.paceMax  ||'';
     }
   }
 }
