@@ -8,19 +8,12 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --ink: #0f0f0f;
-      --paper: #f5f2ec;
-      --accent: #d4522a;
-      --accent-light: #f4e8e3;
-      --muted: #8a8580;
-      --border: #ddd9d0;
-      --card: #ffffff;
+      --ink: #0f0f0f; --paper: #f5f2ec; --accent: #d4522a;
+      --accent-light: #f4e8e3; --muted: #8a8580; --border: #ddd9d0; --card: #ffffff;
     }
     * { box-sizing: border-box; }
     body { font-family: 'Syne', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; }
     .mono { font-family: 'DM Mono', monospace; }
-
-    /* ── TABS ── */
     .tab-btn {
       font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.78rem;
       letter-spacing: 0.07em; text-transform: uppercase;
@@ -33,8 +26,6 @@
     .tab-btn:hover:not(.active) { color: var(--ink); }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
-
-    /* ── INPUTS ── */
     input, textarea, select {
       font-family: 'DM Mono', monospace; font-size: 0.88rem;
       background: var(--paper); border: 1.5px solid var(--border);
@@ -49,11 +40,7 @@
       font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em;
       text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.25rem;
     }
-
-    /* Date input — auto width in main form */
     .date-auto { width: auto; min-width: 165px; display: inline-block; }
-
-    /* ── RPE BUTTONS ── */
     .rpe-btn {
       font-family: 'DM Mono', monospace; font-size: 0.82rem;
       width: 2.2rem; height: 2.2rem; border-radius: 6px;
@@ -62,8 +49,6 @@
       display: flex; align-items: center; justify-content: center; font-weight: 600;
     }
     .rpe-btn:hover { transform: scale(1.1); }
-
-    /* ── BUTTONS ── */
     .btn-primary {
       font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.82rem;
       letter-spacing: 0.06em; text-transform: uppercase;
@@ -98,8 +83,6 @@
       padding: 0.65rem 1.25rem; cursor: pointer; transition: all 0.2s;
     }
     .btn-plan:hover { background: #eff6ff; border-color: #1d4ed8; }
-
-    /* ── FORM CARD ── */
     .form-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 12px; padding: 1.25rem; }
     .form-card.editing { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
     .edit-banner {
@@ -109,8 +92,6 @@
       display: none; align-items: center; gap: 0.5rem;
     }
     .edit-banner.visible { display: flex; }
-
-    /* ── PLANNED SECTION ── */
     .planned-section {
       background: #eff6ff; border: 1.5px solid #93c5fd;
       border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1.25rem;
@@ -123,38 +104,30 @@
     .planned-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 8px; }
     .planned-table { width: 100%; border-collapse: collapse; font-family: 'DM Mono', monospace; font-size: 0.78rem; }
     .planned-table thead th {
-      background: #1d4ed8; color: white;
-      padding: 0.45rem 0.65rem; text-align: left;
+      background: #1d4ed8; color: white; padding: 0.45rem 0.65rem; text-align: left;
       font-family: 'Syne', sans-serif; font-size: 0.63rem;
       letter-spacing: 0.07em; text-transform: uppercase; font-weight: 700; white-space: nowrap;
     }
     .planned-table tbody tr { border-bottom: 1px solid #bfdbfe; transition: background 0.1s; }
     .planned-table tbody tr:hover { background: #dbeafe; }
     .planned-table tbody td { padding: 0.5rem 0.65rem; vertical-align: middle; color: var(--ink); }
-
-    /* Execute button — light green, dark text for contrast */
     .execute-btn {
       font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.68rem;
       letter-spacing: 0.04em; text-transform: uppercase;
-      background: #bbf7d0; color: #166534;
-      border: 1.5px solid #86efac;
+      background: #bbf7d0; color: #166534; border: 1.5px solid #86efac;
       border-radius: 5px; padding: 0.3rem 0.7rem; cursor: pointer;
-      transition: background 0.15s, border-color 0.15s; white-space: nowrap;
+      transition: background 0.15s; white-space: nowrap;
       display: inline-flex; align-items: center; gap: 0.35rem;
     }
     .execute-btn:hover { background: #86efac; border-color: #4ade80; }
-
-    /* Plan row action buttons — same style as history table row buttons */
     .plan-row-btn {
       font-family: 'DM Mono', monospace; font-size: 0.65rem;
       padding: 0.15rem 0.45rem; border-radius: 4px;
       border: 1px solid var(--border); background: none;
       color: var(--muted); cursor: pointer; transition: all 0.15s; margin-left: 2px;
     }
-    .plan-row-btn:hover       { border-color: var(--accent); color: var(--accent); }
-    .plan-row-btn.del:hover   { border-color: #c62828; color: #c62828; }
-
-    /* ── PLAN MODAL ── */
+    .plan-row-btn:hover     { border-color: var(--accent); color: var(--accent); }
+    .plan-row-btn.del:hover { border-color: #c62828; color: #c62828; }
     .modal-overlay {
       display: none; position: fixed; inset: 0; z-index: 200;
       background: rgba(0,0,0,0.45); align-items: center; justify-content: center;
@@ -166,14 +139,11 @@
       border: 1.5px solid var(--border);
     }
     .modal-title {
-      font-size: 1rem; font-weight: 800; letter-spacing: 0.02em;
-      margin-bottom: 1.25rem; color: var(--ink);
+      font-size: 1rem; font-weight: 800; margin-bottom: 1.25rem; color: var(--ink);
       display: flex; align-items: center; justify-content: space-between;
     }
     .modal-close { background: none; border: none; cursor: pointer; font-size: 1.3rem; color: var(--muted); line-height: 1; padding: 0; }
     .modal-close:hover { color: var(--ink); }
-
-    /* Modal date input — full-width styled box, easy to tap */
     .modal-date-input {
       font-family: 'DM Mono', monospace; font-size: 0.88rem;
       background: var(--paper); border: 1.5px solid var(--border);
@@ -183,12 +153,9 @@
       cursor: pointer; min-height: 2.5rem;
     }
     .modal-date-input:focus { border-color: var(--accent); }
-
-    /* ── DATA TABLE ── */
     .data-table { width: 100%; border-collapse: collapse; font-family: 'DM Mono', monospace; font-size: 0.78rem; }
     .data-table thead th {
-      background: var(--ink); color: var(--paper);
-      padding: 0.5rem 0.65rem; text-align: left;
+      background: var(--ink); color: var(--paper); padding: 0.5rem 0.65rem; text-align: left;
       font-family: 'Syne', sans-serif; font-size: 0.65rem;
       letter-spacing: 0.07em; text-transform: uppercase; font-weight: 700;
       white-space: nowrap; user-select: none; position: relative; z-index: 10;
@@ -202,15 +169,12 @@
     .data-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
     .data-table tbody tr:hover { background: #faf8f4; }
     .data-table tbody td { padding: 0.5rem 0.65rem; vertical-align: middle; }
-
-    .task-cell { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--ink); min-width: 180px; max-width: 240px; word-break: break-word; line-height: 1.4; }
+    .task-cell { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--ink); min-width: 150px; max-width: 200px; word-break: break-word; line-height: 1.4; }
     .task-cell.empty { color: var(--border); }
-
+    .hr-cell { font-family: 'DM Mono', monospace; font-size: 0.75rem; white-space: nowrap; }
     .compact-table-wrap { border-radius: 10px; border: 1.5px solid var(--border); overflow: hidden; }
     .history-table-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 10px; border: 1.5px solid var(--border); }
-    .history-table-scroll .data-table { min-width: 1080px; }
-
-    /* ── TAGS ── */
+    .history-table-scroll .data-table { min-width: 1200px; }
     .tag-sm {
       display: inline-block; font-family: 'DM Mono', monospace;
       font-size: 0.65rem; border-radius: 3px; padding: 0.1rem 0.42rem; white-space: nowrap;
@@ -219,20 +183,16 @@
     .tag-type-blue   { background: #dbeafe; color: #1e40af; }
     .tag-type-green  { background: #dcfce7; color: #15803d; }
     .tag-type-orange { background: #ffedd5; color: #c2410c; }
-
     .rpe-dot {
       display: inline-flex; align-items: center; justify-content: center;
       width: 1.6rem; height: 1.6rem; border-radius: 50%;
       font-size: 0.72rem; font-weight: 700; font-family: 'DM Mono', monospace;
     }
-
-    /* ── COMMENT TOOLTIP ── */
     .comment-cell { position: relative; display: inline-flex; align-items: center; gap: 0.15rem; cursor: pointer; }
     .tooltip-box {
       display: none; position: absolute; z-index: 40;
       top: 50%; left: calc(100% + 8px); transform: translateY(-50%);
-      background: #1f2937; color: #f9fafb;
-      border-radius: 6px; padding: 0.35rem 0.75rem;
+      background: #1f2937; color: #f9fafb; border-radius: 6px; padding: 0.35rem 0.75rem;
       font-family: 'Syne', sans-serif; font-size: 0.75rem;
       white-space: nowrap; max-width: 280px; overflow: hidden; text-overflow: ellipsis;
       box-shadow: 0 2px 10px rgba(0,0,0,0.22); pointer-events: none; line-height: 1.4;
@@ -242,7 +202,6 @@
       border: 5px solid transparent; border-right-color: #1f2937;
     }
     .comment-cell.open .tooltip-box { display: block; }
-
     .row-btn {
       font-family: 'DM Mono', monospace; font-size: 0.65rem;
       padding: 0.15rem 0.45rem; border-radius: 4px;
@@ -251,8 +210,6 @@
     }
     .row-btn:hover     { border-color: var(--accent); color: var(--accent); }
     .row-btn.del:hover { border-color: #c62828; color: #c62828; }
-
-    /* ── ZONE TIME (form) ── */
     .zone-time-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 0.5rem; margin-top: 0.6rem; }
     .zone-time-item label { font-size: 0.62rem; }
     .zone-time-cell { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); white-space: nowrap; }
@@ -262,8 +219,6 @@
       color: var(--paper); opacity: 0.7; padding: 0 0.2rem; vertical-align: middle;
     }
     .zone-toggle-btn:hover { opacity: 1; }
-
-    /* ── EXCL TOGGLE ── */
     .excl-toggle {
       font-family: 'DM Mono', monospace; font-size: 0.8rem;
       padding: 0.2rem 0.55rem; border-radius: 5px;
@@ -272,8 +227,6 @@
       display: inline-flex; align-items: center; gap: 0.3rem;
     }
     .excl-toggle.on { background: #fef3c7; border-color: #f59e0b; color: #92400e; }
-
-    /* ── MULTI-SELECT DROPDOWN ── */
     .ms-filter { position: relative; display: inline-block; }
     .ms-trigger {
       font-family: 'DM Mono', monospace; font-size: 0.78rem;
@@ -298,10 +251,8 @@
     }
     .ms-dropdown.open { display: block; }
     .ms-option {
-      display: flex; align-items: center; gap: 0.5rem;
-      padding: 0.4rem 0.75rem; cursor: pointer;
-      font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--ink);
-      transition: background 0.1s;
+      display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.75rem; cursor: pointer;
+      font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--ink); transition: background 0.1s;
     }
     .ms-option:hover { background: var(--paper); }
     .ms-option input[type="checkbox"] {
@@ -316,13 +267,9 @@
       letter-spacing: 0.05em; text-transform: uppercase;
     }
     .ms-clear:hover { text-decoration: underline; }
-
-    /* ── FILTER BAR ── */
     .filter-bar { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 1rem; }
     .filter-group { display: flex; align-items: center; gap: 0.3rem; }
     .filter-group label { display: inline; font-size: 0.65rem; margin: 0; white-space: nowrap; }
-
-    /* ── PROFILE ── */
     .profile-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem; }
     .section-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
     .zone-table { width: 100%; border-collapse: collapse; font-family: 'DM Mono', monospace; font-size: 0.82rem; }
@@ -335,22 +282,33 @@
     .zone-table input { font-size: 0.82rem; padding: 0.3rem 0.4rem; text-align: center; }
     .zone-1{color:#38bdf8;} .zone-2{color:#1d4ed8;} .zone-3{color:#16a34a;} .zone-4{color:#ea580c;} .zone-5{color:#dc2626;}
     .validation-error { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: #c62828; margin-top: 0.5rem; display: none; }
-
-    /* ── MISC ── */
+    .import-box {
+      border: 2px dashed var(--border); border-radius: 10px;
+      padding: 1.25rem; text-align: center; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s; display: block;
+    }
+    .import-box:hover { border-color: var(--accent); background: var(--accent-light); }
+    .import-box input[type="file"] { display: none; }
+    .import-log {
+      font-family: 'DM Mono', monospace; font-size: 0.75rem;
+      background: #0f0f0f; color: #86efac; border-radius: 8px;
+      padding: 0.75rem 1rem; margin-top: 0.75rem;
+      max-height: 200px; overflow-y: auto; display: none; text-align: left; line-height: 1.7;
+    }
     .show-all-link { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; color: var(--accent); cursor: pointer; border: none; background: none; padding: 0; }
     .show-all-link:hover { text-decoration: underline; }
     .empty-state { text-align: center; padding: 2.5rem 1rem; color: var(--muted); }
     .empty-state .big { font-size: 2.5rem; margin-bottom: 0.4rem; }
     @keyframes fadeSlideIn { from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);} }
     .animate-in { animation: fadeSlideIn 0.25s ease forwards; }
-    ::-webkit-scrollbar { width:5px;height:5px; }
+    ::-webkit-scrollbar { width:5px; height:5px; }
     ::-webkit-scrollbar-track { background:transparent; }
-    ::-webkit-scrollbar-thumb { background:var(--border);border-radius:3px; }
+    ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
   </style>
 </head>
 <body>
 
-<!-- ══ PLAN MODAL ══ -->
+<!-- PLAN MODAL -->
 <div class="modal-overlay" id="plan-modal" onclick="if(event.target===this)closePlanModal()">
   <div class="modal-box">
     <div class="modal-title">
@@ -378,7 +336,7 @@
     </div>
     <div class="mb-4">
       <label>Uwagi</label>
-      <textarea id="pm-notes" rows="3" placeholder="Dodatkowe uwagi do treningu..." style="resize:none;"></textarea>
+      <textarea id="pm-notes" rows="3" placeholder="Dodatkowe uwagi..." style="resize:none;"></textarea>
     </div>
     <div class="flex gap-3">
       <button class="btn-primary" id="pm-save-btn" onclick="savePlan()">Zapisz plan</button>
@@ -392,7 +350,7 @@
   <div class="max-w-5xl mx-auto px-4">
     <div class="flex items-baseline gap-3 pt-3 pb-1">
       <h1 class="text-xl font-extrabold tracking-tight">Train<span style="color:var(--accent)">Log</span></h1>
-      <span class="mono text-xs" style="color:var(--muted);">v0.9</span>
+      <span class="mono text-xs" style="color:var(--muted);">v1.0</span>
     </div>
     <nav class="flex mt-1" style="overflow-x:auto;-webkit-overflow-scrolling:touch;gap:0;">
       <button class="tab-btn" data-tab="profile">Profil</button>
@@ -405,15 +363,14 @@
 
 <main class="max-w-5xl mx-auto px-4 py-5">
 
-  <!-- ══ TAB: WYTRZYMAŁOŚĆ ══ -->
+  <!-- TAB: WYTRZYMAŁOŚĆ -->
   <div id="tab-endurance" class="tab-content active animate-in">
-
     <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
       <h2 class="text-lg font-bold">Wytrzymałość</h2>
       <button class="btn-plan" onclick="openPlanModal()">+ Zaplanuj trening</button>
     </div>
 
-    <!-- PLANNED SECTION -->
+    <!-- PLANNED -->
     <div class="planned-section" id="planned-section" style="display:none;">
       <div class="planned-section-title">
         📋 Zaplanowane
@@ -421,21 +378,12 @@
       </div>
       <div class="planned-scroll">
         <table class="planned-table">
-          <thead>
-            <tr>
-              <th>Data</th>
-              <th>Typ</th>
-              <th>Zadanie</th>
-              <th>Uwagi</th>
-              <th></th>
-            </tr>
-          </thead>
+          <thead><tr><th>Data</th><th>Typ</th><th>Zadanie</th><th>Uwagi</th><th></th></tr></thead>
           <tbody id="planned-tbody"></tbody>
         </table>
       </div>
     </div>
 
-    <!-- EDIT BANNER -->
     <div class="edit-banner" id="edit-banner">
       ✏️ Tryb edycji — wprowadź zmiany i kliknij "Zapisz zmiany"
       <button onclick="cancelEdit()" style="margin-left:auto;font-size:0.73rem;text-decoration:underline;background:none;border:none;color:var(--accent);cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;">Anuluj</button>
@@ -448,12 +396,10 @@
         <button onclick="clearPlanSource()" style="margin-left:auto;font-size:0.72rem;text-decoration:underline;background:none;border:none;color:#1d4ed8;cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;">Odłącz</button>
       </div>
 
-      <!-- Date — auto width, not full row -->
       <div class="mb-3">
         <label>Data treningu</label>
         <input type="date" id="f-date" class="date-auto" />
       </div>
-
       <div class="grid grid-cols-2 gap-3 mb-3">
         <div>
           <label>Rodzaj aktywności</label>
@@ -480,12 +426,15 @@
         <div><label>Dystans (km)</label><input type="number" id="f-distance" placeholder="0.00" step="0.01" min="0" /></div>
         <div><label>Akcent (km)</label><input type="number" id="f-accent" placeholder="0.00" step="0.01" min="0" /></div>
       </div>
-      <div class="grid grid-cols-2 gap-3 mb-4">
+      <div class="grid grid-cols-2 gap-3 mb-3">
         <div><label>Czas</label><input type="text" id="f-duration" placeholder="00:00" inputmode="numeric" /></div>
         <div><label>Średnie tempo (min/km)</label><input type="text" id="f-pace" readonly placeholder="—" /></div>
       </div>
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <div><label>Średnie tętno (bpm)</label><input type="number" id="f-hr" placeholder="np. 145" min="30" max="250" /></div>
+        <div></div>
+      </div>
 
-      <!-- ZADANIE -->
       <div class="mb-3">
         <button class="btn-ghost" id="task-toggle-btn" onclick="toggleTask()">Zadanie</button>
         <div id="task-field" style="display:none;margin-top:0.6rem;">
@@ -494,7 +443,6 @@
         </div>
       </div>
 
-      <!-- RPE + zones -->
       <div class="mb-3">
         <div class="flex items-center gap-3 mb-2 flex-wrap">
           <label style="margin:0;">Ocena wysiłku (RPE)</label>
@@ -512,7 +460,6 @@
         </div>
       </div>
 
-      <!-- NOTE -->
       <div class="mb-4">
         <label>Komentarz</label>
         <textarea id="f-note" rows="2" placeholder="Krótki komentarz..." style="resize:none;"></textarea>
@@ -529,7 +476,6 @@
       </div>
     </div>
 
-    <!-- LAST 5 -->
     <div class="flex items-center justify-between mb-2">
       <span class="section-title" style="margin:0;">Ostatnie treningi</span>
     </div>
@@ -541,7 +487,7 @@
     </div>
   </div>
 
-  <!-- ══ TAB: HISTORIA ══ -->
+  <!-- TAB: HISTORIA -->
   <div id="tab-history" class="tab-content">
     <div class="flex items-center gap-3 mb-4 flex-wrap">
       <h2 class="text-lg font-bold">Historia</h2>
@@ -626,19 +572,19 @@
     </div>
   </div>
 
-  <!-- ══ TAB: SPRAWNOŚĆ ══ -->
+  <!-- TAB: SPRAWNOŚĆ -->
   <div id="tab-fitness" class="tab-content">
     <h2 class="text-lg font-bold mb-3">Sprawność</h2>
     <div class="empty-state"><div class="big">🏋️</div><p class="font-semibold" style="color:var(--muted);">Wkrótce tutaj</p></div>
   </div>
 
-  <!-- ══ TAB: PODSUMOWANIE ══ -->
+  <!-- TAB: PODSUMOWANIE -->
   <div id="tab-summary" class="tab-content">
     <h2 class="text-lg font-bold mb-3">Podsumowanie</h2>
     <div class="empty-state"><div class="big">📊</div><p class="font-semibold" style="color:var(--muted);">Statystyki — wkrótce</p></div>
   </div>
 
-  <!-- ══ TAB: PROFIL ══ -->
+  <!-- TAB: PROFIL -->
   <div id="tab-profile" class="tab-content">
     <h2 class="text-lg font-bold mb-4">Profil</h2>
     <div class="profile-card">
@@ -672,14 +618,34 @@
         <span class="mono text-xs" id="profile-saved" style="color:#2e7d32;display:none;">✓ Zapisano</span>
       </div>
     </div>
+
+    <!-- CSV IMPORT -->
+    <div class="profile-card">
+      <div class="section-title">Import danych (CSV)</div>
+      <p class="mono" style="font-size:0.73rem;color:var(--muted);margin-bottom:0.75rem;line-height:1.65;">
+        Separator: <strong>średnik (;)</strong> · Pierwszy wiersz może być nagłówkiem (zostanie pominięty).<br>
+        Kolumny (0–14): <strong>Data&nbsp;(DD.MM.YYYY) · Aktywność · Typ · Dystans · Akcent · Czas · RPE · Zadanie · Notatka · Tętno · S1 · S2 · S3 · S4 · S5</strong>
+      </p>
+      <label class="import-box" id="import-box" for="csv-file-input">
+        <input type="file" id="csv-file-input" accept=".csv,.txt" onchange="handleCsvImport(event)" />
+        <div style="font-size:2rem;margin-bottom:0.35rem;">📂</div>
+        <div class="font-bold" style="font-size:0.85rem;">Kliknij lub upuść plik CSV</div>
+        <div class="mono" style="font-size:0.7rem;color:var(--muted);margin-top:0.25rem;">Obsługiwane: .csv, .txt (UTF-8)</div>
+      </label>
+      <div class="import-log" id="import-log"></div>
+      <div style="margin-top:0.75rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
+        <button class="btn-secondary" style="font-size:0.72rem;padding:0.4rem 0.9rem;" onclick="downloadSampleCsv()">⬇ Pobierz przykładowy CSV</button>
+        <button class="btn-secondary" style="font-size:0.72rem;padding:0.4rem 0.9rem;color:#c62828;border-color:#fca5a5;" onclick="clearAllTrainings()">🗑 Wyczyść wszystkie treningi</button>
+      </div>
+    </div>
   </div>
 
 </main>
 
 <script>
-// ════════════════════════════════════════════════
-// STORAGE KEYS
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
+// STORAGE
+// ═══════════════════════════════════════════
 const STORAGE_KEY = 'trainlog_endurance_v1';
 const PROFILE_KEY = 'trainlog_profile_v1';
 const PLANNED_KEY = 'trainlog_planned_v1';
@@ -692,43 +658,40 @@ const ZONE_DISPLAY = [
   {num:1,label:'Strefa 1',  cls:'zone-1'},
 ];
 
-// ── RPE heatmap palette ──
-// 1-2: blue, 3: medium blue, 4: green/mint,
-// 5-6: yellow, 7-8: orange, 9: red, 10: deep purple
 const RPE_PALETTE = {
-  1:  {bg:'#e0f2fe', border:'#7dd3fc', text:'#0369a1'},
-  2:  {bg:'#bae6fd', border:'#38bdf8', text:'#0369a1'},
-  3:  {bg:'#7dd3fc', border:'#0ea5e9', text:'#0c4a6e'},
-  4:  {bg:'#a7f3d0', border:'#34d399', text:'#065f46'},
-  5:  {bg:'#fef08a', border:'#facc15', text:'#854d0e'},
-  6:  {bg:'#fde047', border:'#eab308', text:'#713f12'},
-  7:  {bg:'#fed7aa', border:'#fb923c', text:'#9a3412'},
-  8:  {bg:'#fdba74', border:'#f97316', text:'#7c2d12'},
-  9:  {bg:'#fca5a5', border:'#ef4444', text:'#991b1b'},
-  10: {bg:'#4c1d95', border:'#7c3aed', text:'#ede9fe'},
+  1: {bg:'#e0f2fe',border:'#7dd3fc',text:'#0369a1'},
+  2: {bg:'#bae6fd',border:'#38bdf8',text:'#0369a1'},
+  3: {bg:'#7dd3fc',border:'#0ea5e9',text:'#0c4a6e'},
+  4: {bg:'#a7f3d0',border:'#34d399',text:'#065f46'},
+  5: {bg:'#fef08a',border:'#facc15',text:'#854d0e'},
+  6: {bg:'#fde047',border:'#eab308',text:'#713f12'},
+  7: {bg:'#fed7aa',border:'#fb923c',text:'#9a3412'},
+  8: {bg:'#fdba74',border:'#f97316',text:'#7c2d12'},
+  9: {bg:'#fca5a5',border:'#ef4444',text:'#991b1b'},
+  10:{bg:'#4c1d95',border:'#7c3aed',text:'#ede9fe'},
 };
 
-function loadTrainings()   { try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||[];}catch{return[];} }
-function saveTrainings(d)  { localStorage.setItem(STORAGE_KEY,JSON.stringify(d)); }
-function loadProfile()     { try{return JSON.parse(localStorage.getItem(PROFILE_KEY))||{};}catch{return{};} }
-function saveProfileData(d){ localStorage.setItem(PROFILE_KEY,JSON.stringify(d)); }
-function loadPlanned()     { try{return JSON.parse(localStorage.getItem(PLANNED_KEY))||[];}catch{return[];} }
-function savePlanned(d)    { localStorage.setItem(PLANNED_KEY,JSON.stringify(d)); }
+function loadTrainings()    { try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||[];}catch{return[];} }
+function saveTrainings(d)   { localStorage.setItem(STORAGE_KEY,JSON.stringify(d)); }
+function loadProfile()      { try{return JSON.parse(localStorage.getItem(PROFILE_KEY))||{};}catch{return{};} }
+function saveProfileData(d) { localStorage.setItem(PROFILE_KEY,JSON.stringify(d)); }
+function loadPlanned()      { try{return JSON.parse(localStorage.getItem(PLANNED_KEY))||[];}catch{return[];} }
+function savePlanned(d)     { localStorage.setItem(PLANNED_KEY,JSON.stringify(d)); }
 
-// ════════════════════════════════════════════════
-// SEED DATA
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
+// SEED
+// ═══════════════════════════════════════════
 function seedData(){
   if(loadTrainings().length>0) return;
   saveTrainings([
-    {id:1738800000001,date:'2025-02-06',activity:'bieg',type:'baza tlenowa', rpe:6,distance:6.06,durationSeconds:2129,accent:0,note:'',commentExcl:false,zoneTimes:{},task:''},
-    {id:1738800000002,date:'2025-02-07',activity:'bieg',type:'około progowy',rpe:8,distance:8.05,durationSeconds:2717,accent:0,note:'',commentExcl:false,zoneTimes:{},task:''},
+    {id:1738800000001,date:'2025-02-06',activity:'bieg',type:'baza tlenowa', rpe:6,distance:6.06,durationSeconds:2129,accent:0,hr:null,note:'',commentExcl:false,zoneTimes:{},task:''},
+    {id:1738800000002,date:'2025-02-07',activity:'bieg',type:'około progowy',rpe:8,distance:8.05,durationSeconds:2717,accent:0,hr:145,note:'',commentExcl:false,zoneTimes:{},task:''},
   ]);
 }
 
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 // MIGRATION
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 function migrateData(){
   const t=loadTrainings(); let c=false;
   t.forEach(x=>{
@@ -736,19 +699,20 @@ function migrateData(){
     if(x.commentExcl==null){x.commentExcl=false;c=true;}
     if(!x.zoneTimes){x.zoneTimes={};c=true;}
     if(x.task==null){x.task='';c=true;}
+    if(x.hr===undefined){x.hr=null;c=true;}
     if(x.type==='bieg ciągły'){x.type='ciągły';c=true;}
     if(x.type==='bieg interwałowy'){x.type='interwałowy';c=true;}
     if('commentColor'in x){delete x.commentColor;c=true;}
   });
   if(c) saveTrainings(t);
   const p=loadPlanned(); let pc=false;
-  p.forEach(x=>{ if(x.notes==null){x.notes='';pc=true;} });
+  p.forEach(x=>{if(x.notes==null){x.notes='';pc=true;}});
   if(pc) savePlanned(p);
 }
 
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 // DATE HELPERS
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 function todayISO(){
   const n=new Date();
   return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;
@@ -758,10 +722,19 @@ function formatDatePL(iso){
   const [y,m,d]=iso.split('-');
   return `${d}.${m}.${y}`;
 }
+// DD.MM.YYYY → YYYY-MM-DD
+function parseDatePL(s){
+  if(!s||!s.trim()) return null;
+  const p=s.trim().split('.');
+  if(p.length!==3) return null;
+  const d=p[0].padStart(2,'0'), m=p[1].padStart(2,'0'), y=p[2];
+  if(y.length!==4||isNaN(+y)||isNaN(+m)||isNaN(+d)) return null;
+  return `${y}-${m}-${d}`;
+}
 
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 // TABS
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 function switchTab(name){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));
   document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
@@ -781,9 +754,9 @@ function openHistory(){
 }
 document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>switchTab(btn.dataset.tab)));
 
-// ════════════════════════════════════════════════
-// MULTI-SELECT DROPDOWNS
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
+// MULTI-SELECT
+// ═══════════════════════════════════════════
 function toggleMsDropdown(id){
   const wrap=document.getElementById(id);
   const trigger=wrap.querySelector('.ms-trigger');
@@ -793,7 +766,7 @@ function toggleMsDropdown(id){
     d.classList.remove('open');
     d.closest('.ms-filter').querySelector('.ms-trigger').classList.remove('open');
   });
-  if(!isOpen){ dropdown.classList.add('open'); trigger.classList.add('open'); }
+  if(!isOpen){dropdown.classList.add('open');trigger.classList.add('open');}
 }
 document.addEventListener('click',e=>{
   if(!e.target.closest('.ms-filter')){
@@ -808,10 +781,9 @@ document.addEventListener('click',e=>{
 function msChanged(id){
   const wrap=document.getElementById(id);
   const checked=[...wrap.querySelectorAll('input[type="checkbox"]:checked')];
-  const badge=wrap.querySelector('.ms-badge');
-  const labelEl=wrap.querySelector('.ms-label');
-  if(checked.length===0){ badge.style.display='none'; labelEl.textContent='Wszystkie'; }
-  else { badge.textContent=checked.length; badge.style.display='inline-block'; labelEl.textContent=checked.length===1?checked[0].parentElement.textContent.trim():`${checked.length} wybrane`; }
+  const badge=wrap.querySelector('.ms-badge'), labelEl=wrap.querySelector('.ms-label');
+  if(checked.length===0){badge.style.display='none';labelEl.textContent='Wszystkie';}
+  else{badge.textContent=checked.length;badge.style.display='inline-block';labelEl.textContent=checked.length===1?checked[0].parentElement.textContent.trim():`${checked.length} wybrane`;}
   renderHistory();
 }
 function clearMs(id){
@@ -828,13 +800,12 @@ function clearAllFilters(){
   renderHistory();
 }
 
-// ════════════════════════════════════════════════
-// PLAN MODAL — supports both ADD and EDIT modes
-// ════════════════════════════════════════════════
-let editingPlanId = null; // null = add mode, number = edit mode
-
+// ═══════════════════════════════════════════
+// PLAN MODAL
+// ═══════════════════════════════════════════
+let editingPlanId=null;
 function openPlanModal(){
-  editingPlanId = null;
+  editingPlanId=null;
   document.getElementById('pm-date').value='';
   document.getElementById('pm-type').value='baza tlenowa';
   document.getElementById('pm-task').value='';
@@ -843,67 +814,47 @@ function openPlanModal(){
   document.getElementById('pm-save-btn').textContent='Zapisz plan';
   document.getElementById('plan-modal').classList.add('open');
 }
-
 function openPlanEditModal(id){
-  const plans=loadPlanned();
-  const p=plans.find(x=>x.id===id);
-  if(!p) return;
-  editingPlanId = id;
-  document.getElementById('pm-date').value = p.date||'';
-  document.getElementById('pm-type').value = p.type||'baza tlenowa';
-  document.getElementById('pm-task').value = p.task||'';
-  document.getElementById('pm-notes').value= p.notes||'';
+  const p=loadPlanned().find(x=>x.id===id); if(!p) return;
+  editingPlanId=id;
+  document.getElementById('pm-date').value=p.date||'';
+  document.getElementById('pm-type').value=p.type||'baza tlenowa';
+  document.getElementById('pm-task').value=p.task||'';
+  document.getElementById('pm-notes').value=p.notes||'';
   document.getElementById('modal-title-text').textContent='✏️ Edytuj plan';
   document.getElementById('pm-save-btn').textContent='Zapisz zmiany';
   document.getElementById('plan-modal').classList.add('open');
 }
-
-function closePlanModal(){
-  document.getElementById('plan-modal').classList.remove('open');
-  editingPlanId=null;
-}
-
+function closePlanModal(){document.getElementById('plan-modal').classList.remove('open');editingPlanId=null;}
 function savePlan(){
-  const date =document.getElementById('pm-date').value;
-  const type =document.getElementById('pm-type').value;
-  const task =document.getElementById('pm-task').value.trim();
+  const date=document.getElementById('pm-date').value;
+  const type=document.getElementById('pm-type').value;
+  const task=document.getElementById('pm-task').value.trim();
   const notes=document.getElementById('pm-notes').value.trim();
   const plans=loadPlanned();
-
   if(editingPlanId!==null){
-    // UPDATE existing plan
     const idx=plans.findIndex(x=>x.id===editingPlanId);
-    if(idx!==-1){
-      plans[idx]={...plans[idx], date, type, task, notes};
-    }
-    savePlanned(plans);
+    if(idx!==-1) plans[idx]={...plans[idx],date,type,task,notes};
   } else {
-    // ADD new plan
-    plans.push({id:Date.now(), date, type, task, notes});
-    savePlanned(plans);
+    plans.push({id:Date.now(),date,type,task,notes});
   }
+  savePlanned(plans);
   closePlanModal();
   renderPlanned();
 }
 
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 // PLANNED TABLE
-// 5 oldest entries (lowest id), displayed oldest at BOTTOM
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 let pendingPlanId=null;
-
 function renderPlanned(){
   const all=loadPlanned();
   const section=document.getElementById('planned-section');
   if(all.length===0){section.style.display='none';return;}
   section.style.display='block';
   document.getElementById('planned-count').textContent=`(${all.length})`;
-
-  // 5 oldest (ascending id), then reverse so oldest at bottom
-  const oldest5=[...all].sort((a,b)=>a.id-b.id).slice(0,5).reverse();
-
-  const tbody=document.getElementById('planned-tbody');
-  tbody.innerHTML=oldest5.map(p=>`
+  const display=[...all].sort((a,b)=>a.id-b.id).slice(0,5).reverse();
+  document.getElementById('planned-tbody').innerHTML=display.map(p=>`
     <tr>
       <td class="mono" style="white-space:nowrap;">${p.date?formatDatePL(p.date):'—'}</td>
       <td><span class="tag-sm ${typeTagClass(p.type)}">${escHtml(p.type||'—')}</span></td>
@@ -916,64 +867,47 @@ function renderPlanned(){
       </td>
     </tr>`).join('');
 }
-
 window.executePlan=function(id){
-  const p=loadPlanned().find(x=>x.id===id);
-  if(!p) return;
+  const p=loadPlanned().find(x=>x.id===id); if(!p) return;
   pendingPlanId=id;
   document.getElementById('f-type').value=p.type||'baza tlenowa';
   if(p.date) document.getElementById('f-date').value=p.date;
-  // Copy TASK only — notes are not transferred
   document.getElementById('f-task').value=p.task||'';
   if(p.task&&!taskVisible) toggleTask();
   else if(!p.task&&taskVisible) toggleTask();
-  const banner=document.getElementById('plan-source-banner');
-  banner.style.display='flex';
+  document.getElementById('plan-source-banner').style.display='flex';
   switchTab('endurance');
   document.getElementById('form-card').scrollIntoView({behavior:'smooth',block:'start'});
 };
-
 window.deletePlan=function(id){
   if(!confirm('Usunąć ten plan?')) return;
   if(pendingPlanId===id) clearPlanSource();
   savePlanned(loadPlanned().filter(x=>x.id!==id));
   renderPlanned();
 };
+function clearPlanSource(){pendingPlanId=null;document.getElementById('plan-source-banner').style.display='none';}
 
-function clearPlanSource(){
-  pendingPlanId=null;
-  document.getElementById('plan-source-banner').style.display='none';
-}
-
-// ════════════════════════════════════════════════
-// RPE BUTTONS
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
+// RPE
+// ═══════════════════════════════════════════
 let selectedRPE=null;
-
-function rpeStyle(n,selected){
+function rpeStyle(n,sel){
   const p=RPE_PALETTE[n];
-  if(selected) return `background:${p.bg};border-color:${p.border};border-width:2.5px;color:${p.text};`;
+  if(sel) return `background:${p.bg};border-color:${p.border};border-width:2.5px;color:${p.text};`;
   return `background:var(--paper);border-color:var(--border);color:var(--muted);`;
 }
-
 (function buildRPE(){
   const c=document.getElementById('rpe-buttons');
   for(let i=1;i<=10;i++){
     const b=document.createElement('button');
     b.className='rpe-btn'; b.textContent=i; b.dataset.rpe=i;
     b.style.cssText=rpeStyle(i,false);
-    b.addEventListener('mouseenter',()=>{
-      if(selectedRPE!==i){
-        const p=RPE_PALETTE[i];
-        b.style.cssText=`background:${p.bg};border-color:${p.border};border-width:1.5px;color:${p.text};transform:scale(1.1);`;
-      }
-    });
-    b.addEventListener('mouseleave',()=>{ b.style.cssText=rpeStyle(i,selectedRPE===i); });
-    b.addEventListener('click',()=>{ selectedRPE=selectedRPE===i?null:i; refreshRPE(); });
+    b.addEventListener('mouseenter',()=>{if(selectedRPE!==i){const p=RPE_PALETTE[i];b.style.cssText=`background:${p.bg};border-color:${p.border};border-width:1.5px;color:${p.text};transform:scale(1.1);}`;b.style.cssText=`background:${p.bg};border-color:${p.border};border-width:1.5px;color:${p.text};transform:scale(1.1);`;}});
+    b.addEventListener('mouseleave',()=>{b.style.cssText=rpeStyle(i,selectedRPE===i);});
+    b.addEventListener('click',()=>{selectedRPE=selectedRPE===i?null:i;refreshRPE();});
     c.appendChild(b);
   }
 })();
-
 function refreshRPE(){
   document.querySelectorAll('.rpe-btn').forEach(b=>{
     const n=parseInt(b.dataset.rpe);
@@ -981,66 +915,53 @@ function refreshRPE(){
     b.classList.toggle('selected',n===selectedRPE);
   });
 }
-
 function rpeDotStyle(rpe){
   if(!rpe) return{bg:'#e5e7eb',border:'#d1d5db',color:'#6b7280'};
   const p=RPE_PALETTE[rpe]; return{bg:p.bg,border:p.border,color:p.text};
 }
 
-// ════════════════════════════════════════════════
-// TOGGLE PANELS
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
+// TOGGLES
+// ═══════════════════════════════════════════
 let taskVisible=false;
-function toggleTask(){
-  taskVisible=!taskVisible;
-  document.getElementById('task-field').style.display=taskVisible?'block':'none';
-  document.getElementById('task-toggle-btn').classList.toggle('active-panel',taskVisible);
-}
+function toggleTask(){taskVisible=!taskVisible;document.getElementById('task-field').style.display=taskVisible?'block':'none';document.getElementById('task-toggle-btn').classList.toggle('active-panel',taskVisible);}
 let zoneTimeVisible=false;
-function toggleZoneTime(){
-  zoneTimeVisible=!zoneTimeVisible;
-  document.getElementById('zone-time-fields').style.display=zoneTimeVisible?'block':'none';
-  document.getElementById('zone-time-toggle-btn').classList.toggle('active-panel',zoneTimeVisible);
-}
+function toggleZoneTime(){zoneTimeVisible=!zoneTimeVisible;document.getElementById('zone-time-fields').style.display=zoneTimeVisible?'block':'none';document.getElementById('zone-time-toggle-btn').classList.toggle('active-panel',zoneTimeVisible);}
 let zoneColExpanded=false;
 function toggleZoneCol(){
   zoneColExpanded=!zoneColExpanded;
   const btn=document.getElementById('zone-col-btn');
   if(btn) btn.textContent=zoneColExpanded?'−':'+';
   document.querySelectorAll('.zone-col-th').forEach(th=>th.style.width=zoneColExpanded?'auto':'2.2rem');
-  document.querySelectorAll('.zone-col-td').forEach(td=>{
-    td.style.maxWidth=zoneColExpanded?'300px':'0';
-    td.style.overflow=zoneColExpanded?'visible':'hidden';
-    td.style.padding=zoneColExpanded?'0.5rem 0.65rem':'0.5rem 0';
-  });
+  document.querySelectorAll('.zone-col-td').forEach(td=>{td.style.maxWidth=zoneColExpanded?'300px':'0';td.style.overflow=zoneColExpanded?'visible':'hidden';td.style.padding=zoneColExpanded?'0.5rem 0.65rem':'0.5rem 0';});
   document.querySelectorAll('.zone-col-content').forEach(el=>el.style.display=zoneColExpanded?'block':'none');
 }
 
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 // EXCL
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 let commentExcl=false;
 function toggleExcl(){commentExcl=!commentExcl;document.getElementById('excl-btn').classList.toggle('on',commentExcl);}
 function resetExcl(){commentExcl=false;document.getElementById('excl-btn').classList.remove('on');}
 
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 // TIME & PACE
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 function parseTime(str){
-  if(!str) return null;
+  if(!str||!str.trim()) return null;
   const parts=str.trim().split(':');
   if(parts.length===2){const m=parseInt(parts[0],10),s=parseInt(parts[1],10);if(isNaN(m)||isNaN(s)||s<0||s>59)return null;return m*60+s;}
   if(parts.length===3){const h=parseInt(parts[0],10),m=parseInt(parts[1],10),s=parseInt(parts[2],10);if(isNaN(h)||isNaN(m)||isNaN(s)||m>59||s>59)return null;return h*3600+m*60+s;}
   return null;
 }
 function formatDuration(sec){
-  if(!sec||sec<=0)return'—';
+  if(!sec||sec<=0) return '—';
   const h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;
-  if(h>0)return`${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-  return`${m}:${String(s).padStart(2,'0')}`;
+  if(h>0) return `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  return `${m}:${String(s).padStart(2,'0')}`;
 }
 function calcPaceStr(d,s){
-  if(!d||!s||d<=0||s<=0)return null;
+  if(!d||!s||d<=0||s<=0) return null;
   const ps=s/d,pm=Math.floor(ps/60),ss=Math.round(ps%60);
   return ss===60?`${pm+1}:00`:`${pm}:${String(ss).padStart(2,'0')}`;
 }
@@ -1053,21 +974,15 @@ function updatePaceLive(){const p=calcPaceStr(parseFloat(distInp.value),parseTim
 distInp.addEventListener('input',updatePaceLive);
 durInp.addEventListener('input',updatePaceLive);
 durInp.addEventListener('blur',()=>{const r=durInp.value.trim();if(/^\d{3,4}$/.test(r)){durInp.value=`${r.slice(0,r.length-2)}:${r.slice(-2)}`;updatePaceLive();}});
-[1,2,3,4,5].forEach(z=>{
-  document.getElementById(`zt-${z}`).addEventListener('blur',()=>{
-    const inp=document.getElementById(`zt-${z}`),r=inp.value.trim();
-    if(/^\d{3,4}$/.test(r))inp.value=`${r.slice(0,r.length-2)}:${r.slice(-2)}`;
-  });
-});
+[1,2,3,4,5].forEach(z=>{document.getElementById(`zt-${z}`).addEventListener('blur',()=>{const i=document.getElementById(`zt-${z}`),r=i.value.trim();if(/^\d{3,4}$/.test(r))i.value=`${r.slice(0,r.length-2)}:${r.slice(-2)}`;});});
 document.getElementById('f-date').value=todayISO();
 
-// ════════════════════════════════════════════════
-// EDIT STATE (training entries)
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
+// EDIT STATE
+// ═══════════════════════════════════════════
 let editingId=null;
-
 function enterEditMode(id){
-  const t=loadTrainings().find(x=>x.id===id); if(!t)return;
+  const t=loadTrainings().find(x=>x.id===id); if(!t) return;
   editingId=id;
   document.getElementById('f-date').value    =t.date||todayISO();
   document.getElementById('f-activity').value=t.activity||'bieg';
@@ -1076,8 +991,9 @@ function enterEditMode(id){
   const ds=formatDuration(t.durationSeconds); durInp.value=ds!=='—'?ds:'';
   document.getElementById('f-accent').value=t.accent||'';
   document.getElementById('f-note').value  =t.note||'';
-  const tv=t.task||''; document.getElementById('f-task').value=tv;
-  if(tv&&!taskVisible)toggleTask(); else if(!tv&&taskVisible)toggleTask();
+  document.getElementById('f-task').value  =t.task||'';
+  document.getElementById('f-hr').value    =t.hr||'';
+  const tv=t.task||''; if(tv&&!taskVisible)toggleTask(); else if(!tv&&taskVisible)toggleTask();
   commentExcl=!!t.commentExcl; document.getElementById('excl-btn').classList.toggle('on',commentExcl);
   selectedRPE=t.rpe||null; refreshRPE(); updatePaceLive();
   const zt=t.zoneTimes||{};
@@ -1092,9 +1008,7 @@ function enterEditMode(id){
   switchTab('endurance');
   document.getElementById('form-card').scrollIntoView({behavior:'smooth',block:'start'});
 }
-
 function cancelEdit(){editingId=null;resetForm();}
-
 function resetForm(){
   editingId=null;
   document.getElementById('f-date').value    =todayISO();
@@ -1104,6 +1018,7 @@ function resetForm(){
   document.getElementById('f-accent').value='';
   document.getElementById('f-note').value  ='';
   document.getElementById('f-task').value  ='';
+  document.getElementById('f-hr').value    ='';
   selectedRPE=null; refreshRPE(); paceInp.value='';
   resetExcl();
   [1,2,3,4,5].forEach(z=>document.getElementById(`zt-${z}`).value='');
@@ -1118,9 +1033,9 @@ function resetForm(){
   renderEndurance();
 }
 
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 // ADD / SAVE TRAINING
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 document.getElementById('add-btn').addEventListener('click',()=>{
   const date           =document.getElementById('f-date').value;
   const activity       =document.getElementById('f-activity').value;
@@ -1130,6 +1045,8 @@ document.getElementById('add-btn').addEventListener('click',()=>{
   const accent         =parseFloat(document.getElementById('f-accent').value)||0;
   const note           =document.getElementById('f-note').value.trim();
   const task           =document.getElementById('f-task').value.trim();
+  const hrRaw          =parseInt(document.getElementById('f-hr').value);
+  const hr             =isNaN(hrRaw)||hrRaw<=0?null:hrRaw;
 
   if(!date)                       {showError('Podaj datę.');return;}
   if(!distance||distance<=0)      {showError('Podaj dystans.');return;}
@@ -1139,33 +1056,21 @@ document.getElementById('add-btn').addEventListener('click',()=>{
   const zoneTimes={};
   [1,2,3,4,5].forEach(z=>{const s=parseTime(document.getElementById(`zt-${z}`).value);if(s&&s>0)zoneTimes[z]=s;});
 
-  const record={date,activity,type,distance,durationSeconds,accent,rpe:selectedRPE,note,commentExcl,zoneTimes,task};
+  const record={date,activity,type,distance,durationSeconds,accent,rpe:selectedRPE,hr,note,commentExcl,zoneTimes,task};
   const all=loadTrainings();
-  if(editingId!==null){
-    const idx=all.findIndex(x=>x.id===editingId);
-    if(idx!==-1)all[idx]={...all[idx],...record};
-  } else {
-    all.push({id:Date.now(),...record});
-  }
+  if(editingId!==null){const idx=all.findIndex(x=>x.id===editingId);if(idx!==-1)all[idx]={...all[idx],...record};}
+  else all.push({id:Date.now(),...record});
   saveTrainings(all);
 
-  // Immediately remove linked planned entry
-  if(pendingPlanId!==null){
-    savePlanned(loadPlanned().filter(x=>x.id!==pendingPlanId));
-    pendingPlanId=null;
-  }
+  if(pendingPlanId!==null){savePlanned(loadPlanned().filter(x=>x.id!==pendingPlanId));pendingPlanId=null;}
   resetForm();
 });
 
-function showError(msg){
-  const el=document.getElementById('form-error');
-  el.textContent=msg; el.style.display='inline';
-  setTimeout(()=>el.style.display='none',4000);
-}
+function showError(msg){const el=document.getElementById('form-error');el.textContent=msg;el.style.display='inline';setTimeout(()=>el.style.display='none',4000);}
 
-// ════════════════════════════════════════════════
-// DELETE / EDIT (training entries)
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
+// DELETE / EDIT GLOBAL
+// ═══════════════════════════════════════════
 window.deleteTraining=function(id){
   if(!confirm('Usunąć ten trening?'))return;
   if(editingId===id)cancelEdit();
@@ -1175,11 +1080,10 @@ window.deleteTraining=function(id){
 };
 window.editTraining=function(id){enterEditMode(id);};
 
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 // DISPLAY HELPERS
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 function escHtml(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-
 function typeTagClass(type){
   switch(type){
     case 'baza tlenowa':  return'tag-type-blue';
@@ -1191,45 +1095,48 @@ function typeTagClass(type){
   }
 }
 function commentCellHTML(note,excl){
-  if(!note||!note.trim())return`<span style="color:var(--border);">—</span>`;
+  if(!note||!note.trim()) return`<span style="color:var(--border);">—</span>`;
   const icon=excl
     ?`<span style="display:inline-flex;align-items:center;gap:0.1rem;font-size:0.95rem;">💬<span style="font-size:0.82rem;font-weight:900;color:#b45309;">❗</span></span>`
     :`<span style="font-size:0.95rem;">💬</span>`;
   return`<span class="comment-cell" onclick="this.classList.toggle('open');event.stopPropagation();">${icon}<div class="tooltip-box">${escHtml(note)}</div></span>`;
 }
 function zoneTimesHTML(zt){
-  const parts=[];
-  for(let z=1;z<=5;z++){const s=zt&&zt[z]?zt[z]:0;parts.push(`<span>S${z}-${s>0?formatDuration(s):'00:00'}</span>`);}
-  return`<div class="zone-time-cell">${parts.join('')}</div>`;
+  const p=[];
+  for(let z=1;z<=5;z++){const s=zt&&zt[z]?zt[z]:0;p.push(`<span>S${z}-${s>0?formatDuration(s):'00:00'}</span>`);}
+  return`<div class="zone-time-cell">${p.join('')}</div>`;
+}
+function hrCellHTML(hr){
+  if(!hr) return`<span style="color:var(--border);">—</span>`;
+  return`<span class="hr-cell" style="color:#e11d48;">♥ ${hr} bpm</span>`;
 }
 
-// ════════════════════════════════════════════════
-// BUILD TRAINING TABLE
-// ════════════════════════════════════════════════
-function buildTableHTML(rows,mode){
+// ═══════════════════════════════════════════
+// BUILD TABLE
+// ═══════════════════════════════════════════
+function buildTableHTML(rows, mode){
   const sortable=mode==='full';
-  if(rows.length===0)
-    return`<div class="empty-state"><div class="big">🏃</div><p class="font-semibold" style="color:var(--muted);">Brak treningów</p></div>`;
+  if(rows.length===0) return`<div class="empty-state"><div class="big">🏃</div><p class="font-semibold" style="color:var(--muted);">Brak treningów</p></div>`;
 
   const compactCols=[
     {key:'date',label:'Data'},{key:'activity',label:'Akt.'},{key:'type',label:'Typ'},
     {key:'',label:'Zadanie',taskCol:true},{key:'rpe',label:'RPE'},
     {key:'distance',label:'Dystans'},{key:'time',label:'Czas'},{key:'pace',label:'Tempo'},
-    {key:'',label:'Kom.'},{key:'',label:''},
+    {key:'',label:'Tętno'},{key:'',label:'Kom.'},{key:'',label:''},
   ];
   const fullCols=[
     {key:'date',label:'Data'},{key:'activity',label:'Akt.'},{key:'type',label:'Typ'},
     {key:'',label:'Zadanie',taskCol:true},{key:'rpe',label:'RPE'},
     {key:'distance',label:'Dystans'},{key:'time',label:'Czas'},{key:'pace',label:'Tempo'},
-    {key:'',label:'Kom.'},{key:'',label:'Strefy',zoneCol:true},{key:'',label:''},
+    {key:'',label:'Tętno'},{key:'',label:'Kom.'},{key:'',label:'Strefy',zoneCol:true},{key:'',label:''},
   ];
   const cols=mode==='compact'?compactCols:fullCols;
 
   const thead=`<table class="data-table"><thead><tr>`+
     cols.map(h=>{
-      if(h.zoneCol)return`<th class="zone-col-th" style="width:2.2rem;text-align:center;">Strefy<button class="zone-toggle-btn" id="zone-col-btn" onclick="toggleZoneCol()" title="Pokaż/ukryj">+</button></th>`;
-      if(h.taskCol)return`<th style="min-width:200px;max-width:280px;">${h.label}</th>`;
-      if(!h.key||!sortable)return`<th>${h.label}</th>`;
+      if(h.zoneCol) return`<th class="zone-col-th" style="width:2.2rem;text-align:center;">Strefy<button class="zone-toggle-btn" id="zone-col-btn" onclick="toggleZoneCol()" title="Pokaż/ukryj">+</button></th>`;
+      if(h.taskCol) return`<th style="min-width:150px;max-width:200px;">${h.label}</th>`;
+      if(!h.key||!sortable) return`<th>${h.label}</th>`;
       const cls=hSortCol===h.key?(hSortDir==='asc'?'sort-asc':'sort-desc'):'';
       return`<th data-col="${h.key}" class="sortable ${cls}">${h.label}<span class="sort-icon"></span></th>`;
     }).join('')+`</tr></thead><tbody>`;
@@ -1238,23 +1145,20 @@ function buildTableHTML(rows,mode){
     const pace=calcPaceStr(t.distance,t.durationSeconds);
     const dur =formatDuration(t.durationSeconds);
     const dot =rpeDotStyle(t.rpe);
-    const rpeCell=t.rpe
-      ?`<span class="rpe-dot" style="background:${dot.bg};color:${dot.color};border:1.5px solid ${dot.border};">${t.rpe}</span>`
-      :`<span style="color:var(--border);">—</span>`;
-    const taskHTML=t.task
-      ?`<div class="task-cell">${escHtml(t.task)}</div>`
-      :`<div class="task-cell empty">—</div>`;
+    const rpeCell=t.rpe?`<span class="rpe-dot" style="background:${dot.bg};color:${dot.color};border:1.5px solid ${dot.border};">${t.rpe}</span>`:`<span style="color:var(--border);">—</span>`;
+    const taskHTML=t.task?`<div class="task-cell">${escHtml(t.task)}</div>`:`<div class="task-cell empty">—</div>`;
 
     if(mode==='compact'){
       return`<tr>
         <td class="mono" style="white-space:nowrap;">${formatDatePL(t.date)}</td>
         <td><span class="tag-sm tag-activity">${escHtml(t.activity||'—')}</span></td>
         <td><span class="tag-sm ${typeTagClass(t.type)}">${escHtml(t.type||'—')}</span></td>
-        <td style="min-width:200px;max-width:280px;">${taskHTML}</td>
+        <td style="min-width:150px;max-width:200px;">${taskHTML}</td>
         <td>${rpeCell}</td>
         <td class="mono">${t.distance} km</td>
         <td class="mono">${dur}</td>
         <td class="mono">${pace?pace+' /km':'—'}</td>
+        <td>${hrCellHTML(t.hr)}</td>
         <td>${commentCellHTML(t.note,t.commentExcl)}</td>
         <td style="white-space:nowrap;">
           <button class="row-btn" onclick="editTraining(${t.id})">Edytuj</button>
@@ -1267,11 +1171,12 @@ function buildTableHTML(rows,mode){
         <td class="mono" style="white-space:nowrap;">${formatDatePL(t.date)}</td>
         <td><span class="tag-sm tag-activity">${escHtml(t.activity||'—')}</span></td>
         <td><span class="tag-sm ${typeTagClass(t.type)}">${escHtml(t.type||'—')}</span></td>
-        <td style="min-width:200px;max-width:280px;">${taskHTML}</td>
+        <td style="min-width:150px;max-width:200px;">${taskHTML}</td>
         <td>${rpeCell}</td>
         <td class="mono">${t.distance} km</td>
         <td class="mono">${dur}</td>
         <td class="mono">${pace?pace+' /km':'—'}</td>
+        <td>${hrCellHTML(t.hr)}</td>
         <td>${commentCellHTML(t.note,t.commentExcl)}</td>
         <td class="zone-col-td" style="max-width:${col?'0':'300px'};overflow:${col?'hidden':'visible'};padding:${col?'0.5rem 0':'0.5rem 0.65rem'};">
           <div class="zone-col-content" style="display:${col?'none':'block'};">${zoneTimesHTML(t.zoneTimes)}</div>
@@ -1283,46 +1188,36 @@ function buildTableHTML(rows,mode){
       </tr>`;
     }
   }).join('');
-
   return thead+tbody+'</tbody></table>';
 }
 
-// ════════════════════════════════════════════════
-// RENDER ENDURANCE — 5 newest, newest at top
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
+// RENDER ENDURANCE
+// ═══════════════════════════════════════════
 function renderEndurance(){
-  const sorted=loadTrainings()
-    .sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id)
-    .slice(0,5);
+  const sorted=loadTrainings().sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id).slice(0,5);
   document.getElementById('endurance-table-body').innerHTML=buildTableHTML(sorted,'compact');
 }
 
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 // HISTORY
-// ════════════════════════════════════════════════
-let hSortCol='date',hSortDir='desc';
-
+// ═══════════════════════════════════════════
+let hSortCol='date', hSortDir='desc';
 function populateYearFilter(){
-  const sel=document.getElementById('h-filter-year');
-  const cur=sel.value;
+  const sel=document.getElementById('h-filter-year'), cur=sel.value;
   const years=[...new Set(loadTrainings().map(t=>t.date.split('-')[0]))].sort((a,b)=>b-a);
   sel.innerHTML='<option value="">Wszystkie</option>'+years.map(y=>`<option value="${y}"${y===cur?' selected':''}>${y}</option>`).join('');
 }
-
 function renderHistory(){
   let data=loadTrainings();
   const fy=document.getElementById('h-filter-year').value;
   const fr=document.getElementById('h-filter-rpe').value;
-  const months    =getMsValues('ms-month');
-  const activities=getMsValues('ms-activity');
-  const types     =getMsValues('ms-type');
-
-  if(fy)               data=data.filter(t=>t.date.startsWith(fy));
-  if(months.length>0)  data=data.filter(t=>months.includes(t.date.split('-')[1]));
+  const months=getMsValues('ms-month'),activities=getMsValues('ms-activity'),types=getMsValues('ms-type');
+  if(fy)              data=data.filter(t=>t.date.startsWith(fy));
+  if(months.length>0) data=data.filter(t=>months.includes(t.date.split('-')[1]));
   if(activities.length>0)data=data.filter(t=>activities.includes(t.activity));
-  if(types.length>0)   data=data.filter(t=>types.includes(t.type));
-  if(fr)               data=data.filter(t=>String(t.rpe)===fr);
-
+  if(types.length>0)  data=data.filter(t=>types.includes(t.type));
+  if(fr)              data=data.filter(t=>String(t.rpe)===fr);
   data.sort((a,b)=>{
     let va,vb;
     switch(hSortCol){
@@ -1341,22 +1236,220 @@ function renderHistory(){
     if(va>vb)return hSortDir==='asc'?1:-1;
     return 0;
   });
-
   const wrap=document.getElementById('history-table-body');
   wrap.innerHTML=buildTableHTML(data,'full');
   wrap.querySelectorAll('th[data-col]').forEach(th=>{
     th.addEventListener('click',()=>{
       const col=th.dataset.col;
-      if(hSortCol===col)hSortDir=hSortDir==='asc'?'desc':'asc';
-      else{hSortCol=col;hSortDir='asc';}
+      if(hSortCol===col)hSortDir=hSortDir==='asc'?'desc':'asc'; else{hSortCol=col;hSortDir='asc';}
       renderHistory();
     });
   });
 }
 
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
+// CSV IMPORT
+// Separator: semicolon (;)
+// Col 0:  Data      DD.MM.YYYY
+// Col 1:  Aktywność
+// Col 2:  Typ
+// Col 3:  Dystans   (comma→dot)
+// Col 4:  Akcent    (comma→dot)
+// Col 5:  Czas      HH:MM:SS or MM:SS
+// Col 6:  RPE       integer 1-10
+// Col 7:  Zadanie
+// Col 8:  Notatka
+// Col 9:  Tętno     integer bpm
+// Col 10: S1 time
+// Col 11: S2 time
+// Col 12: S3 time
+// Col 13: S4 time
+// Col 14: S5 time
+// ═══════════════════════════════════════════
+function handleCsvImport(event){
+  const file=event.target.files[0]; if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{parseCsv(e.target.result); event.target.value='';};
+  reader.readAsText(file,'UTF-8');
+}
+
+function parseCsv(text){
+  const log=document.getElementById('import-log');
+  log.style.display='block'; log.innerHTML='';
+  const logLine=(msg,ok=true)=>{log.innerHTML+=`<div style="color:${ok?'#86efac':'#fca5a5'};">${escHtml(msg)}</div>`;log.scrollTop=log.scrollHeight;};
+
+  // Normalise line endings, split lines
+  const lines=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n').filter(l=>l.trim()!=='');
+  if(lines.length===0){logLine('Plik jest pusty.',false);return;}
+
+  // Detect and skip header: if first row col0 doesn't look like a date, skip it
+  let startRow=0;
+  const firstCols=lines[0].split(';');
+  if(firstCols.length>0 && !parseDatePL(firstCols[0])){
+    logLine(`Pominięto nagłówek: "${lines[0].substring(0,60)}"`);
+    startRow=1;
+  }
+
+  const existing=loadTrainings();
+  const imported=[];
+  let ok=0, skipped=0, errors=0;
+
+  for(let i=startRow;i<lines.length;i++){
+    const raw=lines[i];
+    if(!raw.trim()) continue;
+
+    // Split by semicolon; handle optional quoted fields
+    const cols=splitCsvLine(raw,';');
+
+    const c=(idx)=>(cols[idx]||'').trim();
+
+    // Col 0: Date
+    const date=parseDatePL(c(0));
+    if(!date){
+      logLine(`Wiersz ${i+1}: nieprawidłowa data "${c(0)}" — pomijam.`,false);
+      errors++; continue;
+    }
+
+    // Col 1: Activity (map common variants)
+    const actRaw=c(1).toLowerCase();
+    let activity='bieg';
+    if(actRaw.includes('lekkoatletyczna'))   activity='bieżnia lekkoatletyczna';
+    else if(actRaw.includes('mechaniczna'))  activity='bieżnia mechaniczna';
+    else if(actRaw.includes('bieżnia'))      activity='bieżnia mechaniczna';
+    else if(actRaw.includes('bieg')||actRaw==='') activity='bieg';
+    else activity=c(1)||'inny';
+
+    // Col 2: Type
+    const typeRaw=c(2).toLowerCase();
+    let type='baza tlenowa';
+    const typeMap=[
+      ['baza tlenowa','baza tlenowa'],['zabawa biegowa','zabawa biegowa'],
+      ['około progowy','około progowy'],['okolo progowy','około progowy'],
+      ['ciągły','ciągły'],['ciagly','ciągły'],
+      ['interwałowy','interwałowy'],['interwalowy','interwałowy'],
+    ];
+    for(const[k,v]of typeMap){if(typeRaw.includes(k)){type=v;break;}}
+    if(type==='baza tlenowa'&&typeRaw&&!typeRaw.includes('baza')) type=c(2)||'baza tlenowa';
+
+    // Col 3: Distance
+    const distance=parseFloat(c(3).replace(',','.'));
+    if(isNaN(distance)||distance<=0){
+      logLine(`Wiersz ${i+1}: nieprawidłowy dystans "${c(3)}" — pomijam.`,false);
+      errors++; continue;
+    }
+
+    // Col 4: Accent
+    const accent=parseFloat(c(4).replace(',','.'))||0;
+
+    // Col 5: Duration
+    const durationSeconds=parseTime(c(5));
+    if(!durationSeconds||durationSeconds<=0){
+      logLine(`Wiersz ${i+1}: nieprawidłowy czas "${c(5)}" — pomijam.`,false);
+      errors++; continue;
+    }
+
+    // Col 6: RPE
+    const rpeRaw=parseInt(c(6),10);
+    const rpe=(isNaN(rpeRaw)||rpeRaw<1||rpeRaw>10)?null:rpeRaw;
+
+    // Col 7: Task
+    const task=c(7);
+
+    // Col 8: Note
+    const note=c(8);
+    const commentExcl=false;
+
+    // Col 9: Heart rate
+    const hrRaw=parseInt(c(9),10);
+    const hr=(isNaN(hrRaw)||hrRaw<=0)?null:hrRaw;
+
+    // Col 10-14: Zone times S1..S5
+    const zoneTimes={};
+    for(let z=0;z<5;z++){
+      const secs=parseTime(c(10+z));
+      if(secs&&secs>0) zoneTimes[z+1]=secs;
+    }
+
+    // Duplicate check: same date + distance + durationSeconds
+    const isDup=existing.some(x=>x.date===date&&x.distance===distance&&x.durationSeconds===durationSeconds);
+    if(isDup){
+      logLine(`Wiersz ${i+1}: duplikat (${formatDatePL(date)}, ${distance} km) — pomijam.`);
+      skipped++; continue;
+    }
+
+    imported.push({
+      id: Date.now()+i, // unique within session
+      date, activity, type, distance, durationSeconds, accent,
+      rpe, hr, note, commentExcl, zoneTimes, task,
+    });
+    ok++;
+  }
+
+  if(imported.length>0){
+    const merged=[...existing,...imported];
+    saveTrainings(merged);
+    renderEndurance();
+    if(document.getElementById('tab-history').classList.contains('active')){
+      populateYearFilter(); renderHistory();
+    }
+  }
+
+  logLine(`─────────────────────────────`);
+  logLine(`✓ Zaimportowano: ${ok} treningów`);
+  if(skipped>0) logLine(`⚠ Pominięto duplikatów: ${skipped}`);
+  if(errors>0)  logLine(`✗ Błędy parsowania: ${errors}`,false);
+  logLine(`Łącznie wierszy danych: ${ok+skipped+errors}`);
+}
+
+// Robust CSV line splitter respecting optional double-quote quoting
+function splitCsvLine(line, sep){
+  const result=[];
+  let cur='', inQ=false;
+  for(let i=0;i<line.length;i++){
+    const ch=line[i];
+    if(ch==='"'){
+      if(inQ&&line[i+1]==='"'){cur+='"';i++;} // escaped quote
+      else inQ=!inQ;
+    } else if(ch===sep&&!inQ){
+      result.push(cur); cur='';
+    } else {
+      cur+=ch;
+    }
+  }
+  result.push(cur);
+  return result;
+}
+
+// ═══════════════════════════════════════════
+// SAMPLE CSV DOWNLOAD
+// ═══════════════════════════════════════════
+function downloadSampleCsv(){
+  const rows=[
+    'Data;Aktywność;Typ;Dystans;Akcent;Czas;RPE;Zadanie;Notatka;Tętno;S1;S2;S3;S4;S5',
+    '06.02.2025;bieg;baza tlenowa;6,06;0;35:29;6;spokojny bieg;dobre samopoczucie;138;15:00;12:00;6:00;2:00;0:29',
+    '07.02.2025;bieg;około progowy;8,05;3;45:17;8;3x2000m;ciężki trening;162;5:00;8:00;20:00;10:00;2:17',
+  ];
+  const blob=new Blob([rows.join('\n')],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download='trainlog_sample.csv'; a.click();
+  URL.revokeObjectURL(url);
+}
+
+// ═══════════════════════════════════════════
+// CLEAR ALL TRAININGS
+// ═══════════════════════════════════════════
+function clearAllTrainings(){
+  if(!confirm('Usunąć WSZYSTKIE treningi? Tej operacji nie można cofnąć.')) return;
+  saveTrainings([]);
+  renderEndurance();
+  const log=document.getElementById('import-log');
+  log.style.display='block';
+  log.innerHTML=`<div style="color:#fca5a5;">🗑 Wszystkie treningi zostały usunięte.</div>`;
+}
+
+// ═══════════════════════════════════════════
 // PROFILE
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 function buildZoneTable(){
   const tbody=document.getElementById('zone-tbody'); tbody.innerHTML='';
   ZONE_DISPLAY.forEach(({num,label,cls})=>{
@@ -1384,7 +1477,7 @@ function validateZones(){
   return v;
 }
 function saveProfile(){
-  if(!validateZones())return;
+  if(!validateZones()) return;
   const p={height:document.getElementById('p-height').value,weight:document.getElementById('p-weight').value,zones:{}};
   for(let z=1;z<=5;z++){
     p.zones[z]={
@@ -1402,11 +1495,11 @@ function saveProfile(){
 }
 function loadProfileUI(){
   const p=loadProfile();
-  if(p.height)document.getElementById('p-height').value=p.height;
-  if(p.weight)document.getElementById('p-weight').value=p.weight;
+  if(p.height) document.getElementById('p-height').value=p.height;
+  if(p.weight) document.getElementById('p-weight').value=p.weight;
   if(p.zones){
     for(let z=1;z<=5;z++){
-      const zd=p.zones[z]; if(!zd)continue;
+      const zd=p.zones[z]; if(!zd) continue;
       document.getElementById(`z${z}-bpm-min`).value  =zd.bpmMin  ||'';
       document.getElementById(`z${z}-bpm-max`).value  =zd.bpmMax  ||'';
       document.getElementById(`z${z}-power-min`).value=zd.powerMin||'';
@@ -1417,9 +1510,9 @@ function loadProfileUI(){
   }
 }
 
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 // INIT
-// ════════════════════════════════════════════════
+// ═══════════════════════════════════════════
 migrateData();
 seedData();
 buildZoneTable();
@@ -1429,4 +1522,3 @@ renderPlanned();
 </script>
 </body>
 </html>
-
