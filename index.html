@@ -40,9 +40,7 @@
       font-size: 0.68rem; font-weight: 700; letter-spacing: 0.07em;
       text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.25rem;
     }
-    /* Date field: auto-width in main form */
     .date-auto { width: auto; min-width: 165px; display: inline-block; }
-    /* Modal date input: full visible box */
     .modal-date-input {
       font-family: 'DM Mono', monospace; font-size: 0.88rem;
       background: var(--paper); border: 1.5px solid var(--border);
@@ -122,7 +120,6 @@
     .planned-table tbody tr { border-bottom: 1px solid #bfdbfe; transition: background 0.1s; }
     .planned-table tbody tr:hover { background: #dbeafe; }
     .planned-table tbody td { padding: 0.5rem 0.65rem; vertical-align: middle; color: var(--ink); }
-    /* Execute button — light green, high contrast */
     .execute-btn {
       font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.68rem;
       letter-spacing: 0.04em; text-transform: uppercase;
@@ -178,7 +175,6 @@
     .compact-table-wrap { border-radius: 10px; border: 1.5px solid var(--border); overflow: hidden; }
     .history-table-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 10px; border: 1.5px solid var(--border); }
     .history-table-scroll .data-table { min-width: 1200px; }
-    /* Tags */
     .tag-sm {
       display: inline-block; font-family: 'DM Mono', monospace;
       font-size: 0.65rem; border-radius: 3px; padding: 0.1rem 0.42rem; white-space: nowrap;
@@ -232,7 +228,6 @@
       display: inline-flex; align-items: center; gap: 0.3rem;
     }
     .excl-toggle.on { background: #fef3c7; border-color: #f59e0b; color: #92400e; }
-    /* Multi-select */
     .ms-filter { position: relative; display: inline-block; }
     .ms-trigger {
       font-family: 'DM Mono', monospace; font-size: 0.78rem;
@@ -276,7 +271,6 @@
     .filter-bar { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 1rem; }
     .filter-group { display: flex; align-items: center; gap: 0.3rem; }
     .filter-group label { display: inline; font-size: 0.65rem; margin: 0; white-space: nowrap; }
-    /* Profile */
     .profile-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem; }
     .section-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
     .zone-table { width: 100%; border-collapse: collapse; font-family: 'DM Mono', monospace; font-size: 0.82rem; }
@@ -289,7 +283,6 @@
     .zone-table input { font-size: 0.82rem; padding: 0.3rem 0.4rem; text-align: center; }
     .zone-1{color:#38bdf8;} .zone-2{color:#1d4ed8;} .zone-3{color:#16a34a;} .zone-4{color:#ea580c;} .zone-5{color:#dc2626;}
     .validation-error { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: #c62828; margin-top: 0.5rem; display: none; }
-    /* Import */
     .import-box {
       border: 2px dashed var(--border); border-radius: 10px;
       padding: 1.25rem; text-align: center; cursor: pointer;
@@ -358,7 +351,7 @@
   <div class="max-w-5xl mx-auto px-4">
     <div class="flex items-baseline gap-3 pt-3 pb-1">
       <h1 class="text-xl font-extrabold tracking-tight">Train<span style="color:var(--accent)">Log</span></h1>
-      <span class="mono text-xs" style="color:var(--muted);">v1.1</span>
+      <span class="mono text-xs" style="color:var(--muted);">v1.2</span>
     </div>
     <nav class="flex mt-1" style="overflow-x:auto;-webkit-overflow-scrolling:touch;gap:0;">
       <button class="tab-btn" data-tab="profile">Profil</button>
@@ -378,7 +371,6 @@
       <button class="btn-plan" onclick="openPlanModal()">+ Zaplanuj trening</button>
     </div>
 
-    <!-- PLANNED -->
     <div class="planned-section" id="planned-section" style="display:none;">
       <div class="planned-section-title">
         📋 Zaplanowane
@@ -397,19 +389,16 @@
       <button onclick="cancelEdit()" style="margin-left:auto;font-size:0.73rem;text-decoration:underline;background:none;border:none;color:var(--accent);cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;">Anuluj</button>
     </div>
 
-    <!-- MAIN FORM -->
     <div class="form-card mb-5" id="form-card">
       <div id="plan-source-banner" style="display:none;background:#eff6ff;border:1.5px solid #93c5fd;border-radius:6px;padding:0.4rem 0.75rem;margin-bottom:0.75rem;font-size:0.78rem;color:#1d4ed8;font-family:'Syne',sans-serif;font-weight:600;align-items:center;gap:0.4rem;">
         📋 Realizujesz zaplanowany trening
         <button onclick="clearPlanSource()" style="margin-left:auto;font-size:0.72rem;text-decoration:underline;background:none;border:none;color:#1d4ed8;cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;">Odłącz</button>
       </div>
 
-      <!-- Date — auto width -->
       <div class="mb-3">
         <label>Data treningu</label>
         <input type="date" id="f-date" class="date-auto" />
       </div>
-
       <div class="grid grid-cols-2 gap-3 mb-3">
         <div>
           <label>Rodzaj aktywności</label>
@@ -632,14 +621,14 @@
     <div class="profile-card">
       <div class="section-title">Import danych (CSV)</div>
       <p class="mono" style="font-size:0.73rem;color:var(--muted);margin-bottom:0.75rem;line-height:1.65;">
-        Separator: <strong>średnik (;)</strong> · Kodowanie: <strong>UTF-8</strong><br>
+        Separator: <strong>średnik (;)</strong> · Kodowanie: <strong>UTF-8 lub Windows-1250</strong> (wykrywane automatycznie)<br>
         Kolumny (0–14): <strong>Data (DD.MM.YYYY) · Aktywność · Typ · Dystans · Akcent · Czas · RPE · Zadanie · Notatka · Tętno · S1 · S2 · S3 · S4 · S5</strong>
       </p>
       <label class="import-box" for="csv-file-input">
         <input type="file" id="csv-file-input" accept=".csv,.txt" onchange="handleCsvImport(event)" />
         <div style="font-size:2rem;margin-bottom:0.35rem;">📂</div>
         <div class="font-bold" style="font-size:0.85rem;">Kliknij lub upuść plik CSV</div>
-        <div class="mono" style="font-size:0.7rem;color:var(--muted);margin-top:0.25rem;">UTF-8, separator średnik (;)</div>
+        <div class="mono" style="font-size:0.7rem;color:var(--muted);margin-top:0.25rem;">UTF-8 lub Windows-1250, separator średnik (;)</div>
       </label>
       <div class="import-log" id="import-log"></div>
       <div style="margin-top:0.75rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
@@ -667,18 +656,17 @@ const ZONE_DISPLAY = [
   {num:1,label:'Strefa 1',  cls:'zone-1'},
 ];
 
-// RPE palette: 1-3 blue, 4 green/mint, 5-6 yellow, 7-8 orange, 9 red, 10 deep purple
 const RPE_PALETTE = {
-  1: {bg:'#e0f2fe', border:'#7dd3fc', text:'#0369a1'},
-  2: {bg:'#bae6fd', border:'#38bdf8', text:'#0369a1'},
-  3: {bg:'#7dd3fc', border:'#0ea5e9', text:'#0c4a6e'},
-  4: {bg:'#a7f3d0', border:'#34d399', text:'#065f46'},
-  5: {bg:'#fef08a', border:'#facc15', text:'#854d0e'},
-  6: {bg:'#fde047', border:'#eab308', text:'#713f12'},
-  7: {bg:'#fed7aa', border:'#fb923c', text:'#9a3412'},
-  8: {bg:'#fdba74', border:'#f97316', text:'#7c2d12'},
-  9: {bg:'#fca5a5', border:'#ef4444', text:'#991b1b'},
-  10:{bg:'#4c1d95', border:'#7c3aed', text:'#ede9fe'},
+  1: {bg:'#e0f2fe',border:'#7dd3fc',text:'#0369a1'},
+  2: {bg:'#bae6fd',border:'#38bdf8',text:'#0369a1'},
+  3: {bg:'#7dd3fc',border:'#0ea5e9',text:'#0c4a6e'},
+  4: {bg:'#a7f3d0',border:'#34d399',text:'#065f46'},
+  5: {bg:'#fef08a',border:'#facc15',text:'#854d0e'},
+  6: {bg:'#fde047',border:'#eab308',text:'#713f12'},
+  7: {bg:'#fed7aa',border:'#fb923c',text:'#9a3412'},
+  8: {bg:'#fdba74',border:'#f97316',text:'#7c2d12'},
+  9: {bg:'#fca5a5',border:'#ef4444',text:'#991b1b'},
+  10:{bg:'#4c1d95',border:'#7c3aed',text:'#ede9fe'},
 };
 
 function loadTrainings()    { try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||[];}catch{return[];} }
@@ -689,16 +677,77 @@ function loadPlanned()      { try{return JSON.parse(localStorage.getItem(PLANNED
 function savePlanned(d)     { localStorage.setItem(PLANNED_KEY,JSON.stringify(d)); }
 
 // ═══════════════════════════════════════════
-// ACTIVITY NAME MAPPING
-// Canonical internal values → display labels
+// ENCODING DETECTION & CSV READ
+// Reads file as ArrayBuffer, tries UTF-8 first,
+// falls back to Windows-1250 if replacement chars detected.
+// ═══════════════════════════════════════════
+function readFileWithEncodingDetection(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('Błąd odczytu pliku'));
+    reader.onload = (e) => {
+      const buffer = e.target.result;
+      // Try UTF-8 first
+      const utf8 = new TextDecoder('utf-8', {fatal: false}).decode(buffer);
+      // Check for replacement character (U+FFFD) — sign of wrong encoding
+      if (utf8.includes('\uFFFD')) {
+        // Fallback to Windows-1250
+        try {
+          const cp1250 = new TextDecoder('windows-1250', {fatal: false}).decode(buffer);
+          resolve({text: cp1250, encoding: 'windows-1250'});
+        } catch(e2) {
+          // TextDecoder may not support windows-1250 in all browsers — use manual table
+          const cp1250manual = decodeCp1250(buffer);
+          resolve({text: cp1250manual, encoding: 'windows-1250 (manual)'});
+        }
+      } else {
+        resolve({text: utf8, encoding: 'utf-8'});
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  });
+}
+
+// Manual CP1250 decode table for full browser compatibility
+function decodeCp1250(buffer) {
+  const bytes = new Uint8Array(buffer);
+  // CP1250 characters for bytes 0x80–0xFF
+  const cp1250extra = '\u20AC\uFFFD\u201A\uFFFD\u201E\u2026\u2020\u2021' +
+    '\uFFFD\u2030\u0160\u2039\u015A\u0164\u017D\u0179' +
+    '\uFFFD\u2018\u2019\u201C\u201D\u2022\u2013\u2014' +
+    '\uFFFD\u2122\u0161\u203A\u015B\u0165\u017E\u017A' +
+    '\u00A0\u02C7\u02D8\u0141\u00A4\u0104\u00A6\u00A7' +
+    '\u00A8\u00A9\u015E\u00AB\u00AC\u00AD\u00AE\u017B' +
+    '\u00B0\u00B1\u02DB\u0142\u00B4\u00B5\u00B6\u00B7' +
+    '\u00B8\u0105\u015F\u00BB\u013D\u02DD\u013E\u017C' +
+    '\u0154\u00C1\u00C2\u0102\u00C4\u0139\u0106\u00C7' +
+    '\u010C\u00C9\u0118\u00CB\u011A\u00CD\u00CE\u010E' +
+    '\u0110\u0143\u0147\u00D3\u00D4\u0150\u00D6\u00D7' +
+    '\u0158\u016E\u00DA\u0170\u00DC\u00DD\u0162\u00DF' +
+    '\u0155\u00E1\u00E2\u0103\u00E4\u013A\u0107\u00E7' +
+    '\u010D\u00E9\u0119\u00EB\u011B\u00ED\u00EE\u010F' +
+    '\u0111\u0144\u0148\u00F3\u00F4\u0151\u00F6\u00F7' +
+    '\u0159\u016F\u00FA\u0171\u00FC\u00FD\u0163\u02D9';
+  let result = '';
+  for (let i = 0; i < bytes.length; i++) {
+    const b = bytes[i];
+    if (b < 0x80) result += String.fromCharCode(b);
+    else result += cp1250extra[b - 0x80] || '\uFFFD';
+  }
+  return result;
+}
+
+// ═══════════════════════════════════════════
+// ACTIVITY / TYPE NORMALISATION
 // ═══════════════════════════════════════════
 function normaliseActivity(raw) {
   if(!raw) return 'bieg';
   const s = raw.toLowerCase().trim();
-  if(s.includes('lekkoatletyczn') || s.includes('stadion')) return 'stadion';
-  if(s.includes('mechaniczn') || s === 'bieżnia') return 'bieżnia';
+  if(s.includes('lekkoatletyczn') || s === 'stadion') return 'stadion';
+  if(s.includes('mechaniczn') || s === 'bieżnia' || s === 'bieznia') return 'bieżnia';
   if(s.includes('bieg')) return 'bieg';
-  return s || 'inny';
+  if(s === 'inny') return 'inny';
+  return s || 'bieg';
 }
 
 function normaliseType(raw) {
@@ -707,9 +756,10 @@ function normaliseType(raw) {
   if(s.includes('baza')) return 'baza tlenowa';
   if(s.includes('zabawa')) return 'zabawa biegowa';
   if(s.includes('progowy') || s.includes('prog')) return 'około progowy';
-  if(s.includes('ciągł') || s.includes('ciagly') || s.includes('ciągły') || s === 'ciągły') return 'ciągły';
+  if(s.includes('ciągł') || s.includes('ciagł') || s.includes('ciagly') || s === 'ciągły') return 'ciągły';
   if(s.includes('interw')) return 'interwałowy';
-  return s || 'inny';
+  if(s === 'inny') return 'inny';
+  return s || 'baza tlenowa';
 }
 
 // ═══════════════════════════════════════════
@@ -734,7 +784,6 @@ function migrateData(){
     if(!x.zoneTimes){x.zoneTimes={};c=true;}
     if(x.task==null){x.task='';c=true;}
     if(x.hr===undefined){x.hr=null;c=true;}
-    // Normalise activity & type to new canonical values
     const na=normaliseActivity(x.activity);
     if(na!==x.activity){x.activity=na;c=true;}
     const nt=normaliseType(x.type);
@@ -1092,8 +1141,8 @@ document.getElementById('add-btn').addEventListener('click',()=>{
   const hrRaw          =parseInt(document.getElementById('f-hr').value);
   const hr             =isNaN(hrRaw)||hrRaw<=0?null:hrRaw;
 
-  if(!date)                       {showError('Podaj datę.');return;}
-  if(!distance||distance<=0)      {showError('Podaj dystans.');return;}
+  if(!date)                        {showError('Podaj datę.');return;}
+  if(!distance||distance<=0)       {showError('Podaj dystans.');return;}
   if(!durationSeconds||durationSeconds<=0){showError('Podaj czas (mm:ss lub hh:mm:ss).');return;}
 
   document.getElementById('form-error').style.display='none';
@@ -1129,17 +1178,12 @@ window.editTraining=function(id){enterEditMode(id);};
 // ═══════════════════════════════════════════
 function escHtml(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
-// Updated type colouring:
-// blue: baza tlenowa
-// green: ciągły, zabawa biegowa, inny
-// orange: interwałowy, około progowy
 function typeTagClass(type){
   const t=(type||'').toLowerCase();
   if(t==='baza tlenowa') return 'tag-type-blue';
   if(t==='interwałowy'||t==='około progowy') return 'tag-type-orange';
-  return 'tag-type-green'; // ciągły, zabawa biegowa, inny
+  return 'tag-type-green';
 }
-
 function commentCellHTML(note,excl){
   if(!note||!note.trim()) return`<span style="color:var(--border);">—</span>`;
   const icon=excl
@@ -1159,9 +1203,6 @@ function hrCellHTML(hr){
 
 // ═══════════════════════════════════════════
 // BUILD TABLE
-// Column order:
-//   compact: Data, Akt., Typ, Zadanie, RPE, Dystans, Czas, Tempo, Kom., Tętno, Actions
-//   full:    Data, Akt., Typ, Zadanie, RPE, Dystans, Czas, Tempo, Kom., Tętno, Strefy, Actions
 // ═══════════════════════════════════════════
 function buildTableHTML(rows, mode){
   const sortable=mode==='full';
@@ -1241,7 +1282,7 @@ function buildTableHTML(rows, mode){
 }
 
 // ═══════════════════════════════════════════
-// RENDER ENDURANCE — 5 newest
+// RENDER ENDURANCE
 // ═══════════════════════════════════════════
 function renderEndurance(){
   const sorted=loadTrainings().sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id).slice(0,5);
@@ -1262,11 +1303,11 @@ function renderHistory(){
   const fy=document.getElementById('h-filter-year').value;
   const fr=document.getElementById('h-filter-rpe').value;
   const months=getMsValues('ms-month'),activities=getMsValues('ms-activity'),types=getMsValues('ms-type');
-  if(fy)              data=data.filter(t=>t.date.startsWith(fy));
-  if(months.length>0) data=data.filter(t=>months.includes(t.date.split('-')[1]));
-  if(activities.length>0)data=data.filter(t=>activities.includes(t.activity));
-  if(types.length>0)  data=data.filter(t=>types.includes(t.type));
-  if(fr)              data=data.filter(t=>String(t.rpe)===fr);
+  if(fy)               data=data.filter(t=>t.date.startsWith(fy));
+  if(months.length>0)  data=data.filter(t=>months.includes(t.date.split('-')[1]));
+  if(activities.length>0) data=data.filter(t=>activities.includes(t.activity));
+  if(types.length>0)   data=data.filter(t=>types.includes(t.type));
+  if(fr)               data=data.filter(t=>String(t.rpe)===fr);
   data.sort((a,b)=>{
     let va,vb;
     switch(hSortCol){
@@ -1297,47 +1338,38 @@ function renderHistory(){
 }
 
 // ═══════════════════════════════════════════
-// CSV IMPORT
-// Reads as UTF-8 via FileReader (handles Polish chars natively)
-// Separator: semicolon (;)
-// Col 0:  Data      DD.MM.YYYY
-// Col 1:  Aktywność
-// Col 2:  Typ
-// Col 3:  Dystans   (comma→dot)
-// Col 4:  Akcent    (comma→dot)
-// Col 5:  Czas      HH:MM:SS or MM:SS
-// Col 6:  RPE
-// Col 7:  Zadanie
-// Col 8:  Notatka
-// Col 9:  Tętno
-// Col 10-14: S1..S5
+// CSV IMPORT — with auto encoding detection
 // ═══════════════════════════════════════════
 function handleCsvImport(event){
   const file=event.target.files[0]; if(!file) return;
-  const reader=new FileReader();
-  // Read as UTF-8 text — FileReader.readAsText defaults to UTF-8
-  reader.onload=e=>{ parseCsv(e.target.result); event.target.value=''; };
-  reader.onerror=()=>{ alert('Błąd odczytu pliku.'); };
-  reader.readAsText(file, 'UTF-8');
+  readFileWithEncodingDetection(file).then(({text, encoding})=>{
+    const log=document.getElementById('import-log');
+    log.style.display='block';
+    log.innerHTML=`<div style="color:#93c5fd;">📄 Wykryte kodowanie: ${encoding}</div>`;
+    parseCsv(text);
+  }).catch(err=>{
+    const log=document.getElementById('import-log');
+    log.style.display='block';
+    log.innerHTML=`<div style="color:#fca5a5;">✗ ${err.message}</div>`;
+  });
+  event.target.value='';
 }
 
 function parseCsv(text){
   const log=document.getElementById('import-log');
-  log.style.display='block'; log.innerHTML='';
   const logLine=(msg,ok=true)=>{
     log.innerHTML+=`<div style="color:${ok?'#86efac':'#fca5a5'};">${escHtml(msg)}</div>`;
     log.scrollTop=log.scrollHeight;
   };
 
-  // Normalise line endings
   const lines=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n').filter(l=>l.trim()!=='');
   if(lines.length===0){logLine('Plik jest pusty.',false);return;}
 
-  // Detect and skip header row (if col 0 doesn't look like a date)
+  // Skip header if col 0 is not a date
   let startRow=0;
   const firstCols=lines[0].split(';');
   if(!parseDatePL((firstCols[0]||'').trim())){
-    logLine(`Pominięto nagłówek: "${lines[0].substring(0,80)}"`);
+    logLine(`Pominięto nagłówek: "${lines[0].substring(0,60)}"`);
     startRow=1;
   }
 
@@ -1348,48 +1380,38 @@ function parseCsv(text){
   for(let i=startRow;i<lines.length;i++){
     const raw=lines[i];
     if(!raw.trim()) continue;
-
     const cols=splitCsvLine(raw,';');
     const c=(idx)=>(cols[idx]||'').trim();
 
     // Col 0: Date
     const date=parseDatePL(c(0));
-    if(!date){
-      logLine(`Wiersz ${i+1}: nieprawidłowa data "${c(0)}" — pomijam.`,false);
-      errors++; continue;
-    }
+    if(!date){logLine(`Wiersz ${i+1}: nieprawidłowa data "${c(0)}" — pomijam.`,false);errors++;continue;}
 
-    // Col 1: Activity — normalise to canonical values
+    // Col 1: Activity
     const activity=normaliseActivity(c(1));
 
-    // Col 2: Type — normalise to canonical values
+    // Col 2: Type
     const type=normaliseType(c(2));
 
     // Col 3: Distance
     const distance=parseFloat(c(3).replace(',','.'));
-    if(isNaN(distance)||distance<=0){
-      logLine(`Wiersz ${i+1}: nieprawidłowy dystans "${c(3)}" — pomijam.`,false);
-      errors++; continue;
-    }
+    if(isNaN(distance)||distance<=0){logLine(`Wiersz ${i+1}: nieprawidłowy dystans "${c(3)}" — pomijam.`,false);errors++;continue;}
 
     // Col 4: Accent
     const accent=parseFloat(c(4).replace(',','.'))||0;
 
     // Col 5: Duration
     const durationSeconds=parseTime(c(5));
-    if(!durationSeconds||durationSeconds<=0){
-      logLine(`Wiersz ${i+1}: nieprawidłowy czas "${c(5)}" — pomijam.`,false);
-      errors++; continue;
-    }
+    if(!durationSeconds||durationSeconds<=0){logLine(`Wiersz ${i+1}: nieprawidłowy czas "${c(5)}" — pomijam.`,false);errors++;continue;}
 
     // Col 6: RPE
     const rpeRaw=parseInt(c(6),10);
     const rpe=(isNaN(rpeRaw)||rpeRaw<1||rpeRaw>10)?null:rpeRaw;
 
-    // Col 7: Task — Polish chars read correctly from UTF-8
+    // Col 7: Task (Polish chars preserved from encoding detection)
     const task=c(7);
 
-    // Col 8: Note — Polish chars read correctly from UTF-8
+    // Col 8: Note
     const note=c(8);
     const commentExcl=false;
 
@@ -1397,25 +1419,18 @@ function parseCsv(text){
     const hrRaw=parseInt(c(9),10);
     const hr=(isNaN(hrRaw)||hrRaw<=0)?null:hrRaw;
 
-    // Col 10-14: Zone times S1..S5
+    // Col 10-14: Zone times
     const zoneTimes={};
     for(let z=0;z<5;z++){
       const secs=parseTime(c(10+z));
       if(secs&&secs>0) zoneTimes[z+1]=secs;
     }
 
-    // Duplicate check: same date + distance + durationSeconds
+    // Duplicate check
     const isDup=existing.some(x=>x.date===date&&x.distance===distance&&x.durationSeconds===durationSeconds);
-    if(isDup){
-      logLine(`Wiersz ${i+1}: duplikat (${formatDatePL(date)}, ${distance} km) — pomijam.`);
-      skipped++; continue;
-    }
+    if(isDup){logLine(`Wiersz ${i+1}: duplikat (${formatDatePL(date)}, ${distance} km) — pomijam.`);skipped++;continue;}
 
-    imported.push({
-      id: Date.now()+i,
-      date, activity, type, distance, durationSeconds, accent,
-      rpe, hr, note, commentExcl, zoneTimes, task,
-    });
+    imported.push({id:Date.now()+i,date,activity,type,distance,durationSeconds,accent,rpe,hr,note,commentExcl,zoneTimes,task});
     ok++;
   }
 
@@ -1434,26 +1449,21 @@ function parseCsv(text){
   logLine(`Łącznie wierszy danych: ${ok+skipped+errors}`);
 }
 
-// Robust CSV line splitter — handles optional double-quote quoting
-function splitCsvLine(line, sep){
+function splitCsvLine(line,sep){
   const result=[];
-  let cur='', inQ=false;
+  let cur='',inQ=false;
   for(let i=0;i<line.length;i++){
     const ch=line[i];
-    if(ch==='"'){
-      if(inQ&&line[i+1]==='"'){cur+='"';i++;} else inQ=!inQ;
-    } else if(ch===sep&&!inQ){
-      result.push(cur); cur='';
-    } else {
-      cur+=ch;
-    }
+    if(ch==='"'){if(inQ&&line[i+1]==='"'){cur+='"';i++;}else inQ=!inQ;}
+    else if(ch===sep&&!inQ){result.push(cur);cur='';}
+    else{cur+=ch;}
   }
   result.push(cur);
   return result;
 }
 
 // ═══════════════════════════════════════════
-// SAMPLE CSV DOWNLOAD
+// SAMPLE CSV DOWNLOAD (UTF-8 with BOM for Excel compatibility)
 // ═══════════════════════════════════════════
 function downloadSampleCsv(){
   const rows=[
@@ -1462,7 +1472,9 @@ function downloadSampleCsv(){
     '07.02.2025;stadion;interwałowy;8,05;3;45:17;8;3x2000m;ciężki trening;162;5:00;8:00;20:00;10:00;2:17',
     '08.02.2025;bieżnia;ciągły;10,00;0;55:00;6;bieg ciągły;normalne tętno;145;10:00;15:00;20:00;8:00;2:00',
   ];
-  const blob=new Blob([rows.join('\n')],{type:'text/csv;charset=utf-8;'});
+  // UTF-8 BOM so Excel opens it correctly
+  const bom='\uFEFF';
+  const blob=new Blob([bom+rows.join('\n')],{type:'text/csv;charset=utf-8;'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a'); a.href=url; a.download='trainlog_sample.csv'; a.click();
   URL.revokeObjectURL(url);
