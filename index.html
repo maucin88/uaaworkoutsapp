@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TrainLog</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -305,6 +306,56 @@
     ::-webkit-scrollbar { width:5px; height:5px; }
     ::-webkit-scrollbar-track { background:transparent; }
     ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+
+    /* ═══ SUMMARY TAB STYLES ═══ */
+    .summary-card {
+      background: var(--card); border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem;
+    }
+    .range-btn {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.72rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      background: transparent; color: var(--muted);
+      border: 1.5px solid var(--border); border-radius: 6px;
+      padding: 0.4rem 0.85rem; cursor: pointer; transition: all 0.18s;
+    }
+    .range-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .range-btn.active {
+      background: var(--ink); color: var(--paper);
+      border-color: var(--ink);
+    }
+    .nav-btn {
+      font-family: 'DM Mono', monospace; font-weight: 700; font-size: 1rem;
+      background: var(--card); color: var(--ink);
+      border: 1.5px solid var(--border); border-radius: 8px;
+      width: 2.4rem; height: 2.4rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s; flex-shrink: 0;
+    }
+    .nav-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .nav-btn:disabled { opacity: 0.3; cursor: default; }
+    .period-label {
+      font-family: 'DM Mono', monospace; font-size: 0.82rem;
+      color: var(--ink); text-align: center; flex: 1;
+      padding: 0 0.5rem; font-weight: 500;
+    }
+    .stat-pill {
+      background: var(--paper); border: 1.5px solid var(--border);
+      border-radius: 10px; padding: 0.65rem 1rem;
+      display: flex; flex-direction: column; gap: 0.2rem; flex: 1; min-width: 0;
+    }
+    .stat-pill-label {
+      font-family: 'Syne', sans-serif; font-size: 0.6rem;
+      font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .stat-pill-value {
+      font-family: 'DM Mono', monospace; font-size: 1.05rem;
+      font-weight: 500; color: var(--ink); white-space: nowrap;
+    }
+    .chart-wrap {
+      position: relative; width: 100%;
+    }
   </style>
 </head>
 <body>
@@ -351,7 +402,7 @@
   <div class="max-w-5xl mx-auto px-4">
     <div class="flex items-baseline gap-3 pt-3 pb-1">
       <h1 class="text-xl font-extrabold tracking-tight">Train<span style="color:var(--accent)">Log</span></h1>
-      <span class="mono text-xs" style="color:var(--muted);">v1.2</span>
+      <span class="mono text-xs" style="color:var(--muted);">v1.3</span>
     </div>
     <nav class="flex mt-1" style="overflow-x:auto;-webkit-overflow-scrolling:touch;gap:0;">
       <button class="tab-btn" data-tab="profile">Profil</button>
@@ -364,7 +415,7 @@
 
 <main class="max-w-5xl mx-auto px-4 py-5">
 
-  <!-- TAB: WYTRZYMAŁOŚĆ -->
+  <!-- ═══ TAB: WYTRZYMAŁOŚĆ ═══ -->
   <div id="tab-endurance" class="tab-content active animate-in">
     <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
       <h2 class="text-lg font-bold">Wytrzymałość</h2>
@@ -394,7 +445,6 @@
         📋 Realizujesz zaplanowany trening
         <button onclick="clearPlanSource()" style="margin-left:auto;font-size:0.72rem;text-decoration:underline;background:none;border:none;color:#1d4ed8;cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;">Odłącz</button>
       </div>
-
       <div class="mb-3">
         <label>Data treningu</label>
         <input type="date" id="f-date" class="date-auto" />
@@ -433,7 +483,6 @@
         <div><label>Średnie tętno (bpm)</label><input type="number" id="f-hr" placeholder="np. 145" min="30" max="250" /></div>
         <div></div>
       </div>
-
       <div class="mb-3">
         <button class="btn-ghost" id="task-toggle-btn" onclick="toggleTask()">Zadanie</button>
         <div id="task-field" style="display:none;margin-top:0.6rem;">
@@ -441,7 +490,6 @@
           <input type="text" id="f-task" placeholder="np. 4×500m p. 2 min" />
         </div>
       </div>
-
       <div class="mb-3">
         <div class="flex items-center gap-3 mb-2 flex-wrap">
           <label style="margin:0;">Ocena wysiłku (RPE)</label>
@@ -458,7 +506,6 @@
           <div class="zone-time-item"><label style="color:#dc2626;">Strefa 5</label><input type="text" id="zt-5" placeholder="00:00" inputmode="numeric" /></div>
         </div>
       </div>
-
       <div class="mb-4">
         <label>Komentarz</label>
         <textarea id="f-note" rows="2" placeholder="Krótki komentarz..." style="resize:none;"></textarea>
@@ -466,7 +513,6 @@
           <button class="excl-toggle" id="excl-btn" onclick="toggleExcl()">❗ Ważne</button>
         </div>
       </div>
-
       <div class="flex items-center gap-3 flex-wrap">
         <button class="btn-primary" id="add-btn">+ Dodaj trening</button>
         <button class="btn-secondary" id="cancel-btn" onclick="cancelEdit()" style="display:none;">Anuluj</button>
@@ -485,7 +531,7 @@
     </div>
   </div>
 
-  <!-- TAB: HISTORIA -->
+  <!-- ═══ TAB: HISTORIA ═══ -->
   <div id="tab-history" class="tab-content">
     <div class="flex items-center gap-3 mb-4 flex-wrap">
       <h2 class="text-lg font-bold">Historia</h2>
@@ -570,19 +616,72 @@
     </div>
   </div>
 
-  <!-- TAB: SPRAWNOŚĆ -->
+  <!-- ═══ TAB: SPRAWNOŚĆ ═══ -->
   <div id="tab-fitness" class="tab-content">
     <h2 class="text-lg font-bold mb-3">Sprawność</h2>
     <div class="empty-state"><div class="big">🏋️</div><p class="font-semibold" style="color:var(--muted);">Wkrótce tutaj</p></div>
   </div>
 
-  <!-- TAB: PODSUMOWANIE -->
-  <div id="tab-summary" class="tab-content">
-    <h2 class="text-lg font-bold mb-3">Podsumowanie</h2>
-    <div class="empty-state"><div class="big">📊</div><p class="font-semibold" style="color:var(--muted);">Statystyki — wkrótce</p></div>
+  <!-- ═══ TAB: PODSUMOWANIE ═══ -->
+  <div id="tab-summary" class="tab-content animate-in">
+    <h2 class="text-lg font-bold mb-4">Podsumowanie</h2>
+
+    <div class="summary-card">
+      <!-- Range selector -->
+      <div class="flex flex-wrap gap-2 mb-4">
+        <button class="range-btn active" data-range="week"     onclick="setSummaryRange('week')">Tydzień</button>
+        <button class="range-btn"        data-range="month"    onclick="setSummaryRange('month')">Miesiąc</button>
+        <button class="range-btn"        data-range="8weeks"   onclick="setSummaryRange('8weeks')">8 tygodni</button>
+        <button class="range-btn"        data-range="year"     onclick="setSummaryRange('year')">Rok</button>
+      </div>
+
+      <!-- Navigation bar -->
+      <div class="flex items-center gap-2 mb-4">
+        <button class="nav-btn" id="sum-prev" onclick="summaryNav(-1)">‹</button>
+        <div class="period-label" id="sum-period-label">—</div>
+        <button class="nav-btn" id="sum-next" onclick="summaryNav(1)">›</button>
+      </div>
+
+      <!-- Stat pills -->
+      <div class="flex gap-2 mb-5 flex-wrap">
+        <div class="stat-pill">
+          <span class="stat-pill-label">Łączny dystans</span>
+          <span class="stat-pill-value" id="stat-total">— km</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-pill-label">Akcent</span>
+          <span class="stat-pill-value" id="stat-accent">— km</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-pill-label">Treningów</span>
+          <span class="stat-pill-value" id="stat-count">—</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-pill-label">Śr. dystans</span>
+          <span class="stat-pill-value" id="stat-avg">— km</span>
+        </div>
+      </div>
+
+      <!-- Chart -->
+      <div class="chart-wrap" style="height:280px;">
+        <canvas id="summary-chart"></canvas>
+      </div>
+
+      <!-- Legend -->
+      <div class="flex gap-4 mt-3 justify-center" style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted);">
+        <span style="display:flex;align-items:center;gap:0.35rem;">
+          <span style="width:12px;height:12px;border-radius:3px;background:#6ea8d8;display:inline-block;"></span>
+          Dystans bazowy
+        </span>
+        <span style="display:flex;align-items:center;gap:0.35rem;">
+          <span style="width:12px;height:12px;border-radius:3px;background:#d4522a;display:inline-block;"></span>
+          Akcent
+        </span>
+      </div>
+    </div>
   </div>
 
-  <!-- TAB: PROFIL -->
+  <!-- ═══ TAB: PROFIL ═══ -->
   <div id="tab-profile" class="tab-content">
     <h2 class="text-lg font-bold mb-4">Profil</h2>
     <div class="profile-card">
@@ -616,8 +715,6 @@
         <span class="mono text-xs" id="profile-saved" style="color:#2e7d32;display:none;">✓ Zapisano</span>
       </div>
     </div>
-
-    <!-- CSV IMPORT -->
     <div class="profile-card">
       <div class="section-title">Import danych (CSV)</div>
       <p class="mono" style="font-size:0.73rem;color:var(--muted);margin-bottom:0.75rem;line-height:1.65;">
@@ -655,17 +752,16 @@ const ZONE_DISPLAY = [
   {num:2,label:'Strefa 2',  cls:'zone-2'},
   {num:1,label:'Strefa 1',  cls:'zone-1'},
 ];
-
 const RPE_PALETTE = {
-  1: {bg:'#e0f2fe',border:'#7dd3fc',text:'#0369a1'},
-  2: {bg:'#bae6fd',border:'#38bdf8',text:'#0369a1'},
-  3: {bg:'#7dd3fc',border:'#0ea5e9',text:'#0c4a6e'},
-  4: {bg:'#a7f3d0',border:'#34d399',text:'#065f46'},
-  5: {bg:'#fef08a',border:'#facc15',text:'#854d0e'},
-  6: {bg:'#fde047',border:'#eab308',text:'#713f12'},
-  7: {bg:'#fed7aa',border:'#fb923c',text:'#9a3412'},
-  8: {bg:'#fdba74',border:'#f97316',text:'#7c2d12'},
-  9: {bg:'#fca5a5',border:'#ef4444',text:'#991b1b'},
+  1:{bg:'#e0f2fe',border:'#7dd3fc',text:'#0369a1'},
+  2:{bg:'#bae6fd',border:'#38bdf8',text:'#0369a1'},
+  3:{bg:'#7dd3fc',border:'#0ea5e9',text:'#0c4a6e'},
+  4:{bg:'#a7f3d0',border:'#34d399',text:'#065f46'},
+  5:{bg:'#fef08a',border:'#facc15',text:'#854d0e'},
+  6:{bg:'#fde047',border:'#eab308',text:'#713f12'},
+  7:{bg:'#fed7aa',border:'#fb923c',text:'#9a3412'},
+  8:{bg:'#fdba74',border:'#f97316',text:'#7c2d12'},
+  9:{bg:'#fca5a5',border:'#ef4444',text:'#991b1b'},
   10:{bg:'#4c1d95',border:'#7c3aed',text:'#ede9fe'},
 };
 
@@ -677,9 +773,7 @@ function loadPlanned()      { try{return JSON.parse(localStorage.getItem(PLANNED
 function savePlanned(d)     { localStorage.setItem(PLANNED_KEY,JSON.stringify(d)); }
 
 // ═══════════════════════════════════════════
-// ENCODING DETECTION & CSV READ
-// Reads file as ArrayBuffer, tries UTF-8 first,
-// falls back to Windows-1250 if replacement chars detected.
+// ENCODING DETECTION
 // ═══════════════════════════════════════════
 function readFileWithEncodingDetection(file) {
   return new Promise((resolve, reject) => {
@@ -687,18 +781,13 @@ function readFileWithEncodingDetection(file) {
     reader.onerror = () => reject(new Error('Błąd odczytu pliku'));
     reader.onload = (e) => {
       const buffer = e.target.result;
-      // Try UTF-8 first
-      const utf8 = new TextDecoder('utf-8', {fatal: false}).decode(buffer);
-      // Check for replacement character (U+FFFD) — sign of wrong encoding
+      const utf8 = new TextDecoder('utf-8', {fatal:false}).decode(buffer);
       if (utf8.includes('\uFFFD')) {
-        // Fallback to Windows-1250
         try {
-          const cp1250 = new TextDecoder('windows-1250', {fatal: false}).decode(buffer);
+          const cp1250 = new TextDecoder('windows-1250', {fatal:false}).decode(buffer);
           resolve({text: cp1250, encoding: 'windows-1250'});
-        } catch(e2) {
-          // TextDecoder may not support windows-1250 in all browsers — use manual table
-          const cp1250manual = decodeCp1250(buffer);
-          resolve({text: cp1250manual, encoding: 'windows-1250 (manual)'});
+        } catch {
+          resolve({text: decodeCp1250(buffer), encoding: 'windows-1250 (manual)'});
         }
       } else {
         resolve({text: utf8, encoding: 'utf-8'});
@@ -707,59 +796,43 @@ function readFileWithEncodingDetection(file) {
     reader.readAsArrayBuffer(file);
   });
 }
-
-// Manual CP1250 decode table for full browser compatibility
 function decodeCp1250(buffer) {
   const bytes = new Uint8Array(buffer);
-  // CP1250 characters for bytes 0x80–0xFF
-  const cp1250extra = '\u20AC\uFFFD\u201A\uFFFD\u201E\u2026\u2020\u2021' +
-    '\uFFFD\u2030\u0160\u2039\u015A\u0164\u017D\u0179' +
-    '\uFFFD\u2018\u2019\u201C\u201D\u2022\u2013\u2014' +
-    '\uFFFD\u2122\u0161\u203A\u015B\u0165\u017E\u017A' +
-    '\u00A0\u02C7\u02D8\u0141\u00A4\u0104\u00A6\u00A7' +
-    '\u00A8\u00A9\u015E\u00AB\u00AC\u00AD\u00AE\u017B' +
-    '\u00B0\u00B1\u02DB\u0142\u00B4\u00B5\u00B6\u00B7' +
-    '\u00B8\u0105\u015F\u00BB\u013D\u02DD\u013E\u017C' +
-    '\u0154\u00C1\u00C2\u0102\u00C4\u0139\u0106\u00C7' +
-    '\u010C\u00C9\u0118\u00CB\u011A\u00CD\u00CE\u010E' +
-    '\u0110\u0143\u0147\u00D3\u00D4\u0150\u00D6\u00D7' +
-    '\u0158\u016E\u00DA\u0170\u00DC\u00DD\u0162\u00DF' +
-    '\u0155\u00E1\u00E2\u0103\u00E4\u013A\u0107\u00E7' +
-    '\u010D\u00E9\u0119\u00EB\u011B\u00ED\u00EE\u010F' +
-    '\u0111\u0144\u0148\u00F3\u00F4\u0151\u00F6\u00F7' +
-    '\u0159\u016F\u00FA\u0171\u00FC\u00FD\u0163\u02D9';
-  let result = '';
-  for (let i = 0; i < bytes.length; i++) {
-    const b = bytes[i];
-    if (b < 0x80) result += String.fromCharCode(b);
-    else result += cp1250extra[b - 0x80] || '\uFFFD';
-  }
-  return result;
+  const extra = '\u20AC\uFFFD\u201A\uFFFD\u201E\u2026\u2020\u2021\uFFFD\u2030\u0160\u2039\u015A\u0164\u017D\u0179'+
+    '\uFFFD\u2018\u2019\u201C\u201D\u2022\u2013\u2014\uFFFD\u2122\u0161\u203A\u015B\u0165\u017E\u017A'+
+    '\u00A0\u02C7\u02D8\u0141\u00A4\u0104\u00A6\u00A7\u00A8\u00A9\u015E\u00AB\u00AC\u00AD\u00AE\u017B'+
+    '\u00B0\u00B1\u02DB\u0142\u00B4\u00B5\u00B6\u00B7\u00B8\u0105\u015F\u00BB\u013D\u02DD\u013E\u017C'+
+    '\u0154\u00C1\u00C2\u0102\u00C4\u0139\u0106\u00C7\u010C\u00C9\u0118\u00CB\u011A\u00CD\u00CE\u010E'+
+    '\u0110\u0143\u0147\u00D3\u00D4\u0150\u00D6\u00D7\u0158\u016E\u00DA\u0170\u00DC\u00DD\u0162\u00DF'+
+    '\u0155\u00E1\u00E2\u0103\u00E4\u013A\u0107\u00E7\u010D\u00E9\u0119\u00EB\u011B\u00ED\u00EE\u010F'+
+    '\u0111\u0144\u0148\u00F3\u00F4\u0151\u00F6\u00F7\u0159\u016F\u00FA\u0171\u00FC\u00FD\u0163\u02D9';
+  let r='';
+  for(let i=0;i<bytes.length;i++){const b=bytes[i];r+=b<0x80?String.fromCharCode(b):(extra[b-0x80]||'\uFFFD');}
+  return r;
 }
 
 // ═══════════════════════════════════════════
-// ACTIVITY / TYPE NORMALISATION
+// NORMALISE
 // ═══════════════════════════════════════════
 function normaliseActivity(raw) {
   if(!raw) return 'bieg';
-  const s = raw.toLowerCase().trim();
-  if(s.includes('lekkoatletyczn') || s === 'stadion') return 'stadion';
-  if(s.includes('mechaniczn') || s === 'bieżnia' || s === 'bieznia') return 'bieżnia';
+  const s=raw.toLowerCase().trim();
+  if(s.includes('lekkoatletyczn')||s==='stadion') return 'stadion';
+  if(s.includes('mechaniczn')||s==='bieżnia'||s==='bieznia') return 'bieżnia';
   if(s.includes('bieg')) return 'bieg';
-  if(s === 'inny') return 'inny';
-  return s || 'bieg';
+  if(s==='inny') return 'inny';
+  return s||'bieg';
 }
-
 function normaliseType(raw) {
   if(!raw) return 'baza tlenowa';
-  const s = raw.toLowerCase().trim();
+  const s=raw.toLowerCase().trim();
   if(s.includes('baza')) return 'baza tlenowa';
   if(s.includes('zabawa')) return 'zabawa biegowa';
-  if(s.includes('progowy') || s.includes('prog')) return 'około progowy';
-  if(s.includes('ciągł') || s.includes('ciagł') || s.includes('ciagly') || s === 'ciągły') return 'ciągły';
+  if(s.includes('progowy')||s.includes('prog')) return 'około progowy';
+  if(s.includes('ciągł')||s.includes('ciagł')||s.includes('ciagly')||s==='ciągły') return 'ciągły';
   if(s.includes('interw')) return 'interwałowy';
-  if(s === 'inny') return 'inny';
-  return s || 'baza tlenowa';
+  if(s==='inny') return 'inny';
+  return s||'baza tlenowa';
 }
 
 // ═══════════════════════════════════════════
@@ -784,10 +857,8 @@ function migrateData(){
     if(!x.zoneTimes){x.zoneTimes={};c=true;}
     if(x.task==null){x.task='';c=true;}
     if(x.hr===undefined){x.hr=null;c=true;}
-    const na=normaliseActivity(x.activity);
-    if(na!==x.activity){x.activity=na;c=true;}
-    const nt=normaliseType(x.type);
-    if(nt!==x.type){x.type=nt;c=true;}
+    const na=normaliseActivity(x.activity); if(na!==x.activity){x.activity=na;c=true;}
+    const nt=normaliseType(x.type);         if(nt!==x.type){x.type=nt;c=true;}
     if('commentColor'in x){delete x.commentColor;c=true;}
   });
   if(c) saveTrainings(t);
@@ -812,10 +883,35 @@ function parseDatePL(s){
   if(!s||!s.trim()) return null;
   const p=s.trim().split('.');
   if(p.length!==3) return null;
-  const d=p[0].padStart(2,'0'), m=p[1].padStart(2,'0'), y=p[2];
+  const d=p[0].padStart(2,'0'),m=p[1].padStart(2,'0'),y=p[2];
   if(y.length!==4||isNaN(+y)||isNaN(+m)||isNaN(+d)) return null;
   return `${y}-${m}-${d}`;
 }
+// Return a local midnight Date from YYYY-MM-DD string
+function isoToLocal(iso){
+  const [y,m,d]=iso.split('-').map(Number);
+  return new Date(y,m-1,d);
+}
+function localToISO(dt){
+  return `${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;
+}
+// Monday-based week start for a given date
+function weekStart(dt){
+  const d=new Date(dt);
+  const day=d.getDay(); // 0=Sun
+  const diff=day===0?-6:1-day; // shift to Monday
+  d.setDate(d.getDate()+diff);
+  d.setHours(0,0,0,0);
+  return d;
+}
+function addDays(dt,n){const d=new Date(dt);d.setDate(d.getDate()+n);return d;}
+function addMonths(dt,n){const d=new Date(dt);d.setMonth(d.getMonth()+n);return d;}
+function addYears(dt,n){const d=new Date(dt);d.setFullYear(d.getFullYear()+n);return d;}
+function fmtShort(dt){return `${String(dt.getDate()).padStart(2,'0')}.${String(dt.getMonth()+1).padStart(2,'0')}`;}
+function fmtShortY(dt){return `${String(dt.getDate()).padStart(2,'0')}.${String(dt.getMonth()+1).padStart(2,'0')}.${dt.getFullYear()}`;}
+const MONTHS_PL=['Sty','Lut','Mar','Kwi','Maj','Cze','Lip','Sie','Wrz','Paź','Lis','Gru'];
+const MONTHS_FULL_PL=['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'];
+const DAYS_PL=['Pon','Wto','Śro','Czw','Pią','Sob','Nie'];
 
 // ═══════════════════════════════════════════
 // TABS
@@ -827,6 +923,7 @@ function switchTab(name){
   el.classList.add('active');
   el.classList.remove('animate-in'); void el.offsetWidth; el.classList.add('animate-in');
   if(name==='endurance'){renderEndurance();renderPlanned();}
+  if(name==='summary'){renderSummary();}
 }
 function openHistory(){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
@@ -866,7 +963,7 @@ document.addEventListener('click',e=>{
 function msChanged(id){
   const wrap=document.getElementById(id);
   const checked=[...wrap.querySelectorAll('input[type="checkbox"]:checked')];
-  const badge=wrap.querySelector('.ms-badge'), labelEl=wrap.querySelector('.ms-label');
+  const badge=wrap.querySelector('.ms-badge'),labelEl=wrap.querySelector('.ms-label');
   if(checked.length===0){badge.style.display='none';labelEl.textContent='Wszystkie';}
   else{badge.textContent=checked.length;badge.style.display='inline-block';labelEl.textContent=checked.length===1?checked[0].parentElement.textContent.trim():`${checked.length} wybrane`;}
   renderHistory();
@@ -920,12 +1017,8 @@ function savePlan(){
   if(editingPlanId!==null){
     const idx=plans.findIndex(x=>x.id===editingPlanId);
     if(idx!==-1) plans[idx]={...plans[idx],date,type,task,notes};
-  } else {
-    plans.push({id:Date.now(),date,type,task,notes});
-  }
-  savePlanned(plans);
-  closePlanModal();
-  renderPlanned();
+  } else { plans.push({id:Date.now(),date,type,task,notes}); }
+  savePlanned(plans); closePlanModal(); renderPlanned();
 }
 
 // ═══════════════════════════════════════════
@@ -958,8 +1051,7 @@ window.executePlan=function(id){
   document.getElementById('f-type').value=p.type||'baza tlenowa';
   if(p.date) document.getElementById('f-date').value=p.date;
   document.getElementById('f-task').value=p.task||'';
-  if(p.task&&!taskVisible) toggleTask();
-  else if(!p.task&&taskVisible) toggleTask();
+  if(p.task&&!taskVisible) toggleTask(); else if(!p.task&&taskVisible) toggleTask();
   document.getElementById('plan-source-banner').style.display='flex';
   switchTab('endurance');
   document.getElementById('form-card').scrollIntoView({behavior:'smooth',block:'start'});
@@ -967,8 +1059,7 @@ window.executePlan=function(id){
 window.deletePlan=function(id){
   if(!confirm('Usunąć ten plan?')) return;
   if(pendingPlanId===id) clearPlanSource();
-  savePlanned(loadPlanned().filter(x=>x.id!==id));
-  renderPlanned();
+  savePlanned(loadPlanned().filter(x=>x.id!==id)); renderPlanned();
 };
 function clearPlanSource(){pendingPlanId=null;document.getElementById('plan-source-banner').style.display='none';}
 
@@ -987,27 +1078,14 @@ function rpeStyle(n,sel){
     const b=document.createElement('button');
     b.className='rpe-btn'; b.textContent=i; b.dataset.rpe=i;
     b.style.cssText=rpeStyle(i,false);
-    b.addEventListener('mouseenter',()=>{
-      if(selectedRPE!==i){
-        const p=RPE_PALETTE[i];
-        b.style.cssText=`background:${p.bg};border-color:${p.border};border-width:1.5px;color:${p.text};transform:scale(1.1);`;
-      }
-    });
+    b.addEventListener('mouseenter',()=>{if(selectedRPE!==i){const p=RPE_PALETTE[i];b.style.cssText=`background:${p.bg};border-color:${p.border};border-width:1.5px;color:${p.text};transform:scale(1.1);}`;b.style.cssText=`background:${p.bg};border-color:${p.border};border-width:1.5px;color:${p.text};transform:scale(1.1);`;}});
     b.addEventListener('mouseleave',()=>{b.style.cssText=rpeStyle(i,selectedRPE===i);});
     b.addEventListener('click',()=>{selectedRPE=selectedRPE===i?null:i;refreshRPE();});
     c.appendChild(b);
   }
 })();
-function refreshRPE(){
-  document.querySelectorAll('.rpe-btn').forEach(b=>{
-    const n=parseInt(b.dataset.rpe);
-    b.style.cssText=rpeStyle(n,n===selectedRPE);
-  });
-}
-function rpeDotStyle(rpe){
-  if(!rpe) return{bg:'#e5e7eb',border:'#d1d5db',color:'#6b7280'};
-  const p=RPE_PALETTE[rpe]; return{bg:p.bg,border:p.border,color:p.text};
-}
+function refreshRPE(){document.querySelectorAll('.rpe-btn').forEach(b=>{const n=parseInt(b.dataset.rpe);b.style.cssText=rpeStyle(n,n===selectedRPE);});}
+function rpeDotStyle(rpe){if(!rpe)return{bg:'#e5e7eb',border:'#d1d5db',color:'#6b7280'};const p=RPE_PALETTE[rpe];return{bg:p.bg,border:p.border,color:p.text};}
 
 // ═══════════════════════════════════════════
 // TOGGLES
@@ -1022,17 +1100,9 @@ function toggleZoneCol(){
   const btn=document.getElementById('zone-col-btn');
   if(btn) btn.textContent=zoneColExpanded?'−':'+';
   document.querySelectorAll('.zone-col-th').forEach(th=>th.style.width=zoneColExpanded?'auto':'2.2rem');
-  document.querySelectorAll('.zone-col-td').forEach(td=>{
-    td.style.maxWidth=zoneColExpanded?'300px':'0';
-    td.style.overflow=zoneColExpanded?'visible':'hidden';
-    td.style.padding=zoneColExpanded?'0.5rem 0.65rem':'0.5rem 0';
-  });
+  document.querySelectorAll('.zone-col-td').forEach(td=>{td.style.maxWidth=zoneColExpanded?'300px':'0';td.style.overflow=zoneColExpanded?'visible':'hidden';td.style.padding=zoneColExpanded?'0.5rem 0.65rem':'0.5rem 0';});
   document.querySelectorAll('.zone-col-content').forEach(el=>el.style.display=zoneColExpanded?'block':'none');
 }
-
-// ═══════════════════════════════════════════
-// EXCL
-// ═══════════════════════════════════════════
 let commentExcl=false;
 function toggleExcl(){commentExcl=!commentExcl;document.getElementById('excl-btn').classList.toggle('on',commentExcl);}
 function resetExcl(){commentExcl=false;document.getElementById('excl-btn').classList.remove('on');}
@@ -1058,11 +1128,9 @@ function calcPaceStr(d,s){
   const ps=s/d,pm=Math.floor(ps/60),ss=Math.round(ps%60);
   return ss===60?`${pm+1}:00`:`${pm}:${String(ss).padStart(2,'0')}`;
 }
-
 const distInp=document.getElementById('f-distance');
 const durInp =document.getElementById('f-duration');
 const paceInp=document.getElementById('f-pace');
-
 function updatePaceLive(){const p=calcPaceStr(parseFloat(distInp.value),parseTime(durInp.value));paceInp.value=p?p+' min/km':'';}
 distInp.addEventListener('input',updatePaceLive);
 durInp.addEventListener('input',updatePaceLive);
@@ -1097,8 +1165,7 @@ function enterEditMode(id){
   document.getElementById('cancel-btn').style.display='inline-block';
   document.getElementById('edit-banner').classList.add('visible');
   document.getElementById('form-card').classList.add('editing');
-  clearPlanSource();
-  switchTab('endurance');
+  clearPlanSource(); switchTab('endurance');
   document.getElementById('form-card').scrollIntoView({behavior:'smooth',block:'start'});
 }
 function cancelEdit(){editingId=null;resetForm();}
@@ -1122,8 +1189,7 @@ function resetForm(){
   document.getElementById('edit-banner').classList.remove('visible');
   document.getElementById('form-card').classList.remove('editing');
   document.getElementById('form-error').style.display='none';
-  clearPlanSource();
-  renderEndurance();
+  clearPlanSource(); renderEndurance();
 }
 
 // ═══════════════════════════════════════════
@@ -1140,25 +1206,20 @@ document.getElementById('add-btn').addEventListener('click',()=>{
   const task           =document.getElementById('f-task').value.trim();
   const hrRaw          =parseInt(document.getElementById('f-hr').value);
   const hr             =isNaN(hrRaw)||hrRaw<=0?null:hrRaw;
-
   if(!date)                        {showError('Podaj datę.');return;}
   if(!distance||distance<=0)       {showError('Podaj dystans.');return;}
-  if(!durationSeconds||durationSeconds<=0){showError('Podaj czas (mm:ss lub hh:mm:ss).');return;}
-
+  if(!durationSeconds||durationSeconds<=0){showError('Podaj czas.');return;}
   document.getElementById('form-error').style.display='none';
   const zoneTimes={};
   [1,2,3,4,5].forEach(z=>{const s=parseTime(document.getElementById(`zt-${z}`).value);if(s&&s>0)zoneTimes[z]=s;});
-
   const record={date,activity,type,distance,durationSeconds,accent,rpe:selectedRPE,hr,note,commentExcl,zoneTimes,task};
   const all=loadTrainings();
   if(editingId!==null){const idx=all.findIndex(x=>x.id===editingId);if(idx!==-1)all[idx]={...all[idx],...record};}
   else all.push({id:Date.now(),...record});
   saveTrainings(all);
-
   if(pendingPlanId!==null){savePlanned(loadPlanned().filter(x=>x.id!==pendingPlanId));pendingPlanId=null;}
   resetForm();
 });
-
 function showError(msg){const el=document.getElementById('form-error');el.textContent=msg;el.style.display='inline';setTimeout(()=>el.style.display='none',4000);}
 
 // ═══════════════════════════════════════════
@@ -1177,7 +1238,6 @@ window.editTraining=function(id){enterEditMode(id);};
 // DISPLAY HELPERS
 // ═══════════════════════════════════════════
 function escHtml(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-
 function typeTagClass(type){
   const t=(type||'').toLowerCase();
   if(t==='baza tlenowa') return 'tag-type-blue';
@@ -1186,9 +1246,7 @@ function typeTagClass(type){
 }
 function commentCellHTML(note,excl){
   if(!note||!note.trim()) return`<span style="color:var(--border);">—</span>`;
-  const icon=excl
-    ?`<span style="display:inline-flex;align-items:center;gap:0.1rem;font-size:0.95rem;">💬<span style="font-size:0.82rem;font-weight:900;color:#b45309;">❗</span></span>`
-    :`<span style="font-size:0.95rem;">💬</span>`;
+  const icon=excl?`<span style="display:inline-flex;align-items:center;gap:0.1rem;font-size:0.95rem;">💬<span style="font-size:0.82rem;font-weight:900;color:#b45309;">❗</span></span>`:`<span style="font-size:0.95rem;">💬</span>`;
   return`<span class="comment-cell" onclick="this.classList.toggle('open');event.stopPropagation();">${icon}<div class="tooltip-box">${escHtml(note)}</div></span>`;
 }
 function zoneTimesHTML(zt){
@@ -1196,18 +1254,14 @@ function zoneTimesHTML(zt){
   for(let z=1;z<=5;z++){const s=zt&&zt[z]?zt[z]:0;p.push(`<span>S${z}-${s>0?formatDuration(s):'00:00'}</span>`);}
   return`<div class="zone-time-cell">${p.join('')}</div>`;
 }
-function hrCellHTML(hr){
-  if(!hr) return`<span style="color:var(--border);">—</span>`;
-  return`<span class="hr-cell">♥ ${hr} bpm</span>`;
-}
+function hrCellHTML(hr){if(!hr)return`<span style="color:var(--border);">—</span>`;return`<span class="hr-cell">♥ ${hr} bpm</span>`;}
 
 // ═══════════════════════════════════════════
 // BUILD TABLE
 // ═══════════════════════════════════════════
-function buildTableHTML(rows, mode){
+function buildTableHTML(rows,mode){
   const sortable=mode==='full';
   if(rows.length===0) return`<div class="empty-state"><div class="big">🏃</div><p class="font-semibold" style="color:var(--muted);">Brak treningów</p></div>`;
-
   const compactCols=[
     {key:'date',label:'Data'},{key:'activity',label:'Akt.'},{key:'type',label:'Typ'},
     {key:'',label:'Zadanie',taskCol:true},{key:'rpe',label:'RPE'},
@@ -1221,7 +1275,6 @@ function buildTableHTML(rows, mode){
     {key:'',label:'Kom.'},{key:'',label:'Tętno'},{key:'',label:'Strefy',zoneCol:true},{key:'',label:''},
   ];
   const cols=mode==='compact'?compactCols:fullCols;
-
   const thead=`<table class="data-table"><thead><tr>`+
     cols.map(h=>{
       if(h.zoneCol) return`<th class="zone-col-th" style="width:2.2rem;text-align:center;">Strefy<button class="zone-toggle-btn" id="zone-col-btn" onclick="toggleZoneCol()" title="Pokaż/ukryj">+</button></th>`;
@@ -1230,14 +1283,12 @@ function buildTableHTML(rows, mode){
       const cls=hSortCol===h.key?(hSortDir==='asc'?'sort-asc':'sort-desc'):'';
       return`<th data-col="${h.key}" class="sortable ${cls}">${h.label}<span class="sort-icon"></span></th>`;
     }).join('')+`</tr></thead><tbody>`;
-
   const tbody=rows.map(t=>{
     const pace=calcPaceStr(t.distance,t.durationSeconds);
-    const dur =formatDuration(t.durationSeconds);
-    const dot =rpeDotStyle(t.rpe);
+    const dur=formatDuration(t.durationSeconds);
+    const dot=rpeDotStyle(t.rpe);
     const rpeCell=t.rpe?`<span class="rpe-dot" style="background:${dot.bg};color:${dot.color};border:1.5px solid ${dot.border};">${t.rpe}</span>`:`<span style="color:var(--border);">—</span>`;
     const taskHTML=t.task?`<div class="task-cell">${escHtml(t.task)}</div>`:`<div class="task-cell empty">—</div>`;
-
     if(mode==='compact'){
       return`<tr>
         <td class="mono" style="white-space:nowrap;">${formatDatePL(t.date)}</td>
@@ -1280,10 +1331,6 @@ function buildTableHTML(rows, mode){
   }).join('');
   return thead+tbody+'</tbody></table>';
 }
-
-// ═══════════════════════════════════════════
-// RENDER ENDURANCE
-// ═══════════════════════════════════════════
 function renderEndurance(){
   const sorted=loadTrainings().sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id).slice(0,5);
   document.getElementById('endurance-table-body').innerHTML=buildTableHTML(sorted,'compact');
@@ -1292,9 +1339,9 @@ function renderEndurance(){
 // ═══════════════════════════════════════════
 // HISTORY
 // ═══════════════════════════════════════════
-let hSortCol='date', hSortDir='desc';
+let hSortCol='date',hSortDir='desc';
 function populateYearFilter(){
-  const sel=document.getElementById('h-filter-year'), cur=sel.value;
+  const sel=document.getElementById('h-filter-year'),cur=sel.value;
   const years=[...new Set(loadTrainings().map(t=>t.date.split('-')[0]))].sort((a,b)=>b-a);
   sel.innerHTML='<option value="">Wszystkie</option>'+years.map(y=>`<option value="${y}"${y===cur?' selected':''}>${y}</option>`).join('');
 }
@@ -1305,22 +1352,20 @@ function renderHistory(){
   const months=getMsValues('ms-month'),activities=getMsValues('ms-activity'),types=getMsValues('ms-type');
   if(fy)               data=data.filter(t=>t.date.startsWith(fy));
   if(months.length>0)  data=data.filter(t=>months.includes(t.date.split('-')[1]));
-  if(activities.length>0) data=data.filter(t=>activities.includes(t.activity));
+  if(activities.length>0)data=data.filter(t=>activities.includes(t.activity));
   if(types.length>0)   data=data.filter(t=>types.includes(t.type));
   if(fr)               data=data.filter(t=>String(t.rpe)===fr);
   data.sort((a,b)=>{
     let va,vb;
     switch(hSortCol){
-      case 'date':     va=a.date;          vb=b.date;          break;
-      case 'activity': va=a.activity||'';  vb=b.activity||'';  break;
-      case 'type':     va=a.type||'';      vb=b.type||'';      break;
-      case 'rpe':      va=a.rpe||0;        vb=b.rpe||0;        break;
-      case 'distance': va=a.distance||0;   vb=b.distance||0;   break;
-      case 'time':     va=a.durationSeconds||0; vb=b.durationSeconds||0; break;
-      case 'pace':
-        va=(a.distance&&a.durationSeconds)?a.durationSeconds/a.distance:0;
-        vb=(b.distance&&b.durationSeconds)?b.durationSeconds/b.distance:0; break;
-      default: va=a.date;vb=b.date;
+      case 'date':     va=a.date;vb=b.date;break;
+      case 'activity': va=a.activity||'';vb=b.activity||'';break;
+      case 'type':     va=a.type||'';vb=b.type||'';break;
+      case 'rpe':      va=a.rpe||0;vb=b.rpe||0;break;
+      case 'distance': va=a.distance||0;vb=b.distance||0;break;
+      case 'time':     va=a.durationSeconds||0;vb=b.durationSeconds||0;break;
+      case 'pace':     va=(a.distance&&a.durationSeconds)?a.durationSeconds/a.distance:0;vb=(b.distance&&b.durationSeconds)?b.durationSeconds/b.distance:0;break;
+      default:         va=a.date;vb=b.date;
     }
     if(va<vb)return hSortDir==='asc'?-1:1;
     if(va>vb)return hSortDir==='asc'?1:-1;
@@ -1331,18 +1376,18 @@ function renderHistory(){
   wrap.querySelectorAll('th[data-col]').forEach(th=>{
     th.addEventListener('click',()=>{
       const col=th.dataset.col;
-      if(hSortCol===col)hSortDir=hSortDir==='asc'?'desc':'asc'; else{hSortCol=col;hSortDir='asc';}
+      if(hSortCol===col)hSortDir=hSortDir==='asc'?'desc':'asc';else{hSortCol=col;hSortDir='asc';}
       renderHistory();
     });
   });
 }
 
 // ═══════════════════════════════════════════
-// CSV IMPORT — with auto encoding detection
+// CSV IMPORT
 // ═══════════════════════════════════════════
 function handleCsvImport(event){
   const file=event.target.files[0]; if(!file) return;
-  readFileWithEncodingDetection(file).then(({text, encoding})=>{
+  readFileWithEncodingDetection(file).then(({text,encoding})=>{
     const log=document.getElementById('import-log');
     log.style.display='block';
     log.innerHTML=`<div style="color:#93c5fd;">📄 Wykryte kodowanie: ${encoding}</div>`;
@@ -1354,139 +1399,77 @@ function handleCsvImport(event){
   });
   event.target.value='';
 }
-
 function parseCsv(text){
   const log=document.getElementById('import-log');
-  const logLine=(msg,ok=true)=>{
-    log.innerHTML+=`<div style="color:${ok?'#86efac':'#fca5a5'};">${escHtml(msg)}</div>`;
-    log.scrollTop=log.scrollHeight;
-  };
-
+  const logLine=(msg,ok=true)=>{log.innerHTML+=`<div style="color:${ok?'#86efac':'#fca5a5'};">${escHtml(msg)}</div>`;log.scrollTop=log.scrollHeight;};
   const lines=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n').filter(l=>l.trim()!=='');
   if(lines.length===0){logLine('Plik jest pusty.',false);return;}
-
-  // Skip header if col 0 is not a date
   let startRow=0;
   const firstCols=lines[0].split(';');
-  if(!parseDatePL((firstCols[0]||'').trim())){
-    logLine(`Pominięto nagłówek: "${lines[0].substring(0,60)}"`);
-    startRow=1;
-  }
-
+  if(!parseDatePL((firstCols[0]||'').trim())){logLine(`Pominięto nagłówek: "${lines[0].substring(0,60)}"`);startRow=1;}
   const existing=loadTrainings();
-  const imported=[];
-  let ok=0, skipped=0, errors=0;
-
+  const imported=[]; let ok=0,skipped=0,errors=0;
   for(let i=startRow;i<lines.length;i++){
-    const raw=lines[i];
-    if(!raw.trim()) continue;
+    const raw=lines[i]; if(!raw.trim()) continue;
     const cols=splitCsvLine(raw,';');
     const c=(idx)=>(cols[idx]||'').trim();
-
-    // Col 0: Date
     const date=parseDatePL(c(0));
     if(!date){logLine(`Wiersz ${i+1}: nieprawidłowa data "${c(0)}" — pomijam.`,false);errors++;continue;}
-
-    // Col 1: Activity
     const activity=normaliseActivity(c(1));
-
-    // Col 2: Type
     const type=normaliseType(c(2));
-
-    // Col 3: Distance
     const distance=parseFloat(c(3).replace(',','.'));
     if(isNaN(distance)||distance<=0){logLine(`Wiersz ${i+1}: nieprawidłowy dystans "${c(3)}" — pomijam.`,false);errors++;continue;}
-
-    // Col 4: Accent
     const accent=parseFloat(c(4).replace(',','.'))||0;
-
-    // Col 5: Duration
     const durationSeconds=parseTime(c(5));
     if(!durationSeconds||durationSeconds<=0){logLine(`Wiersz ${i+1}: nieprawidłowy czas "${c(5)}" — pomijam.`,false);errors++;continue;}
-
-    // Col 6: RPE
     const rpeRaw=parseInt(c(6),10);
     const rpe=(isNaN(rpeRaw)||rpeRaw<1||rpeRaw>10)?null:rpeRaw;
-
-    // Col 7: Task (Polish chars preserved from encoding detection)
-    const task=c(7);
-
-    // Col 8: Note
-    const note=c(8);
-    const commentExcl=false;
-
-    // Col 9: Heart rate
+    const task=c(7); const note=c(8); const commentExcl=false;
     const hrRaw=parseInt(c(9),10);
     const hr=(isNaN(hrRaw)||hrRaw<=0)?null:hrRaw;
-
-    // Col 10-14: Zone times
     const zoneTimes={};
-    for(let z=0;z<5;z++){
-      const secs=parseTime(c(10+z));
-      if(secs&&secs>0) zoneTimes[z+1]=secs;
-    }
-
-    // Duplicate check
+    for(let z=0;z<5;z++){const secs=parseTime(c(10+z));if(secs&&secs>0)zoneTimes[z+1]=secs;}
     const isDup=existing.some(x=>x.date===date&&x.distance===distance&&x.durationSeconds===durationSeconds);
     if(isDup){logLine(`Wiersz ${i+1}: duplikat (${formatDatePL(date)}, ${distance} km) — pomijam.`);skipped++;continue;}
-
     imported.push({id:Date.now()+i,date,activity,type,distance,durationSeconds,accent,rpe,hr,note,commentExcl,zoneTimes,task});
     ok++;
   }
-
   if(imported.length>0){
     saveTrainings([...existing,...imported]);
     renderEndurance();
-    if(document.getElementById('tab-history').classList.contains('active')){
-      populateYearFilter(); renderHistory();
-    }
+    if(document.getElementById('tab-history').classList.contains('active')){populateYearFilter();renderHistory();}
   }
-
   logLine('─────────────────────────────');
   logLine(`✓ Zaimportowano: ${ok} treningów`);
-  if(skipped>0) logLine(`⚠ Pominięto duplikatów: ${skipped}`);
-  if(errors>0)  logLine(`✗ Błędy parsowania: ${errors}`,false);
+  if(skipped>0)logLine(`⚠ Pominięto duplikatów: ${skipped}`);
+  if(errors>0)logLine(`✗ Błędy parsowania: ${errors}`,false);
   logLine(`Łącznie wierszy danych: ${ok+skipped+errors}`);
 }
-
 function splitCsvLine(line,sep){
-  const result=[];
-  let cur='',inQ=false;
+  const result=[];let cur='',inQ=false;
   for(let i=0;i<line.length;i++){
     const ch=line[i];
     if(ch==='"'){if(inQ&&line[i+1]==='"'){cur+='"';i++;}else inQ=!inQ;}
     else if(ch===sep&&!inQ){result.push(cur);cur='';}
     else{cur+=ch;}
   }
-  result.push(cur);
-  return result;
+  result.push(cur);return result;
 }
-
-// ═══════════════════════════════════════════
-// SAMPLE CSV DOWNLOAD (UTF-8 with BOM for Excel compatibility)
-// ═══════════════════════════════════════════
 function downloadSampleCsv(){
   const rows=[
     'Data;Aktywność;Typ;Dystans;Akcent;Czas;RPE;Zadanie;Notatka;Tętno;S1;S2;S3;S4;S5',
     '06.02.2025;bieg;baza tlenowa;6,06;0;35:29;6;spokojny bieg;dobre samopoczucie;138;15:00;12:00;6:00;2:00;0:29',
     '07.02.2025;stadion;interwałowy;8,05;3;45:17;8;3x2000m;ciężki trening;162;5:00;8:00;20:00;10:00;2:17',
-    '08.02.2025;bieżnia;ciągły;10,00;0;55:00;6;bieg ciągły;normalne tętno;145;10:00;15:00;20:00;8:00;2:00',
   ];
-  // UTF-8 BOM so Excel opens it correctly
   const bom='\uFEFF';
   const blob=new Blob([bom+rows.join('\n')],{type:'text/csv;charset=utf-8;'});
   const url=URL.createObjectURL(blob);
-  const a=document.createElement('a'); a.href=url; a.download='trainlog_sample.csv'; a.click();
+  const a=document.createElement('a');a.href=url;a.download='trainlog_sample.csv';a.click();
   URL.revokeObjectURL(url);
 }
-
-// ═══════════════════════════════════════════
-// CLEAR ALL TRAININGS
-// ═══════════════════════════════════════════
 function clearAllTrainings(){
-  if(!confirm('Usunąć WSZYSTKIE treningi? Tej operacji nie można cofnąć.')) return;
-  saveTrainings([]);
-  renderEndurance();
+  if(!confirm('Usunąć WSZYSTKIE treningi?')) return;
+  saveTrainings([]);renderEndurance();
   const log=document.getElementById('import-log');
   log.style.display='block';
   log.innerHTML=`<div style="color:#fca5a5;">🗑 Wszystkie treningi zostały usunięte.</div>`;
@@ -1496,14 +1479,14 @@ function clearAllTrainings(){
 // PROFILE
 // ═══════════════════════════════════════════
 function buildZoneTable(){
-  const tbody=document.getElementById('zone-tbody'); tbody.innerHTML='';
+  const tbody=document.getElementById('zone-tbody');tbody.innerHTML='';
   ZONE_DISPLAY.forEach(({num,label,cls})=>{
     const tr=document.createElement('tr');
     tr.innerHTML=`<td><span class="${cls}">${label}</span></td>
-      <td><input type="number" id="z${num}-bpm-min"   placeholder="—" min="0" oninput="validateZones()"/></td>
-      <td><input type="number" id="z${num}-bpm-max"   placeholder="—" min="0" oninput="validateZones()"/></td>
-      <td><input type="text"   id="z${num}-pace-min"  placeholder="5:00"/></td>
-      <td><input type="text"   id="z${num}-pace-max"  placeholder="6:30"/></td>
+      <td><input type="number" id="z${num}-bpm-min" placeholder="—" min="0" oninput="validateZones()"/></td>
+      <td><input type="number" id="z${num}-bpm-max" placeholder="—" min="0" oninput="validateZones()"/></td>
+      <td><input type="text"   id="z${num}-pace-min" placeholder="5:00"/></td>
+      <td><input type="text"   id="z${num}-pace-max" placeholder="6:30"/></td>
       <td><input type="number" id="z${num}-power-min" placeholder="—" min="0" oninput="validateZones()"/></td>
       <td><input type="number" id="z${num}-power-max" placeholder="—" min="0" oninput="validateZones()"/></td>`;
     tbody.appendChild(tr);
@@ -1536,15 +1519,15 @@ function saveProfile(){
   }
   saveProfileData(p);
   const el=document.getElementById('profile-saved');
-  el.style.display='inline'; setTimeout(()=>el.style.display='none',2500);
+  el.style.display='inline';setTimeout(()=>el.style.display='none',2500);
 }
 function loadProfileUI(){
   const p=loadProfile();
-  if(p.height) document.getElementById('p-height').value=p.height;
-  if(p.weight) document.getElementById('p-weight').value=p.weight;
+  if(p.height)document.getElementById('p-height').value=p.height;
+  if(p.weight)document.getElementById('p-weight').value=p.weight;
   if(p.zones){
     for(let z=1;z<=5;z++){
-      const zd=p.zones[z]; if(!zd) continue;
+      const zd=p.zones[z];if(!zd)continue;
       document.getElementById(`z${z}-bpm-min`).value  =zd.bpmMin  ||'';
       document.getElementById(`z${z}-bpm-max`).value  =zd.bpmMax  ||'';
       document.getElementById(`z${z}-power-min`).value=zd.powerMin||'';
@@ -1553,6 +1536,262 @@ function loadProfileUI(){
       document.getElementById(`z${z}-pace-max`).value =zd.paceMax ||'';
     }
   }
+}
+
+// ═══════════════════════════════════════════════════════════
+// SUMMARY — Chart.js stacked bar (Dystans bazowy + Akcent)
+// ═══════════════════════════════════════════════════════════
+
+let summaryRange = 'week';   // 'week' | 'month' | '8weeks' | 'year'
+let summaryOffset = 0;       // 0 = current period, -1 = previous, etc.
+let summaryChart = null;
+
+// Returns the anchor date for offset calculation (today's local midnight)
+function today0(){const d=new Date();d.setHours(0,0,0,0);return d;}
+
+// Build period boundaries {start, end (inclusive), labels[], aggregation}
+function buildPeriod(){
+  const now=today0();
+  let start, end;
+
+  if(summaryRange==='week'){
+    // Monday of current week + offset weeks
+    const mon=weekStart(now);
+    start=addDays(mon, summaryOffset*7);
+    end=addDays(start,6);
+
+  } else if(summaryRange==='month'){
+    // First day of current month + offset months
+    const base=new Date(now.getFullYear(),now.getMonth()+summaryOffset,1);
+    start=base;
+    end=new Date(base.getFullYear(),base.getMonth()+1,0); // last day of month
+
+  } else if(summaryRange==='8weeks'){
+    // Current Monday + offset*8weeks, covers 8 weeks forward
+    const mon=weekStart(now);
+    start=addDays(mon, summaryOffset*56);
+    end=addDays(start,55); // 8 weeks = 56 days
+
+  } else { // year
+    const y=now.getFullYear()+summaryOffset;
+    start=new Date(y,0,1);
+    end=new Date(y,11,31);
+  }
+
+  return {start,end};
+}
+
+// Aggregate trainings into labelled buckets
+function aggregateForPeriod(){
+  const trainings=loadTrainings();
+  const {start,end}=buildPeriod();
+
+  // Filter to period
+  const startISO=localToISO(start), endISO=localToISO(end);
+  const inRange=trainings.filter(t=>t.date>=startISO&&t.date<=endISO);
+
+  let labels=[], base=[], accent=[];
+
+  if(summaryRange==='week'){
+    // 7 buckets: Mon–Sun
+    labels=DAYS_PL.slice();
+    base=Array(7).fill(0); accent=Array(7).fill(0);
+    inRange.forEach(t=>{
+      const dt=isoToLocal(t.date);
+      const dow=dt.getDay(); // 0=Sun
+      const idx=dow===0?6:dow-1; // Mon=0 … Sun=6
+      base[idx]+=Math.max(0,(t.distance||0)-(t.accent||0));
+      accent[idx]+=(t.accent||0);
+    });
+
+  } else if(summaryRange==='month'){
+    const daysInMonth=end.getDate();
+    labels=Array.from({length:daysInMonth},(_,i)=>String(i+1));
+    base=Array(daysInMonth).fill(0); accent=Array(daysInMonth).fill(0);
+    inRange.forEach(t=>{
+      const dt=isoToLocal(t.date);
+      const idx=dt.getDate()-1;
+      base[idx]+=Math.max(0,(t.distance||0)-(t.accent||0));
+      accent[idx]+=(t.accent||0);
+    });
+
+  } else if(summaryRange==='8weeks'){
+    // 8 buckets, one per week
+    for(let w=0;w<8;w++){
+      const wStart=addDays(start,w*7);
+      const wEnd=addDays(wStart,6);
+      labels.push(`${fmtShort(wStart)}–${fmtShort(wEnd)}`);
+      let b=0,a=0;
+      const ws=localToISO(wStart),we=localToISO(wEnd);
+      inRange.filter(t=>t.date>=ws&&t.date<=we).forEach(t=>{
+        b+=Math.max(0,(t.distance||0)-(t.accent||0));
+        a+=(t.accent||0);
+      });
+      base.push(b); accent.push(a);
+    }
+
+  } else { // year
+    labels=MONTHS_PL.slice();
+    base=Array(12).fill(0); accent=Array(12).fill(0);
+    inRange.forEach(t=>{
+      const dt=isoToLocal(t.date);
+      const idx=dt.getMonth();
+      base[idx]+=Math.max(0,(t.distance||0)-(t.accent||0));
+      accent[idx]+=(t.accent||0);
+    });
+  }
+
+  // Stats
+  const totalDist=inRange.reduce((s,t)=>s+(t.distance||0),0);
+  const totalAccent=inRange.reduce((s,t)=>s+(t.accent||0),0);
+  const count=inRange.length;
+  const avg=count>0?totalDist/count:0;
+
+  return {labels, base, accent, totalDist, totalAccent, count, avg, start, end};
+}
+
+// Format period label for navigation bar
+function formatPeriodLabel(start, end){
+  if(summaryRange==='week')
+    return `${fmtShortY(start)} – ${fmtShortY(end)}`;
+  if(summaryRange==='month')
+    return `${MONTHS_FULL_PL[start.getMonth()]} ${start.getFullYear()}`;
+  if(summaryRange==='8weeks')
+    return `${fmtShortY(start)} – ${fmtShortY(end)}`;
+  // year
+  return `${start.getFullYear()}`;
+}
+
+// Check navigation bounds
+function canGoBack(){
+  const trainings=loadTrainings();
+  if(!trainings.length) return false;
+  const oldest=trainings.map(t=>t.date).sort()[0];
+  const {start}=buildPeriod();
+  // simulate one step back
+  const testOffset=summaryOffset-1;
+  const prev=summaryOffset; summaryOffset=testOffset;
+  const {end:prevEnd}=buildPeriod(); summaryOffset=prev;
+  return localToISO(prevEnd)>=oldest;
+}
+function canGoForward(){
+  // Can go forward only if current offset < 0 (not at current period)
+  return summaryOffset<0;
+}
+
+function setSummaryRange(range){
+  summaryRange=range; summaryOffset=0;
+  document.querySelectorAll('.range-btn').forEach(b=>b.classList.toggle('active',b.dataset.range===range));
+  renderSummary();
+}
+function summaryNav(dir){
+  summaryOffset+=dir;
+  renderSummary();
+}
+
+function renderSummary(){
+  const {labels,base,accent,totalDist,totalAccent,count,avg,start,end}=aggregateForPeriod();
+
+  // Period label
+  document.getElementById('sum-period-label').textContent=formatPeriodLabel(start,end);
+
+  // Nav buttons
+  document.getElementById('sum-prev').disabled=!canGoBack();
+  document.getElementById('sum-next').disabled=!canGoForward();
+
+  // Stat pills
+  document.getElementById('stat-total').textContent=totalDist.toFixed(2)+' km';
+  document.getElementById('stat-accent').textContent=totalAccent.toFixed(2)+' km';
+  document.getElementById('stat-count').textContent=count;
+  document.getElementById('stat-avg').textContent=avg.toFixed(2)+' km';
+
+  // Chart
+  const ctx=document.getElementById('summary-chart').getContext('2d');
+  if(summaryChart){summaryChart.destroy();}
+
+  // Font defaults
+  Chart.defaults.font.family="'Syne', sans-serif";
+
+  summaryChart=new Chart(ctx,{
+    type:'bar',
+    data:{
+      labels,
+      datasets:[
+        {
+          label:'Dystans bazowy',
+          data:base.map(v=>Math.round(v*100)/100),
+          backgroundColor:'rgba(110,168,216,0.85)',
+          borderColor:'rgba(110,168,216,1)',
+          borderWidth:1,
+          borderRadius:{topLeft:0,topRight:0,bottomLeft:3,bottomRight:3},
+          borderSkipped:'bottom',
+        },
+        {
+          label:'Akcent',
+          data:accent.map(v=>Math.round(v*100)/100),
+          backgroundColor:'rgba(212,82,42,0.85)',
+          borderColor:'rgba(212,82,42,1)',
+          borderWidth:1,
+          borderRadius:{topLeft:3,topRight:3,bottomLeft:0,bottomRight:0},
+          borderSkipped:'bottom',
+        }
+      ]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          backgroundColor:'#1f2937',
+          titleColor:'#f9fafb',
+          bodyColor:'#d1d5db',
+          padding:10,
+          cornerRadius:6,
+          titleFont:{family:"'Syne',sans-serif",size:12,weight:'bold'},
+          bodyFont:{family:"'DM Mono',monospace",size:11},
+          callbacks:{
+            title(items){return items[0].label;},
+            afterTitle(items){
+              const total=(items[0].parsed.y||0)+(items[1]?.parsed.y||0);
+              return `Łącznie: ${total.toFixed(2)} km`;
+            },
+            label(item){
+              const val=item.parsed.y;
+              if(val===0) return null;
+              return `  ${item.dataset.label}: ${val.toFixed(2)} km`;
+            }
+          }
+        }
+      },
+      scales:{
+        x:{
+          stacked:true,
+          grid:{display:false},
+          border:{display:false},
+          ticks:{
+            font:{family:"'DM Mono',monospace",size:10},
+            color:'#8a8580',
+            maxRotation: summaryRange==='8weeks'?30:0,
+            autoSkip:true,
+            maxTicksLimit:summaryRange==='month'?15:16,
+          }
+        },
+        y:{
+          stacked:true,
+          beginAtZero:true,
+          border:{display:false},
+          grid:{color:'rgba(0,0,0,0.06)'},
+          ticks:{
+            font:{family:"'DM Mono',monospace",size:10},
+            color:'#8a8580',
+            callback:v=>v>0?v+' km':v,
+          }
+        }
+      }
+    }
+  });
 }
 
 // ═══════════════════════════════════════════
