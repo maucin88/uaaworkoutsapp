@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
@@ -170,178 +171,203 @@
     .data-table tbody tr { border-bottom: 1px solid var(--border); transition: background 0.1s; }
     .data-table tbody tr:hover { background: #faf8f4; }
     .data-table tbody td { padding: 0.5rem 0.65rem; vertical-align: middle; }
-    .task-cell { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--ink); min-width: 140px; max-width: 190px; word-break: break-word; line-height: 1.4; }
-    .task-cell.empty { color: var(--border); }
-    .hr-cell { font-family: 'DM Mono', monospace; font-size: 0.75rem; white-space: nowrap; color: #e11d48; }
-    .compact-table-wrap { border-radius: 10px; border: 1.5px solid var(--border); overflow: hidden; }
-    .history-table-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 10px; border: 1.5px solid var(--border); }
-    .history-table-scroll .data-table { min-width: 1200px; }
-    .tag-sm {
-      display: inline-block; font-family: 'DM Mono', monospace;
-      font-size: 0.65rem; border-radius: 3px; padding: 0.1rem 0.42rem; white-space: nowrap;
-      text-transform: lowercase;
-    }
-    .tag-activity    { background: #ede9fe; color: #5b21b6; }
-    .tag-type-blue   { background: #dbeafe; color: #1e40af; }
-    .tag-type-green  { background: #dcfce7; color: #15803d; }
-    .tag-type-orange { background: #ffedd5; color: #c2410c; }
-    .rpe-dot {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 1.6rem; height: 1.6rem; border-radius: 50%;
-      font-size: 0.72rem; font-weight: 700; font-family: 'DM Mono', monospace;
-    }
-    .comment-cell { position: relative; display: inline-flex; align-items: center; gap: 0.15rem; cursor: pointer; }
-    .tooltip-box {
-      display: none; position: absolute; z-index: 40;
-      top: 50%; left: calc(100% + 8px); transform: translateY(-50%);
-      background: #1f2937; color: #f9fafb; border-radius: 6px; padding: 0.35rem 0.75rem;
-      font-family: 'Syne', sans-serif; font-size: 0.75rem;
-      white-space: nowrap; max-width: 280px; overflow: hidden; text-overflow: ellipsis;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.22); pointer-events: none; line-height: 1.4;
-    }
-    .tooltip-box::before {
-      content: ''; position: absolute; right: 100%; top: 50%; transform: translateY(-50%);
-      border: 5px solid transparent; border-right-color: #1f2937;
-    }
-    .comment-cell.open .tooltip-box { display: block; }
-    .row-btn {
-      font-family: 'DM Mono', monospace; font-size: 0.65rem;
-      padding: 0.15rem 0.45rem; border-radius: 4px;
-      border: 1px solid var(--border); background: none;
-      color: var(--muted); cursor: pointer; transition: all 0.15s; margin-left: 2px;
-    }
-    .row-btn:hover     { border-color: var(--accent); color: var(--accent); }
-    .row-btn.del:hover { border-color: #c62828; color: #c62828; }
-    .zone-time-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 0.5rem; margin-top: 0.6rem; }
-    .zone-time-item label { font-size: 0.62rem; }
-    .zone-time-cell { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); white-space: nowrap; }
-    .zone-time-cell span { display: inline-block; margin-right: 0.25rem; }
-    .zone-toggle-btn {
-      background: none; border: none; cursor: pointer; font-size: 0.75rem;
-      color: var(--paper); opacity: 0.7; padding: 0 0.2rem; vertical-align: middle;
-    }
-    .zone-toggle-btn:hover { opacity: 1; }
-    .excl-toggle {
-      font-family: 'DM Mono', monospace; font-size: 0.8rem;
-      padding: 0.2rem 0.55rem; border-radius: 5px;
-      border: 1.5px solid var(--border); background: var(--paper);
-      cursor: pointer; color: var(--muted); transition: all 0.15s;
-      display: inline-flex; align-items: center; gap: 0.3rem;
-    }
-    .excl-toggle.on { background: #fef3c7; border-color: #f59e0b; color: #92400e; }
-    .ms-filter { position: relative; display: inline-block; }
-    .ms-trigger {
-      font-family: 'DM Mono', monospace; font-size: 0.78rem;
-      padding: 0.32rem 0.6rem; border: 1.5px solid var(--border);
-      border-radius: 6px; background: var(--paper); color: var(--ink);
-      cursor: pointer; display: flex; align-items: center; gap: 0.4rem;
-      white-space: nowrap; transition: border-color 0.15s; user-select: none; min-width: 110px;
-    }
-    .ms-trigger:hover, .ms-trigger.open { border-color: var(--accent); }
-    .ms-trigger .ms-arrow { margin-left: auto; font-size: 0.55rem; color: var(--muted); transition: transform 0.15s; }
-    .ms-trigger.open .ms-arrow { transform: rotate(180deg); }
-    .ms-badge {
-      background: var(--accent); color: white; border-radius: 10px;
-      font-size: 0.6rem; font-weight: 700; padding: 0.05rem 0.35rem;
-      font-family: 'Syne', sans-serif; min-width: 1.1rem; text-align: center;
-    }
-    .ms-dropdown {
-      display: none; position: absolute; top: calc(100% + 4px); left: 0; z-index: 100;
-      background: var(--card); border: 1.5px solid var(--border);
-      border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-      min-width: 180px; max-height: 260px; overflow-y: auto; padding: 0.35rem 0;
-    }
-    .ms-dropdown.open { display: block; }
-    .ms-option {
-      display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.75rem; cursor: pointer;
-      font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--ink); transition: background 0.1s;
-    }
-    .ms-option:hover { background: var(--paper); }
-    .ms-option input[type="checkbox"] {
-      width: 0.9rem; height: 0.9rem; accent-color: var(--accent);
-      cursor: pointer; flex-shrink: 0; border: none; padding: 0;
-      -webkit-appearance: auto; appearance: auto;
-    }
-    .ms-divider { height: 1px; background: var(--border); margin: 0.25rem 0; }
-    .ms-clear {
-      font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700;
-      color: var(--accent); padding: 0.3rem 0.75rem; cursor: pointer;
-      letter-spacing: 0.05em; text-transform: uppercase;
-    }
-    .ms-clear:hover { text-decoration: underline; }
-    .filter-bar { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 1rem; }
-    .filter-group { display: flex; align-items: center; gap: 0.3rem; }
-    .filter-group label { display: inline; font-size: 0.65rem; margin: 0; white-space: nowrap; }
-    .profile-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem; }
-    .section-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
-    .zone-table { width: 100%; border-collapse: collapse; font-family: 'DM Mono', monospace; font-size: 0.82rem; }
-    .zone-table th {
-      background: var(--ink); color: var(--paper); padding: 0.45rem 0.6rem; text-align: center;
-      font-family: 'Syne', sans-serif; font-size: 0.63rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700;
-    }
-    .zone-table td { padding: 0.4rem 0.5rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
-    .zone-table td:first-child { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.78rem; white-space: nowrap; }
-    .zone-table input { font-size: 0.82rem; padding: 0.3rem 0.4rem; text-align: center; }
-    .zone-1{color:#38bdf8;} .zone-2{color:#1d4ed8;} .zone-3{color:#16a34a;} .zone-4{color:#ea580c;} .zone-5{color:#dc2626;}
-    .validation-error { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: #c62828; margin-top: 0.5rem; display: none; }
-    .import-box {
-      border: 2px dashed var(--border); border-radius: 10px;
-      padding: 1.25rem; text-align: center; cursor: pointer;
-      transition: border-color 0.2s, background 0.2s; display: block;
-    }
-    .import-box:hover { border-color: var(--accent); background: var(--accent-light); }
-    .import-box input[type="file"] { display: none; }
-    .import-log {
-      font-family: 'DM Mono', monospace; font-size: 0.75rem;
-      background: #0f0f0f; color: #86efac; border-radius: 8px;
-      padding: 0.75rem 1rem; margin-top: 0.75rem;
-      max-height: 200px; overflow-y: auto; display: none; text-align: left; line-height: 1.7;
-    }
-    .show-all-link { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; color: var(--accent); cursor: pointer; border: none; background: none; padding: 0; }
-    .show-all-link:hover { text-decoration: underline; }
-    .empty-state { text-align: center; padding: 2.5rem 1rem; color: var(--muted); }
-    .empty-state .big { font-size: 2.5rem; margin-bottom: 0.4rem; }
-    @keyframes fadeSlideIn { from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);} }
-    .animate-in { animation: fadeSlideIn 0.25s ease forwards; }
-    ::-webkit-scrollbar { width:5px; height:5px; }
-    ::-webkit-scrollbar-track { background:transparent; }
-    ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
-    .summary-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem; }
-    .range-btn {
-      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.72rem;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      background: transparent; color: var(--muted);
-      border: 1.5px solid var(--border); border-radius: 6px;
-      padding: 0.4rem 0.85rem; cursor: pointer; transition: all 0.18s;
-    }
-    .range-btn:hover { border-color: var(--accent); color: var(--accent); }
-    .range-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-    .nav-btn {
-      font-family: 'DM Mono', monospace; font-weight: 700; font-size: 1rem;
-      background: var(--card); color: var(--ink);
-      border: 1.5px solid var(--border); border-radius: 8px;
-      width: 2.4rem; height: 2.4rem; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: all 0.15s; flex-shrink: 0;
-    }
-    .nav-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
-    .nav-btn:disabled { opacity: 0.3; cursor: default; }
-    .period-label {
-      font-family: 'DM Mono', monospace; font-size: 0.82rem;
-      color: var(--ink); text-align: center; flex: 1; padding: 0 0.5rem; font-weight: 500;
-    }
-    .stat-pill {
-      background: var(--paper); border: 1.5px solid var(--border); border-radius: 10px; padding: 0.65rem 1rem;
-      display: flex; flex-direction: column; gap: 0.2rem; flex: 1; min-width: 0;
-    }
-    .stat-pill-label { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-    .stat-pill-value { font-family: 'DM Mono', monospace; font-size: 1.05rem; font-weight: 500; color: var(--ink); white-space: nowrap; }
-    .chart-wrap { position: relative; width: 100%; }
+
+```
+/* ── TASK & COMMENT CELLS ── */
+.task-cell {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--ink);
+  min-width: 110px;
+  max-width: 160px;
+  word-break: break-word;
+}
+.task-cell.empty { color: var(--border); }
+.comment-cell-inline {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  line-height: 1.35;
+  color: #374151;
+  min-width: 100px;
+  max-width: 150px;
+  word-break: break-word;
+}
+.comment-cell-inline.empty { color: var(--border); }
+.comment-cell-inline.excl {
+  color: #92400e;
+  background: #fef3c7;
+  border-radius: 3px;
+  padding: 1px 3px;
+}
+
+/* ── DATE CELL ── */
+.date-cell {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  white-space: nowrap;
+  color: var(--ink);
+}
+
+.hr-cell { font-family: 'DM Mono', monospace; font-size: 0.75rem; white-space: nowrap; color: #e11d48; }
+.compact-table-wrap { border-radius: 10px; border: 1.5px solid var(--border); overflow: hidden; }
+.history-table-scroll { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 10px; border: 1.5px solid var(--border); }
+.history-table-scroll .data-table { min-width: 1100px; }
+.tag-sm {
+  display: inline-block; font-family: 'DM Mono', monospace;
+  font-size: 0.65rem; border-radius: 3px; padding: 0.1rem 0.42rem; white-space: nowrap;
+  text-transform: lowercase;
+}
+.tag-activity    { background: #ede9fe; color: #5b21b6; }
+.tag-type-blue   { background: #dbeafe; color: #1e40af; }
+.tag-type-green  { background: #dcfce7; color: #15803d; }
+.tag-type-orange { background: #ffedd5; color: #c2410c; }
+.rpe-dot {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.6rem; height: 1.6rem; border-radius: 50%;
+  font-size: 0.72rem; font-weight: 700; font-family: 'DM Mono', monospace;
+}
+.row-btn {
+  font-family: 'DM Mono', monospace; font-size: 0.65rem;
+  padding: 0.15rem 0.45rem; border-radius: 4px;
+  border: 1px solid var(--border); background: none;
+  color: var(--muted); cursor: pointer; transition: all 0.15s; margin-left: 2px;
+}
+.row-btn:hover     { border-color: var(--accent); color: var(--accent); }
+.row-btn.del:hover { border-color: #c62828; color: #c62828; }
+.zone-time-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 0.5rem; margin-top: 0.6rem; }
+.zone-time-item label { font-size: 0.62rem; }
+.zone-time-cell { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); white-space: nowrap; }
+.zone-time-cell span { display: inline-block; margin-right: 0.25rem; }
+.zone-toggle-btn {
+  background: none; border: none; cursor: pointer; font-size: 0.75rem;
+  color: var(--paper); opacity: 0.7; padding: 0 0.2rem; vertical-align: middle;
+}
+.zone-toggle-btn:hover { opacity: 1; }
+.excl-toggle {
+  font-family: 'DM Mono', monospace; font-size: 0.8rem;
+  padding: 0.2rem 0.55rem; border-radius: 5px;
+  border: 1.5px solid var(--border); background: var(--paper);
+  cursor: pointer; color: var(--muted); transition: all 0.15s;
+  display: inline-flex; align-items: center; gap: 0.3rem;
+}
+.excl-toggle.on { background: #fef3c7; border-color: #f59e0b; color: #92400e; }
+.ms-filter { position: relative; display: inline-block; }
+.ms-trigger {
+  font-family: 'DM Mono', monospace; font-size: 0.78rem;
+  padding: 0.32rem 0.6rem; border: 1.5px solid var(--border);
+  border-radius: 6px; background: var(--paper); color: var(--ink);
+  cursor: pointer; display: flex; align-items: center; gap: 0.4rem;
+  white-space: nowrap; transition: border-color 0.15s; user-select: none; min-width: 110px;
+}
+.ms-trigger:hover, .ms-trigger.open { border-color: var(--accent); }
+.ms-trigger .ms-arrow { margin-left: auto; font-size: 0.55rem; color: var(--muted); transition: transform 0.15s; }
+.ms-trigger.open .ms-arrow { transform: rotate(180deg); }
+.ms-badge {
+  background: var(--accent); color: white; border-radius: 10px;
+  font-size: 0.6rem; font-weight: 700; padding: 0.05rem 0.35rem;
+  font-family: 'Syne', sans-serif; min-width: 1.1rem; text-align: center;
+}
+.ms-dropdown {
+  display: none; position: absolute; top: calc(100% + 4px); left: 0; z-index: 100;
+  background: var(--card); border: 1.5px solid var(--border);
+  border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  min-width: 180px; max-height: 260px; overflow-y: auto; padding: 0.35rem 0;
+}
+.ms-dropdown.open { display: block; }
+.ms-option {
+  display: flex; align-items: center; gap: 0.5rem; padding: 0.4rem 0.75rem; cursor: pointer;
+  font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--ink); transition: background 0.1s;
+}
+.ms-option:hover { background: var(--paper); }
+.ms-option input[type="checkbox"] {
+  width: 0.9rem; height: 0.9rem; accent-color: var(--accent);
+  cursor: pointer; flex-shrink: 0; border: none; padding: 0;
+  -webkit-appearance: auto; appearance: auto;
+}
+.ms-divider { height: 1px; background: var(--border); margin: 0.25rem 0; }
+.ms-clear {
+  font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700;
+  color: var(--accent); padding: 0.3rem 0.75rem; cursor: pointer;
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+.ms-clear:hover { text-decoration: underline; }
+.filter-bar { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 1rem; }
+.filter-group { display: flex; align-items: center; gap: 0.3rem; }
+.filter-group label { display: inline; font-size: 0.65rem; margin: 0; white-space: nowrap; }
+.profile-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem; }
+.section-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+.zone-table { width: 100%; border-collapse: collapse; font-family: 'DM Mono', monospace; font-size: 0.82rem; }
+.zone-table th {
+  background: var(--ink); color: var(--paper); padding: 0.45rem 0.6rem; text-align: center;
+  font-family: 'Syne', sans-serif; font-size: 0.63rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700;
+}
+.zone-table td { padding: 0.4rem 0.5rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.zone-table td:first-child { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.78rem; white-space: nowrap; }
+.zone-table input { font-size: 0.82rem; padding: 0.3rem 0.4rem; text-align: center; }
+.zone-1{color:#38bdf8;} .zone-2{color:#1d4ed8;} .zone-3{color:#16a34a;} .zone-4{color:#ea580c;} .zone-5{color:#dc2626;}
+.validation-error { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: #c62828; margin-top: 0.5rem; display: none; }
+.import-box {
+  border: 2px dashed var(--border); border-radius: 10px;
+  padding: 1.25rem; text-align: center; cursor: pointer;
+  transition: border-color 0.2s, background 0.2s; display: block;
+}
+.import-box:hover { border-color: var(--accent); background: var(--accent-light); }
+.import-box input[type="file"] { display: none; }
+.import-log {
+  font-family: 'DM Mono', monospace; font-size: 0.75rem;
+  background: #0f0f0f; color: #86efac; border-radius: 8px;
+  padding: 0.75rem 1rem; margin-top: 0.75rem;
+  max-height: 200px; overflow-y: auto; display: none; text-align: left; line-height: 1.7;
+}
+.show-all-link { font-family: 'Syne', sans-serif; font-size: 0.78rem; font-weight: 700; color: var(--accent); cursor: pointer; border: none; background: none; padding: 0; }
+.show-all-link:hover { text-decoration: underline; }
+.empty-state { text-align: center; padding: 2.5rem 1rem; color: var(--muted); }
+.empty-state .big { font-size: 2.5rem; margin-bottom: 0.4rem; }
+@keyframes fadeSlideIn { from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);} }
+.animate-in { animation: fadeSlideIn 0.25s ease forwards; }
+::-webkit-scrollbar { width:5px; height:5px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+.summary-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem; }
+.range-btn {
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.72rem;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  background: transparent; color: var(--muted);
+  border: 1.5px solid var(--border); border-radius: 6px;
+  padding: 0.4rem 0.85rem; cursor: pointer; transition: all 0.18s;
+}
+.range-btn:hover { border-color: var(--accent); color: var(--accent); }
+.range-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.nav-btn {
+  font-family: 'DM Mono', monospace; font-weight: 700; font-size: 1rem;
+  background: var(--card); color: var(--ink);
+  border: 1.5px solid var(--border); border-radius: 8px;
+  width: 2.4rem; height: 2.4rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s; flex-shrink: 0;
+}
+.nav-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.nav-btn:disabled { opacity: 0.3; cursor: default; }
+.period-label {
+  font-family: 'DM Mono', monospace; font-size: 0.82rem;
+  color: var(--ink); text-align: center; flex: 1; padding: 0 0.5rem; font-weight: 500;
+}
+.stat-pill {
+  background: var(--paper); border: 1.5px solid var(--border); border-radius: 10px; padding: 0.65rem 1rem;
+  display: flex; flex-direction: column; gap: 0.2rem; flex: 1; min-width: 0;
+}
+.stat-pill-label { font-family: 'Syne', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.stat-pill-value { font-family: 'DM Mono', monospace; font-size: 1.05rem; font-weight: 500; color: var(--ink); white-space: nowrap; }
+.chart-wrap { position: relative; width: 100%; }
+```
+
   </style>
 </head>
 <body>
 
 <!-- PLAN MODAL -->
+
 <div class="modal-overlay" id="plan-modal" onclick="if(event.target===this)closePlanModal()">
   <div class="modal-box">
     <div class="modal-title">
@@ -366,6 +392,7 @@
 </div>
 
 <!-- HEADER -->
+
 <header class="sticky top-0 z-50" style="background:var(--paper);border-bottom:1.5px solid var(--border);">
   <div class="max-w-5xl mx-auto px-4">
     <div class="flex items-baseline gap-3 pt-3 pb-1">
@@ -384,6 +411,7 @@
 <main class="max-w-5xl mx-auto px-4 py-5">
 
   <!-- WYTRZYMAŁOŚĆ -->
+
   <div id="tab-endurance" class="tab-content active animate-in">
     <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
       <h2 class="text-lg font-bold">Wytrzymałość</h2>
@@ -476,6 +504,7 @@
   </div>
 
   <!-- HISTORIA -->
+
   <div id="tab-history" class="tab-content">
     <div class="flex items-center gap-3 mb-4 flex-wrap">
       <h2 class="text-lg font-bold">Historia</h2>
@@ -545,12 +574,14 @@
   </div>
 
   <!-- SPRAWNOŚĆ -->
+
   <div id="tab-fitness" class="tab-content">
     <h2 class="text-lg font-bold mb-3">Sprawność</h2>
     <div class="empty-state"><div class="big">🏋️</div><p class="font-semibold" style="color:var(--muted);">Wkrótce tutaj</p></div>
   </div>
 
   <!-- PODSUMOWANIE -->
+
   <div id="tab-summary" class="tab-content animate-in">
     <h2 class="text-lg font-bold mb-4">Podsumowanie</h2>
     <div class="summary-card">
@@ -574,12 +605,13 @@
       <div class="chart-wrap" style="height:300px;"><canvas id="summary-chart"></canvas></div>
       <div class="flex gap-4 mt-3 justify-center" style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--muted);">
         <span style="display:flex;align-items:center;gap:0.35rem;"><span style="width:12px;height:12px;border-radius:3px;background:rgba(164,198,229,0.9);display:inline-block;"></span>Dystans całkowity</span>
-        <span style="display:flex;align-items:center;gap:0.35rem;"><span style="width:12px;height:12px;border-radius:3px;background:rgba(255,159,64,0.9);display:inline-block;"></span>Akcent</span>
+        <span style="display:flex;align-items:center;gap:0.35rem;"><span style="width:12px;height:12px;border-radius:3px;background:rgba(255,159,64,0.9);display:inline-block;"></span>Akcent (przesunięty w prawo)</span>
       </div>
     </div>
   </div>
 
   <!-- PROFIL -->
+
   <div id="tab-profile" class="tab-content">
     <h2 class="text-lg font-bold mb-4">Profil</h2>
     <div class="profile-card">
@@ -631,10 +663,14 @@
 
 </main>
 <script>
+// ═══════════════════════════════════════════════════════════
+// CZĘŚĆ 3: LOGIKA JAVASCRIPT
+// ═══════════════════════════════════════════════════════════
+
 // ═══ STORAGE ═══
-const STORAGE_KEY='trainlog_endurance_v1',PROFILE_KEY='trainlog_profile_v1',PLANNED_KEY='trainlog_planned_v1';
-const ZONE_DISPLAY=[{num:5,label:'> Strefa 5',cls:'zone-5'},{num:4,label:'Strefa 4',cls:'zone-4'},{num:3,label:'Strefa 3',cls:'zone-3'},{num:2,label:'Strefa 2',cls:'zone-2'},{num:1,label:'Strefa 1',cls:'zone-1'}];
-const RPE_PALETTE={1:{bg:'#e0f2fe',border:'#7dd3fc',text:'#0369a1'},2:{bg:'#bae6fd',border:'#38bdf8',text:'#0369a1'},3:{bg:'#7dd3fc',border:'#0ea5e9',text:'#0c4a6e'},4:{bg:'#a7f3d0',border:'#34d399',text:'#065f46'},5:{bg:'#fef08a',border:'#facc15',text:'#854d0e'},6:{bg:'#fde047',border:'#eab308',text:'#713f12'},7:{bg:'#fed7aa',border:'#fb923c',text:'#9a3412'},8:{bg:'#fdba74',border:'#f97316',text:'#7c2d12'},9:{bg:'#fca5a5',border:'#ef4444',text:'#991b1b'},10:{bg:'#4c1d95',border:'#7c3aed',text:'#ede9fe'}};
+const STORAGE_KEY=‘trainlog_endurance_v1’,PROFILE_KEY=‘trainlog_profile_v1’,PLANNED_KEY=‘trainlog_planned_v1’;
+const ZONE_DISPLAY=[{num:5,label:’> Strefa 5’,cls:‘zone-5’},{num:4,label:‘Strefa 4’,cls:‘zone-4’},{num:3,label:‘Strefa 3’,cls:‘zone-3’},{num:2,label:‘Strefa 2’,cls:‘zone-2’},{num:1,label:‘Strefa 1’,cls:‘zone-1’}];
+const RPE_PALETTE={1:{bg:’#e0f2fe’,border:’#7dd3fc’,text:’#0369a1’},2:{bg:’#bae6fd’,border:’#38bdf8’,text:’#0369a1’},3:{bg:’#7dd3fc’,border:’#0ea5e9’,text:’#0c4a6e’},4:{bg:’#a7f3d0’,border:’#34d399’,text:’#065f46’},5:{bg:’#fef08a’,border:’#facc15’,text:’#854d0e’},6:{bg:’#fde047’,border:’#eab308’,text:’#713f12’},7:{bg:’#fed7aa’,border:’#fb923c’,text:’#9a3412’},8:{bg:’#fdba74’,border:’#f97316’,text:’#7c2d12’},9:{bg:’#fca5a5’,border:’#ef4444’,text:’#991b1b’},10:{bg:’#4c1d95’,border:’#7c3aed’,text:’#ede9fe’}};
 function loadTrainings(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY))||[];}catch{return[];}}
 function saveTrainings(d){localStorage.setItem(STORAGE_KEY,JSON.stringify(d));}
 function loadProfile(){try{return JSON.parse(localStorage.getItem(PROFILE_KEY))||{};}catch{return {};}}
@@ -644,445 +680,594 @@ function savePlanned(d){localStorage.setItem(PLANNED_KEY,JSON.stringify(d));}
 
 // ═══ ENCODING ═══
 function readFileWithEncodingDetection(file){
-  return new Promise((resolve,reject)=>{
-    const reader=new FileReader();
-    reader.onerror=()=>reject(new Error('Błąd odczytu pliku'));
-    reader.onload=(e)=>{
-      const buffer=e.target.result;
-      const utf8=new TextDecoder('utf-8',{fatal:false}).decode(buffer);
-      if(utf8.includes('\uFFFD')){
-        try{resolve({text:new TextDecoder('windows-1250',{fatal:false}).decode(buffer),encoding:'windows-1250'});}
-        catch{resolve({text:decodeCp1250(buffer),encoding:'windows-1250 (manual)'});}
-      } else {resolve({text:utf8,encoding:'utf-8'});}
-    };
-    reader.readAsArrayBuffer(file);
-  });
+return new Promise((resolve,reject)=>{
+const reader=new FileReader();
+reader.onerror=()=>reject(new Error(‘Błąd odczytu pliku’));
+reader.onload=(e)=>{
+const buffer=e.target.result;
+const utf8=new TextDecoder(‘utf-8’,{fatal:false}).decode(buffer);
+if(utf8.includes(’\uFFFD’)){
+try{resolve({text:new TextDecoder(‘windows-1250’,{fatal:false}).decode(buffer),encoding:‘windows-1250’});}
+catch{resolve({text:decodeCp1250(buffer),encoding:‘windows-1250 (manual)’});}
+} else {resolve({text:utf8,encoding:‘utf-8’});}
+};
+reader.readAsArrayBuffer(file);
+});
 }
 function decodeCp1250(buffer){
-  const bytes=new Uint8Array(buffer);
-  const extra='\u20AC\uFFFD\u201A\uFFFD\u201E\u2026\u2020\u2021\uFFFD\u2030\u0160\u2039\u015A\u0164\u017D\u0179\uFFFD\u2018\u2019\u201C\u201D\u2022\u2013\u2014\uFFFD\u2122\u0161\u203A\u015B\u0165\u017E\u017A\u00A0\u02C7\u02D8\u0141\u00A4\u0104\u00A6\u00A7\u00A8\u00A9\u015E\u00AB\u00AC\u00AD\u00AE\u017B\u00B0\u00B1\u02DB\u0142\u00B4\u00B5\u00B6\u00B7\u00B8\u0105\u015F\u00BB\u013D\u02DD\u013E\u017C\u0154\u00C1\u00C2\u0102\u00C4\u0139\u0106\u00C7\u010C\u00C9\u0118\u00CB\u011A\u00CD\u00CE\u010E\u0110\u0143\u0147\u00D3\u00D4\u0150\u00D6\u00D7\u0158\u016E\u00DA\u0170\u00DC\u00DD\u0162\u00DF\u0155\u00E1\u00E2\u0103\u00E4\u013A\u0107\u00E7\u010D\u00E9\u0119\u00EB\u011B\u00ED\u00EE\u010F\u0111\u0144\u0148\u00F3\u00F4\u0151\u00F6\u00F7\u0159\u016F\u00FA\u0171\u00FC\u00FD\u0163\u02D9';
-  let r='';for(let i=0;i<bytes.length;i++){const b=bytes[i];r+=b<0x80?String.fromCharCode(b):(extra[b-0x80]||'\uFFFD');}return r;
+const bytes=new Uint8Array(buffer);
+const extra=’\u20AC\uFFFD\u201A\uFFFD\u201E\u2026\u2020\u2021\uFFFD\u2030\u0160\u2039\u015A\u0164\u017D\u0179\uFFFD\u2018\u2019\u201C\u201D\u2022\u2013\u2014\uFFFD\u2122\u0161\u203A\u015B\u0165\u017E\u017A\u00A0\u02C7\u02D8\u0141\u00A4\u0104\u00A6\u00A7\u00A8\u00A9\u015E\u00AB\u00AC\u00AD\u00AE\u017B\u00B0\u00B1\u02DB\u0142\u00B4\u00B5\u00B6\u00B7\u00B8\u0105\u015F\u00BB\u013D\u02DD\u013E\u017C\u0154\u00C1\u00C2\u0102\u00C4\u0139\u0106\u00C7\u010C\u00C9\u0118\u00CB\u011A\u00CD\u00CE\u010E\u0110\u0143\u0147\u00D3\u00D4\u0150\u00D6\u00D7\u0158\u016E\u00DA\u0170\u00DC\u00DD\u0162\u00DF\u0155\u00E1\u00E2\u0103\u00E4\u013A\u0107\u00E7\u010D\u00E9\u0119\u00EB\u011B\u00ED\u00EE\u010F\u0111\u0144\u0148\u00F3\u00F4\u0151\u00F6\u00F7\u0159\u016F\u00FA\u0171\u00FC\u00FD\u0163\u02D9’;
+let r=’’;for(let i=0;i<bytes.length;i++){const b=bytes[i];r+=b<0x80?String.fromCharCode(b):(extra[b-0x80]||’\uFFFD’);}return r;
 }
 
 // ═══ NORMALISE ═══
-function normaliseActivity(raw){if(!raw)return'bieg';const s=raw.toLowerCase().trim();if(s.includes('lekkoatletyczn')||s==='stadion')return'stadion';if(s.includes('mechaniczn')||s==='bieżnia'||s==='bieznia')return'bieżnia';if(s.includes('bieg'))return'bieg';if(s==='inny')return'inny';return s||'bieg';}
-function normaliseType(raw){if(!raw)return'baza tlenowa';const s=raw.toLowerCase().trim();if(s.includes('baza'))return'baza tlenowa';if(s.includes('zabawa'))return'zabawa biegowa';if(s.includes('progowy')||s.includes('prog'))return'około progowy';if(s.includes('ciągł')||s.includes('ciagł')||s.includes('ciagly')||s==='ciągły')return'ciągły';if(s.includes('interw'))return'interwałowy';if(s==='inny')return'inny';return s||'baza tlenowa';}
+function normaliseActivity(raw){if(!raw)return’bieg’;const s=raw.toLowerCase().trim();if(s.includes(‘lekkoatletyczn’)||s===‘stadion’)return’stadion’;if(s.includes(‘mechaniczn’)||s===‘bieżnia’||s===‘bieznia’)return’bieżnia’;if(s.includes(‘bieg’))return’bieg’;if(s===‘inny’)return’inny’;return s||‘bieg’;}
+function normaliseType(raw){if(!raw)return’baza tlenowa’;const s=raw.toLowerCase().trim();if(s.includes(‘baza’))return’baza tlenowa’;if(s.includes(‘zabawa’))return’zabawa biegowa’;if(s.includes(‘progowy’)||s.includes(‘prog’))return’około progowy’;if(s.includes(‘ciągł’)||s.includes(‘ciagł’)||s.includes(‘ciagly’)||s===‘ciągły’)return’ciągły’;if(s.includes(‘interw’))return’interwałowy’;if(s===‘inny’)return’inny’;return s||‘baza tlenowa’;}
 
 // ═══ SEED & MIGRATE ═══
 function seedData(){
-  if(loadTrainings().length>0)return;
-  saveTrainings([
-    {id:1738800000001,date:'2025-02-06',activity:'bieg',type:'baza tlenowa',rpe:6,distance:6.06,durationSeconds:2129,accent:0,hr:null,note:'',commentExcl:false,zoneTimes:{},task:''},
-    {id:1738800000002,date:'2025-02-07',activity:'bieg',type:'około progowy',rpe:8,distance:8.05,durationSeconds:2717,accent:0,hr:145,note:'',commentExcl:false,zoneTimes:{},task:''},
-  ]);
+if(loadTrainings().length>0)return;
+saveTrainings([
+{id:1738800000001,date:‘2025-02-06’,activity:‘bieg’,type:‘baza tlenowa’,rpe:6,distance:6.06,durationSeconds:2129,accent:0,hr:null,note:’’,commentExcl:false,zoneTimes:{},task:’’},
+{id:1738800000002,date:‘2025-02-07’,activity:‘bieg’,type:‘około progowy’,rpe:8,distance:8.05,durationSeconds:2717,accent:0,hr:145,note:’’,commentExcl:false,zoneTimes:{},task:’’},
+]);
 }
 function migrateData(){
-  const t=loadTrainings();let c=false;
-  t.forEach(x=>{
-    if(x.durationSeconds==null&&x.duration!=null){x.durationSeconds=Math.round(x.duration*60);c=true;}
-    if(x.commentExcl==null){x.commentExcl=false;c=true;}
-    if(!x.zoneTimes){x.zoneTimes={};c=true;}
-    if(x.task==null){x.task='';c=true;}
-    if(x.hr===undefined){x.hr=null;c=true;}
-    const na=normaliseActivity(x.activity);if(na!==x.activity){x.activity=na;c=true;}
-    const nt=normaliseType(x.type);if(nt!==x.type){x.type=nt;c=true;}
-    if('commentColor'in x){delete x.commentColor;c=true;}
-  });
-  if(c)saveTrainings(t);
-  const p=loadPlanned();let pc=false;
-  p.forEach(x=>{if(x.notes==null){x.notes='';pc=true;}});
-  if(pc)savePlanned(p);
+const t=loadTrainings();let c=false;
+t.forEach(x=>{
+if(x.durationSeconds==null&&x.duration!=null){x.durationSeconds=Math.round(x.duration*60);c=true;}
+if(x.commentExcl==null){x.commentExcl=false;c=true;}
+if(!x.zoneTimes){x.zoneTimes={};c=true;}
+if(x.task==null){x.task=’’;c=true;}
+if(x.hr===undefined){x.hr=null;c=true;}
+const na=normaliseActivity(x.activity);if(na!==x.activity){x.activity=na;c=true;}
+const nt=normaliseType(x.type);if(nt!==x.type){x.type=nt;c=true;}
+if(‘commentColor’in x){delete x.commentColor;c=true;}
+});
+if(c)saveTrainings(t);
+const p=loadPlanned();let pc=false;
+p.forEach(x=>{if(x.notes==null){x.notes=’’;pc=true;}});
+if(pc)savePlanned(p);
 }
 
 // ═══ DATE HELPERS ═══
 function todayISO(){const n=new Date();return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;}
-function formatDatePL(iso){if(!iso||iso==='')return'—';const[y,m,d]=iso.split('-');return`${d}.${m}.${y}`;}
-function parseDatePL(s){if(!s||!s.trim())return null;const p=s.trim().split('.');if(p.length!==3)return null;const d=p[0].padStart(2,'0'),m=p[1].padStart(2,'0'),y=p[2];if(y.length!==4||isNaN(+y)||isNaN(+m)||isNaN(+d))return null;return`${y}-${m}-${d}`;}
-function isoToLocal(iso){const[y,m,d]=iso.split('-').map(Number);return new Date(y,m-1,d);}
+
+// Format: 26.02.26 (narrow)
+function formatDatePL(iso){
+if(!iso||iso===’’)return’—’;
+const[y,m,d]=iso.split(’-’);
+const yy=y.slice(2);
+return`${d}.${m}.${yy}`;
+}
+
+function parseDatePL(s){if(!s||!s.trim())return null;const p=s.trim().split(’.’);if(p.length!==3)return null;const d=p[0].padStart(2,‘0’),m=p[1].padStart(2,‘0’),y=p[2];if(y.length!==4||isNaN(+y)||isNaN(+m)||isNaN(+d))return null;return`${y}-${m}-${d}`;}
+function isoToLocal(iso){const[y,m,d]=iso.split(’-’).map(Number);return new Date(y,m-1,d);}
 function localToISO(dt){return`${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;}
 function weekStart(dt){const d=new Date(dt);const day=d.getDay();const diff=day===0?-6:1-day;d.setDate(d.getDate()+diff);d.setHours(0,0,0,0);return d;}
 function addDays(dt,n){const d=new Date(dt);d.setDate(d.getDate()+n);return d;}
 function fmtShort(dt){return`${String(dt.getDate()).padStart(2,'0')}.${String(dt.getMonth()+1).padStart(2,'0')}`;}
 function fmtShortY(dt){return`${String(dt.getDate()).padStart(2,'0')}.${String(dt.getMonth()+1).padStart(2,'0')}.${dt.getFullYear()}`;}
 function getISOWeek(dt){const d=new Date(Date.UTC(dt.getFullYear(),dt.getMonth(),dt.getDate()));const day=d.getUTCDay()||7;d.setUTCDate(d.getUTCDate()+4-day);const yearStart=new Date(Date.UTC(d.getUTCFullYear(),0,1));return Math.ceil((((d-yearStart)/86400000)+1)/7);}
-const MONTHS_PL=['Sty','Lut','Mar','Kwi','Maj','Cze','Lip','Sie','Wrz','Paź','Lis','Gru'];
-const MONTHS_FULL_PL=['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'];
-const DAYS_PL=['Pon','Wto','Śro','Czw','Pią','Sob','Nie'];
+const MONTHS_PL=[‘Sty’,‘Lut’,‘Mar’,‘Kwi’,‘Maj’,‘Cze’,‘Lip’,‘Sie’,‘Wrz’,‘Paź’,‘Lis’,‘Gru’];
+const MONTHS_FULL_PL=[‘Styczeń’,‘Luty’,‘Marzec’,‘Kwiecień’,‘Maj’,‘Czerwiec’,‘Lipiec’,‘Sierpień’,‘Wrzesień’,‘Październik’,‘Listopad’,‘Grudzień’];
+const DAYS_PL=[‘Pon’,‘Wto’,‘Śro’,‘Czw’,‘Pią’,‘Sob’,‘Nie’];
 
 // ═══ TABS ═══
 function switchTab(name){
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));
-  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
-  const el=document.getElementById('tab-'+name);
-  el.classList.add('active');el.classList.remove('animate-in');void el.offsetWidth;el.classList.add('animate-in');
-  if(name==='endurance'){renderEndurance();renderPlanned();}
-  if(name==='summary'){renderSummary();}
+document.querySelectorAll(’.tab-btn’).forEach(b=>b.classList.toggle(‘active’,b.dataset.tab===name));
+document.querySelectorAll(’.tab-content’).forEach(c=>c.classList.remove(‘active’));
+const el=document.getElementById(‘tab-’+name);
+el.classList.add(‘active’);el.classList.remove(‘animate-in’);void el.offsetWidth;el.classList.add(‘animate-in’);
+if(name===‘endurance’){renderEndurance();renderPlanned();}
+if(name===‘summary’){renderSummary();}
 }
 function openHistory(){
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
-  const el=document.getElementById('tab-history');
-  el.classList.add('active');el.classList.remove('animate-in');void el.offsetWidth;el.classList.add('animate-in');
-  populateYearFilter();renderHistory();
+document.querySelectorAll(’.tab-btn’).forEach(b=>b.classList.remove(‘active’));
+document.querySelectorAll(’.tab-content’).forEach(c=>c.classList.remove(‘active’));
+const el=document.getElementById(‘tab-history’);
+el.classList.add(‘active’);el.classList.remove(‘animate-in’);void el.offsetWidth;el.classList.add(‘animate-in’);
+populateYearFilter();renderHistory();
 }
-document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>switchTab(btn.dataset.tab)));
+document.querySelectorAll(’.tab-btn’).forEach(btn=>btn.addEventListener(‘click’,()=>switchTab(btn.dataset.tab)));
 
 // ═══ MULTI-SELECT ═══
-function toggleMsDropdown(id){const wrap=document.getElementById(id);const trigger=wrap.querySelector('.ms-trigger');const dropdown=wrap.querySelector('.ms-dropdown');const isOpen=dropdown.classList.contains('open');document.querySelectorAll('.ms-dropdown.open').forEach(d=>{d.classList.remove('open');d.closest('.ms-filter').querySelector('.ms-trigger').classList.remove('open');});if(!isOpen){dropdown.classList.add('open');trigger.classList.add('open');}}
-document.addEventListener('click',e=>{if(!e.target.closest('.ms-filter')){document.querySelectorAll('.ms-dropdown.open').forEach(d=>{d.classList.remove('open');d.closest('.ms-filter').querySelector('.ms-trigger').classList.remove('open');});}if(!e.target.closest('.comment-cell'))document.querySelectorAll('.comment-cell.open').forEach(c=>c.classList.remove('open'));});
-function msChanged(id){const wrap=document.getElementById(id);const checked=[...wrap.querySelectorAll('input[type="checkbox"]:checked')];const badge=wrap.querySelector('.ms-badge'),labelEl=wrap.querySelector('.ms-label');if(checked.length===0){badge.style.display='none';labelEl.textContent='Wszystkie';}else{badge.textContent=checked.length;badge.style.display='inline-block';labelEl.textContent=checked.length===1?checked[0].parentElement.textContent.trim():`${checked.length} wybrane`;}renderHistory();}
-function clearMs(id){document.getElementById(id).querySelectorAll('input[type="checkbox"]').forEach(cb=>cb.checked=false);msChanged(id);}
-function getMsValues(id){return[...document.getElementById(id).querySelectorAll('input[type="checkbox"]:checked')].map(cb=>cb.value);}
-function clearAllFilters(){document.getElementById('h-filter-year').value='';document.getElementById('h-filter-rpe').value='';['ms-month','ms-activity','ms-type'].forEach(id=>clearMs(id));renderHistory();}
+function toggleMsDropdown(id){const wrap=document.getElementById(id);const trigger=wrap.querySelector(’.ms-trigger’);const dropdown=wrap.querySelector(’.ms-dropdown’);const isOpen=dropdown.classList.contains(‘open’);document.querySelectorAll(’.ms-dropdown.open’).forEach(d=>{d.classList.remove(‘open’);d.closest(’.ms-filter’).querySelector(’.ms-trigger’).classList.remove(‘open’);});if(!isOpen){dropdown.classList.add(‘open’);trigger.classList.add(‘open’);}}
+document.addEventListener(‘click’,e=>{if(!e.target.closest(’.ms-filter’)){document.querySelectorAll(’.ms-dropdown.open’).forEach(d=>{d.classList.remove(‘open’);d.closest(’.ms-filter’).querySelector(’.ms-trigger’).classList.remove(‘open’);});}});
+function msChanged(id){const wrap=document.getElementById(id);const checked=[…wrap.querySelectorAll(‘input[type=“checkbox”]:checked’)];const badge=wrap.querySelector(’.ms-badge’),labelEl=wrap.querySelector(’.ms-label’);if(checked.length===0){badge.style.display=‘none’;labelEl.textContent=‘Wszystkie’;}else{badge.textContent=checked.length;badge.style.display=‘inline-block’;labelEl.textContent=checked.length===1?checked[0].parentElement.textContent.trim():`${checked.length} wybrane`;}renderHistory();}
+function clearMs(id){document.getElementById(id).querySelectorAll(‘input[type=“checkbox”]’).forEach(cb=>cb.checked=false);msChanged(id);}
+function getMsValues(id){return[…document.getElementById(id).querySelectorAll(‘input[type=“checkbox”]:checked’)].map(cb=>cb.value);}
+function clearAllFilters(){document.getElementById(‘h-filter-year’).value=’’;document.getElementById(‘h-filter-rpe’).value=’’;[‘ms-month’,‘ms-activity’,‘ms-type’].forEach(id=>clearMs(id));renderHistory();}
 
 // ═══ PLAN MODAL ═══
 let editingPlanId=null;
-function openPlanModal(){editingPlanId=null;document.getElementById('pm-date').value='';document.getElementById('pm-type').value='baza tlenowa';document.getElementById('pm-task').value='';document.getElementById('pm-notes').value='';document.getElementById('modal-title-text').textContent='📅 Zaplanuj trening';document.getElementById('pm-save-btn').textContent='Zapisz plan';document.getElementById('plan-modal').classList.add('open');}
-function openPlanEditModal(id){const p=loadPlanned().find(x=>x.id===id);if(!p)return;editingPlanId=id;document.getElementById('pm-date').value=p.date||'';document.getElementById('pm-type').value=p.type||'baza tlenowa';document.getElementById('pm-task').value=p.task||'';document.getElementById('pm-notes').value=p.notes||'';document.getElementById('modal-title-text').textContent='✏️ Edytuj plan';document.getElementById('pm-save-btn').textContent='Zapisz zmiany';document.getElementById('plan-modal').classList.add('open');}
-function closePlanModal(){document.getElementById('plan-modal').classList.remove('open');editingPlanId=null;}
-function savePlan(){const date=document.getElementById('pm-date').value,type=document.getElementById('pm-type').value,task=document.getElementById('pm-task').value.trim(),notes=document.getElementById('pm-notes').value.trim(),plans=loadPlanned();if(editingPlanId!==null){const idx=plans.findIndex(x=>x.id===editingPlanId);if(idx!==-1)plans[idx]={...plans[idx],date,type,task,notes};}else plans.push({id:Date.now(),date,type,task,notes});savePlanned(plans);closePlanModal();renderPlanned();}
+function openPlanModal(){editingPlanId=null;document.getElementById(‘pm-date’).value=’’;document.getElementById(‘pm-type’).value=‘baza tlenowa’;document.getElementById(‘pm-task’).value=’’;document.getElementById(‘pm-notes’).value=’’;document.getElementById(‘modal-title-text’).textContent=‘📅 Zaplanuj trening’;document.getElementById(‘pm-save-btn’).textContent=‘Zapisz plan’;document.getElementById(‘plan-modal’).classList.add(‘open’);}
+function openPlanEditModal(id){const p=loadPlanned().find(x=>x.id===id);if(!p)return;editingPlanId=id;document.getElementById(‘pm-date’).value=p.date||’’;document.getElementById(‘pm-type’).value=p.type||‘baza tlenowa’;document.getElementById(‘pm-task’).value=p.task||’’;document.getElementById(‘pm-notes’).value=p.notes||’’;document.getElementById(‘modal-title-text’).textContent=‘✏️ Edytuj plan’;document.getElementById(‘pm-save-btn’).textContent=‘Zapisz zmiany’;document.getElementById(‘plan-modal’).classList.add(‘open’);}
+function closePlanModal(){document.getElementById(‘plan-modal’).classList.remove(‘open’);editingPlanId=null;}
+function savePlan(){const date=document.getElementById(‘pm-date’).value,type=document.getElementById(‘pm-type’).value,task=document.getElementById(‘pm-task’).value.trim(),notes=document.getElementById(‘pm-notes’).value.trim(),plans=loadPlanned();if(editingPlanId!==null){const idx=plans.findIndex(x=>x.id===editingPlanId);if(idx!==-1)plans[idx]={…plans[idx],date,type,task,notes};}else plans.push({id:Date.now(),date,type,task,notes});savePlanned(plans);closePlanModal();renderPlanned();}
 
 // ═══ PLANNED TABLE ═══
 let pendingPlanId=null;
 function renderPlanned(){
-  const all=loadPlanned();const section=document.getElementById('planned-section');
-  if(all.length===0){section.style.display='none';return;}
-  section.style.display='block';document.getElementById('planned-count').textContent=`(${all.length})`;
-  const display=[...all].sort((a,b)=>a.id-b.id).slice(0,5).reverse();
-  document.getElementById('planned-tbody').innerHTML=display.map(p=>`<tr>
-    <td class="mono" style="white-space:nowrap;">${p.date?formatDatePL(p.date):'—'}</td>
-    <td><span class="tag-sm ${typeTagClass(p.type)}">${escHtml(p.type||'—')}</span></td>
-    <td style="font-family:'DM Mono',monospace;font-size:0.72rem;max-width:150px;word-break:break-word;">${escHtml(p.task||'—')}</td>
-    <td style="font-family:'DM Mono',monospace;font-size:0.72rem;max-width:160px;word-break:break-word;color:var(--muted);">${escHtml(p.notes||'—')}</td>
-    <td style="white-space:nowrap;">
-      <button class="execute-btn" onclick="executePlan(${p.id})">Wykonany <span style="font-size:1rem;">✅</span></button>
-      <button class="plan-row-btn" onclick="openPlanEditModal(${p.id})">Edytuj</button>
-      <button class="plan-row-btn del" onclick="deletePlan(${p.id})">Usuń</button>
-    </td></tr>`).join('');
+const all=loadPlanned();const section=document.getElementById(‘planned-section’);
+if(all.length===0){section.style.display=‘none’;return;}
+section.style.display=‘block’;document.getElementById(‘planned-count’).textContent=`(${all.length})`;
+const display=[…all].sort((a,b)=>a.id-b.id).slice(0,5).reverse();
+document.getElementById(‘planned-tbody’).innerHTML=display.map(p=>`<tr> <td class="mono" style="white-space:nowrap;">${p.date?formatDatePL(p.date):'—'}</td> <td><span class="tag-sm ${typeTagClass(p.type)}">${escHtml(p.type||'—')}</span></td> <td style="font-family:'DM Mono',monospace;font-size:0.72rem;max-width:150px;word-break:break-word;">${escHtml(p.task||'—')}</td> <td style="font-family:'DM Mono',monospace;font-size:0.72rem;max-width:160px;word-break:break-word;color:var(--muted);">${escHtml(p.notes||'—')}</td> <td style="white-space:nowrap;"> <button class="execute-btn" onclick="executePlan(${p.id})">Wykonany <span style="font-size:1rem;">✅</span></button> <button class="plan-row-btn" onclick="openPlanEditModal(${p.id})">Edytuj</button> <button class="plan-row-btn del" onclick="deletePlan(${p.id})">Usuń</button> </td></tr>`).join(’’);
 }
-window.executePlan=function(id){const p=loadPlanned().find(x=>x.id===id);if(!p)return;pendingPlanId=id;document.getElementById('f-type').value=p.type||'baza tlenowa';if(p.date)document.getElementById('f-date').value=p.date;document.getElementById('f-task').value=p.task||'';if(p.task&&!taskVisible)toggleTask();else if(!p.task&&taskVisible)toggleTask();document.getElementById('plan-source-banner').style.display='flex';switchTab('endurance');document.getElementById('form-card').scrollIntoView({behavior:'smooth',block:'start'});};
-window.deletePlan=function(id){if(!confirm('Usunąć ten plan?'))return;if(pendingPlanId===id)clearPlanSource();savePlanned(loadPlanned().filter(x=>x.id!==id));renderPlanned();};
-function clearPlanSource(){pendingPlanId=null;document.getElementById('plan-source-banner').style.display='none';}
+window.executePlan=function(id){const p=loadPlanned().find(x=>x.id===id);if(!p)return;pendingPlanId=id;document.getElementById(‘f-type’).value=p.type||‘baza tlenowa’;if(p.date)document.getElementById(‘f-date’).value=p.date;document.getElementById(‘f-task’).value=p.task||’’;if(p.task&&!taskVisible)toggleTask();else if(!p.task&&taskVisible)toggleTask();document.getElementById(‘plan-source-banner’).style.display=‘flex’;switchTab(‘endurance’);document.getElementById(‘form-card’).scrollIntoView({behavior:‘smooth’,block:‘start’});};
+window.deletePlan=function(id){if(!confirm(‘Usunąć ten plan?’))return;if(pendingPlanId===id)clearPlanSource();savePlanned(loadPlanned().filter(x=>x.id!==id));renderPlanned();};
+function clearPlanSource(){pendingPlanId=null;document.getElementById(‘plan-source-banner’).style.display=‘none’;}
 
 // ═══ RPE ═══
 let selectedRPE=null;
 function rpeStyle(n,sel){const p=RPE_PALETTE[n];if(sel)return`background:${p.bg};border-color:${p.border};border-width:2.5px;color:${p.text};`;return`background:var(--paper);border-color:var(--border);color:var(--muted);`;}
-(function buildRPE(){const c=document.getElementById('rpe-buttons');for(let i=1;i<=10;i++){const b=document.createElement('button');b.className='rpe-btn';b.textContent=i;b.dataset.rpe=i;b.style.cssText=rpeStyle(i,false);b.addEventListener('mouseenter',()=>{if(selectedRPE!==i){const p=RPE_PALETTE[i];b.style.cssText=`background:${p.bg};border-color:${p.border};border-width:1.5px;color:${p.text};transform:scale(1.1);`;}});b.addEventListener('mouseleave',()=>{b.style.cssText=rpeStyle(i,selectedRPE===i);});b.addEventListener('click',()=>{selectedRPE=selectedRPE===i?null:i;refreshRPE();});c.appendChild(b);}})();
-function refreshRPE(){document.querySelectorAll('.rpe-btn').forEach(b=>{const n=parseInt(b.dataset.rpe);b.style.cssText=rpeStyle(n,n===selectedRPE);});}
-function rpeDotStyle(rpe){if(!rpe)return{bg:'#e5e7eb',border:'#d1d5db',color:'#6b7280'};const p=RPE_PALETTE[rpe];return{bg:p.bg,border:p.border,color:p.text};}
+(function buildRPE(){const c=document.getElementById(‘rpe-buttons’);for(let i=1;i<=10;i++){const b=document.createElement(‘button’);b.className=‘rpe-btn’;b.textContent=i;b.dataset.rpe=i;b.style.cssText=rpeStyle(i,false);b.addEventListener(‘mouseenter’,()=>{if(selectedRPE!==i){const p=RPE_PALETTE[i];b.style.cssText=`background:${p.bg};border-color:${p.border};border-width:1.5px;color:${p.text};transform:scale(1.1);`;}});b.addEventListener(‘mouseleave’,()=>{b.style.cssText=rpeStyle(i,selectedRPE===i);});b.addEventListener(‘click’,()=>{selectedRPE=selectedRPE===i?null:i;refreshRPE();});c.appendChild(b);}})();
+function refreshRPE(){document.querySelectorAll(’.rpe-btn’).forEach(b=>{const n=parseInt(b.dataset.rpe);b.style.cssText=rpeStyle(n,n===selectedRPE);});}
+function rpeDotStyle(rpe){if(!rpe)return{bg:’#e5e7eb’,border:’#d1d5db’,color:’#6b7280’};const p=RPE_PALETTE[rpe];return{bg:p.bg,border:p.border,color:p.text};}
 
 // ═══ TOGGLES ═══
 let taskVisible=false;
-function toggleTask(){taskVisible=!taskVisible;document.getElementById('task-field').style.display=taskVisible?'block':'none';document.getElementById('task-toggle-btn').classList.toggle('active-panel',taskVisible);}
+function toggleTask(){taskVisible=!taskVisible;document.getElementById(‘task-field’).style.display=taskVisible?‘block’:‘none’;document.getElementById(‘task-toggle-btn’).classList.toggle(‘active-panel’,taskVisible);}
 let zoneTimeVisible=false;
-function toggleZoneTime(){zoneTimeVisible=!zoneTimeVisible;document.getElementById('zone-time-fields').style.display=zoneTimeVisible?'block':'none';document.getElementById('zone-time-toggle-btn').classList.toggle('active-panel',zoneTimeVisible);}
+function toggleZoneTime(){zoneTimeVisible=!zoneTimeVisible;document.getElementById(‘zone-time-fields’).style.display=zoneTimeVisible?‘block’:‘none’;document.getElementById(‘zone-time-toggle-btn’).classList.toggle(‘active-panel’,zoneTimeVisible);}
 let zoneColExpanded=false;
-function toggleZoneCol(){zoneColExpanded=!zoneColExpanded;const btn=document.getElementById('zone-col-btn');if(btn)btn.textContent=zoneColExpanded?'−':'+';document.querySelectorAll('.zone-col-th').forEach(th=>th.style.width=zoneColExpanded?'auto':'2.2rem');document.querySelectorAll('.zone-col-td').forEach(td=>{td.style.maxWidth=zoneColExpanded?'300px':'0';td.style.overflow=zoneColExpanded?'visible':'hidden';td.style.padding=zoneColExpanded?'0.5rem 0.65rem':'0.5rem 0';});document.querySelectorAll('.zone-col-content').forEach(el=>el.style.display=zoneColExpanded?'block':'none');}
+function toggleZoneCol(){zoneColExpanded=!zoneColExpanded;const btn=document.getElementById(‘zone-col-btn’);if(btn)btn.textContent=zoneColExpanded?‘−’:’+’;document.querySelectorAll(’.zone-col-th’).forEach(th=>th.style.width=zoneColExpanded?‘auto’:‘2.2rem’);document.querySelectorAll(’.zone-col-td’).forEach(td=>{td.style.maxWidth=zoneColExpanded?‘300px’:‘0’;td.style.overflow=zoneColExpanded?‘visible’:‘hidden’;td.style.padding=zoneColExpanded?‘0.5rem 0.65rem’:‘0.5rem 0’;});document.querySelectorAll(’.zone-col-content’).forEach(el=>el.style.display=zoneColExpanded?‘block’:‘none’);}
 let commentExcl=false;
-function toggleExcl(){commentExcl=!commentExcl;document.getElementById('excl-btn').classList.toggle('on',commentExcl);}
-function resetExcl(){commentExcl=false;document.getElementById('excl-btn').classList.remove('on');}
+function toggleExcl(){commentExcl=!commentExcl;document.getElementById(‘excl-btn’).classList.toggle(‘on’,commentExcl);}
+function resetExcl(){commentExcl=false;document.getElementById(‘excl-btn’).classList.remove(‘on’);}
 
 // ═══ TIME & PACE ═══
-function parseTime(str){if(!str||!str.trim())return null;const parts=str.trim().split(':');if(parts.length===2){const m=parseInt(parts[0],10),s=parseInt(parts[1],10);if(isNaN(m)||isNaN(s)||s<0||s>59)return null;return m*60+s;}if(parts.length===3){const h=parseInt(parts[0],10),m=parseInt(parts[1],10),s=parseInt(parts[2],10);if(isNaN(h)||isNaN(m)||isNaN(s)||m>59||s>59)return null;return h*3600+m*60+s;}return null;}
-function formatDuration(sec){if(!sec||sec<=0)return'—';const h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;if(h>0)return`${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;return`${m}:${String(s).padStart(2,'0')}`;}
+function parseTime(str){if(!str||!str.trim())return null;const parts=str.trim().split(’:’);if(parts.length===2){const m=parseInt(parts[0],10),s=parseInt(parts[1],10);if(isNaN(m)||isNaN(s)||s<0||s>59)return null;return m*60+s;}if(parts.length===3){const h=parseInt(parts[0],10),m=parseInt(parts[1],10),s=parseInt(parts[2],10);if(isNaN(h)||isNaN(m)||isNaN(s)||m>59||s>59)return null;return h*3600+m*60+s;}return null;}
+function formatDuration(sec){if(!sec||sec<=0)return’—’;const h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;if(h>0)return`${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;return`${m}:${String(s).padStart(2,'0')}`;}
 function calcPaceStr(d,s){if(!d||!s||d<=0||s<=0)return null;const ps=s/d,pm=Math.floor(ps/60),ss=Math.round(ps%60);return ss===60?`${pm+1}:00`:`${pm}:${String(ss).padStart(2,'0')}`;}
-const distInp=document.getElementById('f-distance'),durInp=document.getElementById('f-duration'),paceInp=document.getElementById('f-pace');
-function updatePaceLive(){const p=calcPaceStr(parseFloat(distInp.value),parseTime(durInp.value));paceInp.value=p?p+' min/km':'';}
-distInp.addEventListener('input',updatePaceLive);durInp.addEventListener('input',updatePaceLive);
-durInp.addEventListener('blur',()=>{const r=durInp.value.trim();if(/^\d{3,4}$/.test(r)){durInp.value=`${r.slice(0,r.length-2)}:${r.slice(-2)}`;updatePaceLive();}});
-[1,2,3,4,5].forEach(z=>{document.getElementById(`zt-${z}`).addEventListener('blur',()=>{const i=document.getElementById(`zt-${z}`),r=i.value.trim();if(/^\d{3,4}$/.test(r))i.value=`${r.slice(0,r.length-2)}:${r.slice(-2)}`;});});
-document.getElementById('f-date').value=todayISO();
+const distInp=document.getElementById(‘f-distance’),durInp=document.getElementById(‘f-duration’),paceInp=document.getElementById(‘f-pace’);
+function updatePaceLive(){const p=calcPaceStr(parseFloat(distInp.value),parseTime(durInp.value));paceInp.value=p?p+’ min/km’:’’;}
+distInp.addEventListener(‘input’,updatePaceLive);durInp.addEventListener(‘input’,updatePaceLive);
+durInp.addEventListener(‘blur’,()=>{const r=durInp.value.trim();if(/^\d{3,4}$/.test(r)){durInp.value=`${r.slice(0,r.length-2)}:${r.slice(-2)}`;updatePaceLive();}});
+[1,2,3,4,5].forEach(z=>{document.getElementById(`zt-${z}`).addEventListener(‘blur’,()=>{const i=document.getElementById(`zt-${z}`),r=i.value.trim();if(/^\d{3,4}$/.test(r))i.value=`${r.slice(0,r.length-2)}:${r.slice(-2)}`;});});
+document.getElementById(‘f-date’).value=todayISO();
 
 // ═══ EDIT STATE ═══
 let editingId=null;
 function enterEditMode(id){
-  const t=loadTrainings().find(x=>x.id===id);if(!t)return;
-  editingId=id;
-  document.getElementById('f-date').value=t.date||todayISO();document.getElementById('f-activity').value=t.activity||'bieg';document.getElementById('f-type').value=t.type||'baza tlenowa';
-  distInp.value=t.distance||'';const ds=formatDuration(t.durationSeconds);durInp.value=ds!=='—'?ds:'';
-  document.getElementById('f-accent').value=t.accent||'';document.getElementById('f-note').value=t.note||'';document.getElementById('f-task').value=t.task||'';document.getElementById('f-hr').value=t.hr||'';
-  const tv=t.task||'';if(tv&&!taskVisible)toggleTask();else if(!tv&&taskVisible)toggleTask();
-  commentExcl=!!t.commentExcl;document.getElementById('excl-btn').classList.toggle('on',commentExcl);
-  selectedRPE=t.rpe||null;refreshRPE();updatePaceLive();
-  const zt=t.zoneTimes||{};[1,2,3,4,5].forEach(z=>{const v=zt[z]?formatDuration(zt[z]):'';document.getElementById(`zt-${z}`).value=v!=='—'?v:'';});
-  const hz=Object.values(zt).some(v=>v>0);if(hz&&!zoneTimeVisible)toggleZoneTime();else if(!hz&&zoneTimeVisible)toggleZoneTime();
-  document.getElementById('add-btn').textContent='💾 Zapisz zmiany';document.getElementById('cancel-btn').style.display='inline-block';
-  document.getElementById('edit-banner').classList.add('visible');document.getElementById('form-card').classList.add('editing');
-  clearPlanSource();switchTab('endurance');document.getElementById('form-card').scrollIntoView({behavior:'smooth',block:'start'});
+const t=loadTrainings().find(x=>x.id===id);if(!t)return;
+editingId=id;
+document.getElementById(‘f-date’).value=t.date||todayISO();document.getElementById(‘f-activity’).value=t.activity||‘bieg’;document.getElementById(‘f-type’).value=t.type||‘baza tlenowa’;
+distInp.value=t.distance||’’;const ds=formatDuration(t.durationSeconds);durInp.value=ds!==’—’?ds:’’;
+document.getElementById(‘f-accent’).value=t.accent||’’;document.getElementById(‘f-note’).value=t.note||’’;document.getElementById(‘f-task’).value=t.task||’’;document.getElementById(‘f-hr’).value=t.hr||’’;
+const tv=t.task||’’;if(tv&&!taskVisible)toggleTask();else if(!tv&&taskVisible)toggleTask();
+commentExcl=!!t.commentExcl;document.getElementById(‘excl-btn’).classList.toggle(‘on’,commentExcl);
+selectedRPE=t.rpe||null;refreshRPE();updatePaceLive();
+const zt=t.zoneTimes||{};[1,2,3,4,5].forEach(z=>{const v=zt[z]?formatDuration(zt[z]):’’;document.getElementById(`zt-${z}`).value=v!==’—’?v:’’;});
+const hz=Object.values(zt).some(v=>v>0);if(hz&&!zoneTimeVisible)toggleZoneTime();else if(!hz&&zoneTimeVisible)toggleZoneTime();
+document.getElementById(‘add-btn’).textContent=‘💾 Zapisz zmiany’;document.getElementById(‘cancel-btn’).style.display=‘inline-block’;
+document.getElementById(‘edit-banner’).classList.add(‘visible’);document.getElementById(‘form-card’).classList.add(‘editing’);
+clearPlanSource();switchTab(‘endurance’);document.getElementById(‘form-card’).scrollIntoView({behavior:‘smooth’,block:‘start’});
 }
 function cancelEdit(){editingId=null;resetForm();}
 function resetForm(){
-  editingId=null;document.getElementById('f-date').value=todayISO();document.getElementById('f-activity').value='bieg';document.getElementById('f-type').value='baza tlenowa';
-  distInp.value='';durInp.value='';document.getElementById('f-accent').value='';document.getElementById('f-note').value='';document.getElementById('f-task').value='';document.getElementById('f-hr').value='';
-  selectedRPE=null;refreshRPE();paceInp.value='';resetExcl();
-  [1,2,3,4,5].forEach(z=>document.getElementById(`zt-${z}`).value='');
-  if(taskVisible)toggleTask();if(zoneTimeVisible)toggleZoneTime();
-  document.getElementById('add-btn').textContent='+ Dodaj trening';document.getElementById('cancel-btn').style.display='none';
-  document.getElementById('edit-banner').classList.remove('visible');document.getElementById('form-card').classList.remove('editing');
-  document.getElementById('form-error').style.display='none';clearPlanSource();renderEndurance();
+editingId=null;document.getElementById(‘f-date’).value=todayISO();document.getElementById(‘f-activity’).value=‘bieg’;document.getElementById(‘f-type’).value=‘baza tlenowa’;
+distInp.value=’’;durInp.value=’’;document.getElementById(‘f-accent’).value=’’;document.getElementById(‘f-note’).value=’’;document.getElementById(‘f-task’).value=’’;document.getElementById(‘f-hr’).value=’’;
+selectedRPE=null;refreshRPE();paceInp.value=’’;resetExcl();
+[1,2,3,4,5].forEach(z=>document.getElementById(`zt-${z}`).value=’’);
+if(taskVisible)toggleTask();if(zoneTimeVisible)toggleZoneTime();
+document.getElementById(‘add-btn’).textContent=’+ Dodaj trening’;document.getElementById(‘cancel-btn’).style.display=‘none’;
+document.getElementById(‘edit-banner’).classList.remove(‘visible’);document.getElementById(‘form-card’).classList.remove(‘editing’);
+document.getElementById(‘form-error’).style.display=‘none’;clearPlanSource();renderEndurance();
 }
 
 // ═══ ADD / SAVE ═══
-document.getElementById('add-btn').addEventListener('click',()=>{
-  const date=document.getElementById('f-date').value,activity=document.getElementById('f-activity').value,type=document.getElementById('f-type').value;
-  const distance=parseFloat(distInp.value),durationSeconds=parseTime(durInp.value),accent=parseFloat(document.getElementById('f-accent').value)||0;
-  const note=document.getElementById('f-note').value.trim(),task=document.getElementById('f-task').value.trim();
-  const hrRaw=parseInt(document.getElementById('f-hr').value),hr=isNaN(hrRaw)||hrRaw<=0?null:hrRaw;
-  if(!date){showError('Podaj datę.');return;}if(!distance||distance<=0){showError('Podaj dystans.');return;}if(!durationSeconds||durationSeconds<=0){showError('Podaj czas.');return;}
-  document.getElementById('form-error').style.display='none';
-  const zoneTimes={};[1,2,3,4,5].forEach(z=>{const s=parseTime(document.getElementById(`zt-${z}`).value);if(s&&s>0)zoneTimes[z]=s;});
-  const record={date,activity,type,distance,durationSeconds,accent,rpe:selectedRPE,hr,note,commentExcl,zoneTimes,task};
-  const all=loadTrainings();
-  if(editingId!==null){const idx=all.findIndex(x=>x.id===editingId);if(idx!==-1)all[idx]={...all[idx],...record};}else all.push({id:Date.now(),...record});
-  saveTrainings(all);if(pendingPlanId!==null){savePlanned(loadPlanned().filter(x=>x.id!==pendingPlanId));pendingPlanId=null;}resetForm();
+document.getElementById(‘add-btn’).addEventListener(‘click’,()=>{
+const date=document.getElementById(‘f-date’).value,activity=document.getElementById(‘f-activity’).value,type=document.getElementById(‘f-type’).value;
+const distance=parseFloat(distInp.value),durationSeconds=parseTime(durInp.value),accent=parseFloat(document.getElementById(‘f-accent’).value)||0;
+const note=document.getElementById(‘f-note’).value.trim(),task=document.getElementById(‘f-task’).value.trim();
+const hrRaw=parseInt(document.getElementById(‘f-hr’).value),hr=isNaN(hrRaw)||hrRaw<=0?null:hrRaw;
+if(!date){showError(‘Podaj datę.’);return;}if(!distance||distance<=0){showError(‘Podaj dystans.’);return;}if(!durationSeconds||durationSeconds<=0){showError(‘Podaj czas.’);return;}
+document.getElementById(‘form-error’).style.display=‘none’;
+const zoneTimes={};[1,2,3,4,5].forEach(z=>{const s=parseTime(document.getElementById(`zt-${z}`).value);if(s&&s>0)zoneTimes[z]=s;});
+const record={date,activity,type,distance,durationSeconds,accent,rpe:selectedRPE,hr,note,commentExcl,zoneTimes,task};
+const all=loadTrainings();
+if(editingId!==null){const idx=all.findIndex(x=>x.id===editingId);if(idx!==-1)all[idx]={…all[idx],…record};}else all.push({id:Date.now(),…record});
+saveTrainings(all);if(pendingPlanId!==null){savePlanned(loadPlanned().filter(x=>x.id!==pendingPlanId));pendingPlanId=null;}resetForm();
 });
-function showError(msg){const el=document.getElementById('form-error');el.textContent=msg;el.style.display='inline';setTimeout(()=>el.style.display='none',4000);}
+function showError(msg){const el=document.getElementById(‘form-error’);el.textContent=msg;el.style.display=‘inline’;setTimeout(()=>el.style.display=‘none’,4000);}
 
 // ═══ DELETE / EDIT ═══
-window.deleteTraining=function(id){if(!confirm('Usunąć ten trening?'))return;if(editingId===id)cancelEdit();saveTrainings(loadTrainings().filter(x=>x.id!==id));renderEndurance();if(document.getElementById('tab-history').classList.contains('active'))renderHistory();};
+window.deleteTraining=function(id){if(!confirm(‘Usunąć ten trening?’))return;if(editingId===id)cancelEdit();saveTrainings(loadTrainings().filter(x=>x.id!==id));renderEndurance();if(document.getElementById(‘tab-history’).classList.contains(‘active’))renderHistory();};
 window.editTraining=function(id){enterEditMode(id);};
 
 // ═══ DISPLAY HELPERS ═══
-function escHtml(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-function typeTagClass(type){const t=(type||'').toLowerCase();if(t==='baza tlenowa')return'tag-type-blue';if(t==='interwałowy'||t==='około progowy')return'tag-type-orange';return'tag-type-green';}
-function commentCellHTML(note,excl){if(!note||!note.trim())return`<span style="color:var(--border);">—</span>`;const icon=excl?`<span style="display:inline-flex;align-items:center;gap:0.1rem;font-size:0.95rem;">💬<span style="font-size:0.82rem;font-weight:900;color:#b45309;">❗</span></span>`:`<span style="font-size:0.95rem;">💬</span>`;return`<span class="comment-cell" onclick="this.classList.toggle('open');event.stopPropagation();">${icon}<div class="tooltip-box">${escHtml(note)}</div></span>`;}
+function escHtml(s){return(s||’’).replace(/&/g,’&’).replace(/</g,’<’).replace(/>/g,’>’).replace(/”/g,’"’);}
+function typeTagClass(type){const t=(type||’’).toLowerCase();if(t===‘baza tlenowa’)return’tag-type-blue’;if(t===‘interwałowy’||t===‘około progowy’)return’tag-type-orange’;return’tag-type-green’;}
+
+// Komentarz jako inline tekst (bez tooltip)
+function commentCellHTML(note,excl){
+if(!note||!note.trim())return`<div class="comment-cell-inline empty">—</div>`;
+if(excl)return`<div class="comment-cell-inline excl">❗ ${escHtml(note)}</div>`;
+return`<div class="comment-cell-inline">${escHtml(note)}</div>`;
+}
+
 function zoneTimesHTML(zt){const p=[];for(let z=1;z<=5;z++){const s=zt&&zt[z]?zt[z]:0;p.push(`<span>S${z}-${s>0?formatDuration(s):'00:00'}</span>`);}return`<div class="zone-time-cell">${p.join('')}</div>`;}
-function hrCellHTML(hr){if(!hr)return`<span style="color:var(--border);">—</span>`;return`<span class="hr-cell">♥ ${hr} bpm</span>`;}
+function hrCellHTML(hr){if(!hr)return`<span style="color:var(--border);">—</span>`;return`<span class="hr-cell">♥ ${hr}</span>`;}
 
 // ═══ BUILD TABLE ═══
 function buildTableHTML(rows,mode){
-  const sortable=mode==='full';
-  if(rows.length===0)return`<div class="empty-state"><div class="big">🏃</div><p class="font-semibold" style="color:var(--muted);">Brak treningów</p></div>`;
-  const compactCols=[{key:'date',label:'Data'},{key:'activity',label:'Akt.'},{key:'type',label:'Typ'},{key:'',label:'Zadanie',taskCol:true},{key:'rpe',label:'RPE'},{key:'distance',label:'Dystans'},{key:'time',label:'Czas'},{key:'pace',label:'Tempo'},{key:'',label:'Kom.'},{key:'',label:'Tętno'},{key:'',label:''}];
-  const fullCols=[{key:'date',label:'Data'},{key:'activity',label:'Akt.'},{key:'type',label:'Typ'},{key:'',label:'Zadanie',taskCol:true},{key:'rpe',label:'RPE'},{key:'distance',label:'Dystans'},{key:'time',label:'Czas'},{key:'pace',label:'Tempo'},{key:'',label:'Kom.'},{key:'',label:'Tętno'},{key:'',label:'Strefy',zoneCol:true},{key:'',label:''}];
-  const cols=mode==='compact'?compactCols:fullCols;
-  const thead=`<table class="data-table"><thead><tr>`+cols.map(h=>{
-    if(h.zoneCol)return`<th class="zone-col-th" style="width:2.2rem;text-align:center;">Strefy<button class="zone-toggle-btn" id="zone-col-btn" onclick="toggleZoneCol()" title="Pokaż/ukryj">+</button></th>`;
-    if(h.taskCol)return`<th style="min-width:140px;max-width:190px;">${h.label}</th>`;
-    if(!h.key||!sortable)return`<th>${h.label}</th>`;
-    const cls=hSortCol===h.key?(hSortDir==='asc'?'sort-asc':'sort-desc'):'';
-    return`<th data-col="${h.key}" class="sortable ${cls}">${h.label}<span class="sort-icon"></span></th>`;
-  }).join('')+`</tr></thead><tbody>`;
-  const tbody=rows.map(t=>{
-    const pace=calcPaceStr(t.distance,t.durationSeconds),dur=formatDuration(t.durationSeconds),dot=rpeDotStyle(t.rpe);
-    const rpeCell=t.rpe?`<span class="rpe-dot" style="background:${dot.bg};color:${dot.color};border:1.5px solid ${dot.border};">${t.rpe}</span>`:`<span style="color:var(--border);">—</span>`;
-    const taskHTML=t.task?`<div class="task-cell">${escHtml(t.task)}</div>`:`<div class="task-cell empty">—</div>`;
-    if(mode==='compact'){return`<tr><td class="mono" style="white-space:nowrap;">${formatDatePL(t.date)}</td><td><span class="tag-sm tag-activity">${escHtml(t.activity||'—')}</span></td><td><span class="tag-sm ${typeTagClass(t.type)}">${escHtml(t.type||'—')}</span></td><td style="min-width:140px;max-width:190px;">${taskHTML}</td><td>${rpeCell}</td><td class="mono">${t.distance} km</td><td class="mono">${dur}</td><td class="mono">${pace?pace+' /km':'—'}</td><td>${commentCellHTML(t.note,t.commentExcl)}</td><td>${hrCellHTML(t.hr)}</td><td style="white-space:nowrap;"><button class="row-btn" onclick="editTraining(${t.id})">Edytuj</button><button class="row-btn del" onclick="deleteTraining(${t.id})">Usuń</button></td></tr>`;}
-    const col=!zoneColExpanded;
-    return`<tr><td class="mono" style="white-space:nowrap;">${formatDatePL(t.date)}</td><td><span class="tag-sm tag-activity">${escHtml(t.activity||'—')}</span></td><td><span class="tag-sm ${typeTagClass(t.type)}">${escHtml(t.type||'—')}</span></td><td style="min-width:140px;max-width:190px;">${taskHTML}</td><td>${rpeCell}</td><td class="mono">${t.distance} km</td><td class="mono">${dur}</td><td class="mono">${pace?pace+' /km':'—'}</td><td>${commentCellHTML(t.note,t.commentExcl)}</td><td>${hrCellHTML(t.hr)}</td><td class="zone-col-td" style="max-width:${col?'0':'300px'};overflow:${col?'hidden':'visible'};padding:${col?'0.5rem 0':'0.5rem 0.65rem'};"><div class="zone-col-content" style="display:${col?'none':'block'};">${zoneTimesHTML(t.zoneTimes)}</div></td><td style="white-space:nowrap;"><button class="row-btn" onclick="editTraining(${t.id})">Edytuj</button><button class="row-btn del" onclick="deleteTraining(${t.id})">Usuń</button></td></tr>`;
-  }).join('');
-  return thead+tbody+'</tbody></table>';
+const sortable=mode===‘full’;
+if(rows.length===0)return`<div class="empty-state"><div class="big">🏃</div><p class="font-semibold" style="color:var(--muted);">Brak treningów</p></div>`;
+
+// Compact: Data | Akt. | Typ | Zadanie | Kom. | RPE | Dystans | Czas | Tempo | Tętno | Akcje
+const compactCols=[
+{key:‘date’,label:‘Data’},
+{key:‘activity’,label:‘Akt.’},
+{key:‘type’,label:‘Typ’},
+{key:’’,label:‘Zadanie’,taskCol:true},
+{key:’’,label:‘Kom.’,commentCol:true},
+{key:‘rpe’,label:‘RPE’},
+{key:‘distance’,label:‘Dystans’},
+{key:‘time’,label:‘Czas’},
+{key:‘pace’,label:‘Tempo’},
+{key:’’,label:‘Tętno’},
+{key:’’,label:’’}
+];
+// Full (historia): Data | Akt. | Typ | Zadanie | Kom. | RPE | Dystans | Czas | Tempo | Tętno | Strefy | Akcje
+const fullCols=[
+{key:‘date’,label:‘Data’},
+{key:‘activity’,label:‘Akt.’},
+{key:‘type’,label:‘Typ’},
+{key:’’,label:‘Zadanie’,taskCol:true},
+{key:’’,label:‘Kom.’,commentCol:true},
+{key:‘rpe’,label:‘RPE’},
+{key:‘distance’,label:‘Dystans’},
+{key:‘time’,label:‘Czas’},
+{key:‘pace’,label:‘Tempo’},
+{key:’’,label:‘Tętno’},
+{key:’’,label:‘Strefy’,zoneCol:true},
+{key:’’,label:’’}
+];
+const cols=mode===‘compact’?compactCols:fullCols;
+
+const thead=`<table class="data-table"><thead><tr>`+cols.map(h=>{
+if(h.zoneCol)return`<th class="zone-col-th" style="width:2.2rem;text-align:center;">Strefy<button class="zone-toggle-btn" id="zone-col-btn" onclick="toggleZoneCol()" title="Pokaż/ukryj">+</button></th>`;
+if(h.taskCol||h.commentCol)return`<th style="min-width:90px;max-width:150px;">${h.label}</th>`;
+if(!h.key||!sortable)return`<th>${h.label}</th>`;
+const cls=hSortCol===h.key?(hSortDir===‘asc’?‘sort-asc’:‘sort-desc’):’’;
+return`<th data-col="${h.key}" class="sortable ${cls}">${h.label}<span class="sort-icon"></span></th>`;
+}).join(’’)+`</tr></thead><tbody>`;
+
+const tbody=rows.map(t=>{
+const pace=calcPaceStr(t.distance,t.durationSeconds),dur=formatDuration(t.durationSeconds),dot=rpeDotStyle(t.rpe);
+const rpeCell=t.rpe?`<span class="rpe-dot" style="background:${dot.bg};color:${dot.color};border:1.5px solid ${dot.border};">${t.rpe}</span>`:`<span style="color:var(--border);">—</span>`;
+const taskHTML=t.task?`<div class="task-cell">${escHtml(t.task)}</div>`:`<div class="task-cell empty">—</div>`;
+const commentHTML=commentCellHTML(t.note,t.commentExcl);
+
+```
+if(mode==='compact'){
+  return`<tr>
+    <td><span class="date-cell">${formatDatePL(t.date)}</span></td>
+    <td><span class="tag-sm tag-activity">${escHtml(t.activity||'—')}</span></td>
+    <td><span class="tag-sm ${typeTagClass(t.type)}">${escHtml(t.type||'—')}</span></td>
+    <td style="min-width:90px;max-width:150px;">${taskHTML}</td>
+    <td style="min-width:90px;max-width:150px;">${commentHTML}</td>
+    <td>${rpeCell}</td>
+    <td class="mono" style="font-size:0.78rem;">${t.distance} km</td>
+    <td class="mono" style="font-size:0.78rem;">${dur}</td>
+    <td class="mono" style="font-size:0.78rem;">${pace?pace+' /km':'—'}</td>
+    <td>${hrCellHTML(t.hr)}</td>
+    <td style="white-space:nowrap;"><button class="row-btn" onclick="editTraining(${t.id})">Edytuj</button><button class="row-btn del" onclick="deleteTraining(${t.id})">Usuń</button></td>
+  </tr>`;
 }
-function renderEndurance(){const sorted=loadTrainings().sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id).slice(0,5);document.getElementById('endurance-table-body').innerHTML=buildTableHTML(sorted,'compact');}
+
+const col=!zoneColExpanded;
+return`<tr>
+  <td><span class="date-cell">${formatDatePL(t.date)}</span></td>
+  <td><span class="tag-sm tag-activity">${escHtml(t.activity||'—')}</span></td>
+  <td><span class="tag-sm ${typeTagClass(t.type)}">${escHtml(t.type||'—')}</span></td>
+  <td style="min-width:90px;max-width:150px;">${taskHTML}</td>
+  <td style="min-width:90px;max-width:150px;">${commentHTML}</td>
+  <td>${rpeCell}</td>
+  <td class="mono" style="font-size:0.78rem;">${t.distance} km</td>
+  <td class="mono" style="font-size:0.78rem;">${dur}</td>
+  <td class="mono" style="font-size:0.78rem;">${pace?pace+' /km':'—'}</td>
+  <td>${hrCellHTML(t.hr)}</td>
+  <td class="zone-col-td" style="max-width:${col?'0':'300px'};overflow:${col?'hidden':'visible'};padding:${col?'0.5rem 0':'0.5rem 0.65rem'};"><div class="zone-col-content" style="display:${col?'none':'block'};">${zoneTimesHTML(t.zoneTimes)}</div></td>
+  <td style="white-space:nowrap;"><button class="row-btn" onclick="editTraining(${t.id})">Edytuj</button><button class="row-btn del" onclick="deleteTraining(${t.id})">Usuń</button></td>
+</tr>`;
+```
+
+}).join(’’);
+
+return thead+tbody+’</tbody></table>’;
+}
+
+function renderEndurance(){const sorted=loadTrainings().sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id).slice(0,5);document.getElementById(‘endurance-table-body’).innerHTML=buildTableHTML(sorted,‘compact’);}
 
 // ═══ HISTORY ═══
-let hSortCol='date',hSortDir='desc';
-function populateYearFilter(){const sel=document.getElementById('h-filter-year'),cur=sel.value;const years=[...new Set(loadTrainings().map(t=>t.date.split('-')[0]))].sort((a,b)=>b-a);sel.innerHTML='<option value="">Wszystkie</option>'+years.map(y=>`<option value="${y}"${y===cur?' selected':''}>${y}</option>`).join('');}
+let hSortCol=‘date’,hSortDir=‘desc’;
+function populateYearFilter(){const sel=document.getElementById(‘h-filter-year’),cur=sel.value;const years=[…new Set(loadTrainings().map(t=>t.date.split(’-’)[0]))].sort((a,b)=>b-a);sel.innerHTML=’<option value="">Wszystkie</option>’+years.map(y=>`<option value="${y}"${y===cur?' selected':''}>${y}</option>`).join(’’);}
 function renderHistory(){
-  let data=loadTrainings();const fy=document.getElementById('h-filter-year').value,fr=document.getElementById('h-filter-rpe').value;
-  const months=getMsValues('ms-month'),activities=getMsValues('ms-activity'),types=getMsValues('ms-type');
-  if(fy)data=data.filter(t=>t.date.startsWith(fy));if(months.length>0)data=data.filter(t=>months.includes(t.date.split('-')[1]));if(activities.length>0)data=data.filter(t=>activities.includes(t.activity));if(types.length>0)data=data.filter(t=>types.includes(t.type));if(fr)data=data.filter(t=>String(t.rpe)===fr);
-  data.sort((a,b)=>{let va,vb;switch(hSortCol){case'date':va=a.date;vb=b.date;break;case'activity':va=a.activity||'';vb=b.activity||'';break;case'type':va=a.type||'';vb=b.type||'';break;case'rpe':va=a.rpe||0;vb=b.rpe||0;break;case'distance':va=a.distance||0;vb=b.distance||0;break;case'time':va=a.durationSeconds||0;vb=b.durationSeconds||0;break;case'pace':va=(a.distance&&a.durationSeconds)?a.durationSeconds/a.distance:0;vb=(b.distance&&b.durationSeconds)?b.durationSeconds/b.distance:0;break;default:va=a.date;vb=b.date;}if(va<vb)return hSortDir==='asc'?-1:1;if(va>vb)return hSortDir==='asc'?1:-1;return 0;});
-  const wrap=document.getElementById('history-table-body');wrap.innerHTML=buildTableHTML(data,'full');
-  wrap.querySelectorAll('th[data-col]').forEach(th=>{th.addEventListener('click',()=>{const col=th.dataset.col;if(hSortCol===col)hSortDir=hSortDir==='asc'?'desc':'asc';else{hSortCol=col;hSortDir='asc';}renderHistory();});});
+let data=loadTrainings();const fy=document.getElementById(‘h-filter-year’).value,fr=document.getElementById(‘h-filter-rpe’).value;
+const months=getMsValues(‘ms-month’),activities=getMsValues(‘ms-activity’),types=getMsValues(‘ms-type’);
+if(fy)data=data.filter(t=>t.date.startsWith(fy));if(months.length>0)data=data.filter(t=>months.includes(t.date.split(’-’)[1]));if(activities.length>0)data=data.filter(t=>activities.includes(t.activity));if(types.length>0)data=data.filter(t=>types.includes(t.type));if(fr)data=data.filter(t=>String(t.rpe)===fr);
+data.sort((a,b)=>{let va,vb;switch(hSortCol){case’date’:va=a.date;vb=b.date;break;case’activity’:va=a.activity||’’;vb=b.activity||’’;break;case’type’:va=a.type||’’;vb=b.type||’’;break;case’rpe’:va=a.rpe||0;vb=b.rpe||0;break;case’distance’:va=a.distance||0;vb=b.distance||0;break;case’time’:va=a.durationSeconds||0;vb=b.durationSeconds||0;break;case’pace’:va=(a.distance&&a.durationSeconds)?a.durationSeconds/a.distance:0;vb=(b.distance&&b.durationSeconds)?b.durationSeconds/b.distance:0;break;default:va=a.date;vb=b.date;}if(va<vb)return hSortDir===‘asc’?-1:1;if(va>vb)return hSortDir===‘asc’?1:-1;return 0;});
+const wrap=document.getElementById(‘history-table-body’);wrap.innerHTML=buildTableHTML(data,‘full’);
+wrap.querySelectorAll(‘th[data-col]’).forEach(th=>{th.addEventListener(‘click’,()=>{const col=th.dataset.col;if(hSortCol===col)hSortDir=hSortDir===‘asc’?‘desc’:‘asc’;else{hSortCol=col;hSortDir=‘asc’;}renderHistory();});});
 }
 
 // ═══ CSV IMPORT ═══
-function handleCsvImport(event){const file=event.target.files[0];if(!file)return;readFileWithEncodingDetection(file).then(({text,encoding})=>{const log=document.getElementById('import-log');log.style.display='block';log.innerHTML=`<div style="color:#93c5fd;">📄 Wykryte kodowanie: ${encoding}</div>`;parseCsv(text);}).catch(err=>{const log=document.getElementById('import-log');log.style.display='block';log.innerHTML=`<div style="color:#fca5a5;">✗ ${err.message}</div>`;});event.target.value='';}
+function handleCsvImport(event){const file=event.target.files[0];if(!file)return;readFileWithEncodingDetection(file).then(({text,encoding})=>{const log=document.getElementById(‘import-log’);log.style.display=‘block’;log.innerHTML=`<div style="color:#93c5fd;">📄 Wykryte kodowanie: ${encoding}</div>`;parseCsv(text);}).catch(err=>{const log=document.getElementById(‘import-log’);log.style.display=‘block’;log.innerHTML=`<div style="color:#fca5a5;">✗ ${err.message}</div>`;});event.target.value=’’;}
 function parseCsv(text){
-  const log=document.getElementById('import-log');const logLine=(msg,ok=true)=>{log.innerHTML+=`<div style="color:${ok?'#86efac':'#fca5a5'};">${escHtml(msg)}</div>`;log.scrollTop=log.scrollHeight;};
-  const lines=text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').split('\n').filter(l=>l.trim()!=='');if(lines.length===0){logLine('Plik jest pusty.',false);return;}
-  let startRow=0;const firstCols=lines[0].split(';');if(!parseDatePL((firstCols[0]||'').trim())){logLine(`Pominięto nagłówek: "${lines[0].substring(0,60)}"`);startRow=1;}
-  const existing=loadTrainings();const imported=[];let ok=0,skipped=0,errors=0;
-  for(let i=startRow;i<lines.length;i++){
-    const raw=lines[i];if(!raw.trim())continue;const cols=splitCsvLine(raw,';');const c=(idx)=>(cols[idx]||'').trim();
-    const date=parseDatePL(c(0));if(!date){logLine(`Wiersz ${i+1}: nieprawidłowa data "${c(0)}" — pomijam.`,false);errors++;continue;}
-    const activity=normaliseActivity(c(1)),type=normaliseType(c(2)),distance=parseFloat(c(3).replace(',','.'));
-    if(isNaN(distance)||distance<=0){logLine(`Wiersz ${i+1}: nieprawidłowy dystans "${c(3)}" — pomijam.`,false);errors++;continue;}
-    const accent=parseFloat(c(4).replace(',','.'))||0,durationSeconds=parseTime(c(5));
-    if(!durationSeconds||durationSeconds<=0){logLine(`Wiersz ${i+1}: nieprawidłowy czas "${c(5)}" — pomijam.`,false);errors++;continue;}
-    const rpeRaw=parseInt(c(6),10),rpe=(isNaN(rpeRaw)||rpeRaw<1||rpeRaw>10)?null:rpeRaw;
-    const task=c(7),note=c(8),commentExcl=false,hrRaw=parseInt(c(9),10),hr=(isNaN(hrRaw)||hrRaw<=0)?null:hrRaw;
-    const zoneTimes={};for(let z=0;z<5;z++){const secs=parseTime(c(10+z));if(secs&&secs>0)zoneTimes[z+1]=secs;}
-    const isDup=existing.some(x=>x.date===date&&x.distance===distance&&x.durationSeconds===durationSeconds);
-    if(isDup){logLine(`Wiersz ${i+1}: duplikat (${formatDatePL(date)}, ${distance} km) — pomijam.`);skipped++;continue;}
-    imported.push({id:Date.now()+i,date,activity,type,distance,durationSeconds,accent,rpe,hr,note,commentExcl,zoneTimes,task});ok++;
-  }
-  if(imported.length>0){saveTrainings([...existing,...imported]);renderEndurance();if(document.getElementById('tab-history').classList.contains('active')){populateYearFilter();renderHistory();}}
-  logLine('─────────────────────────────');logLine(`✓ Zaimportowano: ${ok} treningów`);if(skipped>0)logLine(`⚠ Pominięto duplikatów: ${skipped}`);if(errors>0)logLine(`✗ Błędy parsowania: ${errors}`,false);logLine(`Łącznie wierszy danych: ${ok+skipped+errors}`);
+const log=document.getElementById(‘import-log’);const logLine=(msg,ok=true)=>{log.innerHTML+=`<div style="color:${ok?'#86efac':'#fca5a5'};">${escHtml(msg)}</div>`;log.scrollTop=log.scrollHeight;};
+const lines=text.replace(/\r\n/g,’\n’).replace(/\r/g,’\n’).split(’\n’).filter(l=>l.trim()!==’’);if(lines.length===0){logLine(‘Plik jest pusty.’,false);return;}
+let startRow=0;const firstCols=lines[0].split(’;’);if(!parseDatePL((firstCols[0]||’’).trim())){logLine(`Pominięto nagłówek: "${lines[0].substring(0,60)}"`);startRow=1;}
+const existing=loadTrainings();const imported=[];let ok=0,skipped=0,errors=0;
+for(let i=startRow;i<lines.length;i++){
+const raw=lines[i];if(!raw.trim())continue;const cols=splitCsvLine(raw,’;’);const c=(idx)=>(cols[idx]||’’).trim();
+const date=parseDatePL(c(0));if(!date){logLine(`Wiersz ${i+1}: nieprawidłowa data "${c(0)}" — pomijam.`,false);errors++;continue;}
+const activity=normaliseActivity(c(1)),type=normaliseType(c(2)),distance=parseFloat(c(3).replace(’,’,’.’));
+if(isNaN(distance)||distance<=0){logLine(`Wiersz ${i+1}: nieprawidłowy dystans "${c(3)}" — pomijam.`,false);errors++;continue;}
+const accent=parseFloat(c(4).replace(’,’,’.’))||0,durationSeconds=parseTime(c(5));
+if(!durationSeconds||durationSeconds<=0){logLine(`Wiersz ${i+1}: nieprawidłowy czas "${c(5)}" — pomijam.`,false);errors++;continue;}
+const rpeRaw=parseInt(c(6),10),rpe=(isNaN(rpeRaw)||rpeRaw<1||rpeRaw>10)?null:rpeRaw;
+const task=c(7),note=c(8),commentExcl=false,hrRaw=parseInt(c(9),10),hr=(isNaN(hrRaw)||hrRaw<=0)?null:hrRaw;
+const zoneTimes={};for(let z=0;z<5;z++){const secs=parseTime(c(10+z));if(secs&&secs>0)zoneTimes[z+1]=secs;}
+const isDup=existing.some(x=>x.date===date&&x.distance===distance&&x.durationSeconds===durationSeconds);
+if(isDup){logLine(`Wiersz ${i+1}: duplikat (${formatDatePL(date)}, ${distance} km) — pomijam.`);skipped++;continue;}
+imported.push({id:Date.now()+i,date,activity,type,distance,durationSeconds,accent,rpe,hr,note,commentExcl,zoneTimes,task});ok++;
 }
-function splitCsvLine(line,sep){const result=[];let cur='',inQ=false;for(let i=0;i<line.length;i++){const ch=line[i];if(ch==='"'){if(inQ&&line[i+1]==='"'){cur+='"';i++;}else inQ=!inQ;}else if(ch===sep&&!inQ){result.push(cur);cur='';}else{cur+=ch;}}result.push(cur);return result;}
-function downloadSampleCsv(){const rows=['Data;Aktywność;Typ;Dystans;Akcent;Czas;RPE;Zadanie;Notatka;Tętno;S1;S2;S3;S4;S5','06.02.2025;bieg;baza tlenowa;6,06;0;35:29;6;spokojny bieg;dobre samopoczucie;138;15:00;12:00;6:00;2:00;0:29','07.02.2025;stadion;interwałowy;8,05;3;45:17;8;3x2000m;ciężki trening;162;5:00;8:00;20:00;10:00;2:17'];const bom='\uFEFF';const blob=new Blob([bom+rows.join('\n')],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='trainlog_sample.csv';a.click();URL.revokeObjectURL(url);}
-function clearAllTrainings(){if(!confirm('Usunąć WSZYSTKIE treningi?'))return;saveTrainings([]);renderEndurance();const log=document.getElementById('import-log');log.style.display='block';log.innerHTML=`<div style="color:#fca5a5;">🗑 Wszystkie treningi zostały usunięte.</div>`;}
+if(imported.length>0){saveTrainings([…existing,…imported]);renderEndurance();if(document.getElementById(‘tab-history’).classList.contains(‘active’)){populateYearFilter();renderHistory();}}
+logLine(‘─────────────────────────────’);logLine(`✓ Zaimportowano: ${ok} treningów`);if(skipped>0)logLine(`⚠ Pominięto duplikatów: ${skipped}`);if(errors>0)logLine(`✗ Błędy parsowania: ${errors}`,false);logLine(`Łącznie wierszy danych: ${ok+skipped+errors}`);
+}
+function splitCsvLine(line,sep){const result=[];let cur=’’,inQ=false;for(let i=0;i<line.length;i++){const ch=line[i];if(ch===’”’){if(inQ&&line[i+1]===’”’){cur+=’”’;i++;}else inQ=!inQ;}else if(ch===sep&&!inQ){result.push(cur);cur=’’;}else{cur+=ch;}}result.push(cur);return result;}
+function downloadSampleCsv(){const rows=[‘Data;Aktywność;Typ;Dystans;Akcent;Czas;RPE;Zadanie;Notatka;Tętno;S1;S2;S3;S4;S5’,‘06.02.2025;bieg;baza tlenowa;6,06;0;35:29;6;spokojny bieg;dobre samopoczucie;138;15:00;12:00;6:00;2:00;0:29’,‘07.02.2025;stadion;interwałowy;8,05;3;45:17;8;3x2000m;ciężki trening;162;5:00;8:00;20:00;10:00;2:17’];const bom=’\uFEFF’;const blob=new Blob([bom+rows.join(’\n’)],{type:‘text/csv;charset=utf-8;’});const url=URL.createObjectURL(blob);const a=document.createElement(‘a’);a.href=url;a.download=‘trainlog_sample.csv’;a.click();URL.revokeObjectURL(url);}
+function clearAllTrainings(){if(!confirm(‘Usunąć WSZYSTKIE treningi?’))return;saveTrainings([]);renderEndurance();const log=document.getElementById(‘import-log’);log.style.display=‘block’;log.innerHTML=`<div style="color:#fca5a5;">🗑 Wszystkie treningi zostały usunięte.</div>`;}
 
 // ═══ PROFILE ═══
-function buildZoneTable(){const tbody=document.getElementById('zone-tbody');tbody.innerHTML='';ZONE_DISPLAY.forEach(({num,label,cls})=>{const tr=document.createElement('tr');tr.innerHTML=`<td><span class="${cls}">${label}</span></td><td><input type="number" id="z${num}-bpm-min" placeholder="—" min="0" oninput="validateZones()"/></td><td><input type="number" id="z${num}-bpm-max" placeholder="—" min="0" oninput="validateZones()"/></td><td><input type="text" id="z${num}-pace-min" placeholder="5:00"/></td><td><input type="text" id="z${num}-pace-max" placeholder="6:30"/></td><td><input type="number" id="z${num}-power-min" placeholder="—" min="0" oninput="validateZones()"/></td><td><input type="number" id="z${num}-power-max" placeholder="—" min="0" oninput="validateZones()"/></td>`;tbody.appendChild(tr);});}
-function validateZones(){let v=true;for(let z=1;z<=4;z++){const bm=parseInt(document.getElementById(`z${z}-bpm-max`).value)||0,bm2=parseInt(document.getElementById(`z${z+1}-bpm-min`).value)||0,pm=parseInt(document.getElementById(`z${z}-power-max`).value)||0,pm2=parseInt(document.getElementById(`z${z+1}-power-min`).value)||0;if((bm>0&&bm2>0&&bm2<=bm)||(pm>0&&pm2>0&&pm2<=pm)){v=false;break;}}document.getElementById('zone-error').style.display=v?'none':'block';return v;}
-function saveProfile(){if(!validateZones())return;const p={height:document.getElementById('p-height').value,weight:document.getElementById('p-weight').value,zones:{}};for(let z=1;z<=5;z++){p.zones[z]={bpmMin:document.getElementById(`z${z}-bpm-min`).value,bpmMax:document.getElementById(`z${z}-bpm-max`).value,powerMin:document.getElementById(`z${z}-power-min`).value,powerMax:document.getElementById(`z${z}-power-max`).value,paceMin:document.getElementById(`z${z}-pace-min`).value,paceMax:document.getElementById(`z${z}-pace-max`).value};}saveProfileData(p);const el=document.getElementById('profile-saved');el.style.display='inline';setTimeout(()=>el.style.display='none',2500);}
-function loadProfileUI(){const p=loadProfile();if(p.height)document.getElementById('p-height').value=p.height;if(p.weight)document.getElementById('p-weight').value=p.weight;if(p.zones){for(let z=1;z<=5;z++){const zd=p.zones[z];if(!zd)continue;document.getElementById(`z${z}-bpm-min`).value=zd.bpmMin||'';document.getElementById(`z${z}-bpm-max`).value=zd.bpmMax||'';document.getElementById(`z${z}-power-min`).value=zd.powerMin||'';document.getElementById(`z${z}-power-max`).value=zd.powerMax||'';document.getElementById(`z${z}-pace-min`).value=zd.paceMin||'';document.getElementById(`z${z}-pace-max`).value=zd.paceMax||'';}}}
+function buildZoneTable(){const tbody=document.getElementById(‘zone-tbody’);tbody.innerHTML=’’;ZONE_DISPLAY.forEach(({num,label,cls})=>{const tr=document.createElement(‘tr’);tr.innerHTML=`<td><span class="${cls}">${label}</span></td><td><input type="number" id="z${num}-bpm-min" placeholder="—" min="0" oninput="validateZones()"/></td><td><input type="number" id="z${num}-bpm-max" placeholder="—" min="0" oninput="validateZones()"/></td><td><input type="text" id="z${num}-pace-min" placeholder="5:00"/></td><td><input type="text" id="z${num}-pace-max" placeholder="6:30"/></td><td><input type="number" id="z${num}-power-min" placeholder="—" min="0" oninput="validateZones()"/></td><td><input type="number" id="z${num}-power-max" placeholder="—" min="0" oninput="validateZones()"/></td>`;tbody.appendChild(tr);});}
+function validateZones(){let v=true;for(let z=1;z<=4;z++){const bm=parseInt(document.getElementById(`z${z}-bpm-max`).value)||0,bm2=parseInt(document.getElementById(`z${z+1}-bpm-min`).value)||0,pm=parseInt(document.getElementById(`z${z}-power-max`).value)||0,pm2=parseInt(document.getElementById(`z${z+1}-power-min`).value)||0;if((bm>0&&bm2>0&&bm2<=bm)||(pm>0&&pm2>0&&pm2<=pm)){v=false;break;}}document.getElementById(‘zone-error’).style.display=v?‘none’:‘block’;return v;}
+function saveProfile(){if(!validateZones())return;const p={height:document.getElementById(‘p-height’).value,weight:document.getElementById(‘p-weight’).value,zones:{}};for(let z=1;z<=5;z++){p.zones[z]={bpmMin:document.getElementById(`z${z}-bpm-min`).value,bpmMax:document.getElementById(`z${z}-bpm-max`).value,powerMin:document.getElementById(`z${z}-power-min`).value,powerMax:document.getElementById(`z${z}-power-max`).value,paceMin:document.getElementById(`z${z}-pace-min`).value,paceMax:document.getElementById(`z${z}-pace-max`).value};}saveProfileData(p);const el=document.getElementById(‘profile-saved’);el.style.display=‘inline’;setTimeout(()=>el.style.display=‘none’,2500);}
+function loadProfileUI(){const p=loadProfile();if(p.height)document.getElementById(‘p-height’).value=p.height;if(p.weight)document.getElementById(‘p-weight’).value=p.weight;if(p.zones){for(let z=1;z<=5;z++){const zd=p.zones[z];if(!zd)continue;document.getElementById(`z${z}-bpm-min`).value=zd.bpmMin||’’;document.getElementById(`z${z}-bpm-max`).value=zd.bpmMax||’’;document.getElementById(`z${z}-power-min`).value=zd.powerMin||’’;document.getElementById(`z${z}-power-max`).value=zd.powerMax||’’;document.getElementById(`z${z}-pace-min`).value=zd.paceMin||’’;document.getElementById(`z${z}-pace-max`).value=zd.paceMax||’’;}}}
 
 // ═══════════════════════════════════════════════════════════
-// SUMMARY — Chart.js overlapping bars (grouped:false)
+// CZĘŚĆ 4: LOGIKA CHART.JS
+// Wykres overlapping bars (grouped:false)
+// Słupek Akcentu asymetrycznie wysunięty W PRAWO poza główny słupek
+// Technika: grouped:false + różne barPercentage + niestandardowy plugin
+// do ręcznego przesunięcia słupka Akcent w prawo.
 // ═══════════════════════════════════════════════════════════
-let summaryRange='week', summaryOffset=0, summaryChart=null;
+let summaryRange=‘week’, summaryOffset=0, summaryChart=null;
 
 function today0(){const d=new Date();d.setHours(0,0,0,0);return d;}
 
 function buildPeriod(off){
-  if(off===undefined)off=summaryOffset;
-  const now=today0();
-  if(summaryRange==='week'){const mon=weekStart(now);const start=addDays(mon,off*7);return{start,end:addDays(start,6)};}
-  if(summaryRange==='month'){const base=new Date(now.getFullYear(),now.getMonth()+off,1);return{start:base,end:new Date(base.getFullYear(),base.getMonth()+1,0)};}
-  if(summaryRange==='12weeks'){
-    // Bieżący tydzień = ostatni bucket; cofamy się o 11 tygodni wstecz
-    const lastMon=addDays(weekStart(now),off*12*7);
-    const end=addDays(lastMon,6);
-    const start=addDays(lastMon,-11*7);
-    return{start,end};
-  }
-  // year
-  const y=now.getFullYear()+off;return{start:new Date(y,0,1),end:new Date(y,11,31)};
+if(off===undefined)off=summaryOffset;
+const now=today0();
+if(summaryRange===‘week’){const mon=weekStart(now);const start=addDays(mon,off*7);return{start,end:addDays(start,6)};}
+if(summaryRange===‘month’){const base=new Date(now.getFullYear(),now.getMonth()+off,1);return{start:base,end:new Date(base.getFullYear(),base.getMonth()+1,0)};}
+if(summaryRange===‘12weeks’){
+const lastMon=addDays(weekStart(now),off*12*7);
+const end=addDays(lastMon,6);
+const start=addDays(lastMon,-11*7);
+return{start,end};
+}
+const y=now.getFullYear()+off;return{start:new Date(y,0,1),end:new Date(y,11,31)};
 }
 
 function aggregateForPeriod(){
-  const trainings=loadTrainings();
-  const{start,end}=buildPeriod();
-  const startISO=localToISO(start),endISO=localToISO(end);
-  const inRange=trainings.filter(t=>t.date>=startISO&&t.date<=endISO);
-  let labels=[],total=[],accent=[],weekRanges=[];
+const trainings=loadTrainings();
+const{start,end}=buildPeriod();
+const startISO=localToISO(start),endISO=localToISO(end);
+const inRange=trainings.filter(t=>t.date>=startISO&&t.date<=endISO);
+let labels=[],total=[],accent=[],weekRanges=[];
 
-  if(summaryRange==='week'){
-    labels=DAYS_PL.slice();total=Array(7).fill(0);accent=Array(7).fill(0);
-    inRange.forEach(t=>{const dt=isoToLocal(t.date);const dow=dt.getDay();const idx=dow===0?6:dow-1;total[idx]+=(t.distance||0);accent[idx]+=(t.accent||0);});
-  } else if(summaryRange==='month'){
-    const dim=end.getDate();labels=Array.from({length:dim},(_,i)=>String(i+1));total=Array(dim).fill(0);accent=Array(dim).fill(0);
-    inRange.forEach(t=>{const idx=isoToLocal(t.date).getDate()-1;total[idx]+=(t.distance||0);accent[idx]+=(t.accent||0);});
-  } else if(summaryRange==='12weeks'){
-    for(let w=0;w<12;w++){
-      const wStart=addDays(start,w*7),wEnd=addDays(wStart,6);
-      const wNum=getISOWeek(wStart);
-      labels.push(`Tydz ${wNum}`);weekRanges.push(`${fmtShort(wStart)}–${fmtShort(wEnd)}`);
-      const ws=localToISO(wStart),we=localToISO(wEnd);
-      let ts=0,as=0;inRange.filter(t=>t.date>=ws&&t.date<=we).forEach(t=>{ts+=(t.distance||0);as+=(t.accent||0);});
-      total.push(ts);accent.push(as);
-    }
-  } else {
-    labels=MONTHS_PL.slice();total=Array(12).fill(0);accent=Array(12).fill(0);
-    inRange.forEach(t=>{const idx=isoToLocal(t.date).getMonth();total[idx]+=(t.distance||0);accent[idx]+=(t.accent||0);});
-  }
+if(summaryRange===‘week’){
+labels=DAYS_PL.slice();total=Array(7).fill(0);accent=Array(7).fill(0);
+inRange.forEach(t=>{const dt=isoToLocal(t.date);const dow=dt.getDay();const idx=dow===0?6:dow-1;total[idx]+=(t.distance||0);accent[idx]+=(t.accent||0);});
+} else if(summaryRange===‘month’){
+const dim=end.getDate();labels=Array.from({length:dim},(_,i)=>String(i+1));total=Array(dim).fill(0);accent=Array(dim).fill(0);
+inRange.forEach(t=>{const idx=isoToLocal(t.date).getDate()-1;total[idx]+=(t.distance||0);accent[idx]+=(t.accent||0);});
+} else if(summaryRange===‘12weeks’){
+for(let w=0;w<12;w++){
+const wStart=addDays(start,w*7),wEnd=addDays(wStart,6);
+const wNum=getISOWeek(wStart);
+labels.push(`Tydz ${wNum}`);weekRanges.push(`${fmtShort(wStart)}–${fmtShort(wEnd)}`);
+const ws=localToISO(wStart),we=localToISO(wEnd);
+let ts=0,as=0;inRange.filter(t=>t.date>=ws&&t.date<=we).forEach(t=>{ts+=(t.distance||0);as+=(t.accent||0);});
+total.push(ts);accent.push(as);
+}
+} else {
+labels=MONTHS_PL.slice();total=Array(12).fill(0);accent=Array(12).fill(0);
+inRange.forEach(t=>{const idx=isoToLocal(t.date).getMonth();total[idx]+=(t.distance||0);accent[idx]+=(t.accent||0);});
+}
 
-  total=total.map(v=>Math.round(v*100)/100);accent=accent.map(v=>Math.round(v*100)/100);
-  const totalDist=inRange.reduce((s,t)=>s+(t.distance||0),0);
-  const totalAccent=inRange.reduce((s,t)=>s+(t.accent||0),0);
-  const count=inRange.length;
-  const accentPct=totalDist>0?(totalAccent/totalDist*100):0;
-  return{labels,total,accent,weekRanges,totalDist,totalAccent,count,accentPct,start,end};
+total=total.map(v=>Math.round(v*100)/100);accent=accent.map(v=>Math.round(v*100)/100);
+const totalDist=inRange.reduce((s,t)=>s+(t.distance||0),0);
+const totalAccent=inRange.reduce((s,t)=>s+(t.accent||0),0);
+const count=inRange.length;
+const accentPct=totalDist>0?(totalAccent/totalDist*100):0;
+return{labels,total,accent,weekRanges,totalDist,totalAccent,count,accentPct,start,end};
 }
 
 function formatPeriodLabel(start,end){
-  if(summaryRange==='week')return`${fmtShortY(start)} – ${fmtShortY(end)}`;
-  if(summaryRange==='month')return`${MONTHS_FULL_PL[start.getMonth()]} ${start.getFullYear()}`;
-  if(summaryRange==='12weeks')return`${fmtShortY(start)} – ${fmtShortY(end)}`;
-  return`${start.getFullYear()}`;
+if(summaryRange===‘week’)return`${fmtShortY(start)} – ${fmtShortY(end)}`;
+if(summaryRange===‘month’)return`${MONTHS_FULL_PL[start.getMonth()]} ${start.getFullYear()}`;
+if(summaryRange===‘12weeks’)return`${fmtShortY(start)} – ${fmtShortY(end)}`;
+return`${start.getFullYear()}`;
 }
 function canGoBack(){
-  const trainings=loadTrainings();if(!trainings.length)return false;
-  const oldest=trainings.map(t=>t.date).sort()[0];
-  const{start,end}=buildPeriod(summaryOffset-1);
-  return localToISO(end)>=oldest;
+const trainings=loadTrainings();if(!trainings.length)return false;
+const oldest=trainings.map(t=>t.date).sort()[0];
+const{start,end}=buildPeriod(summaryOffset-1);
+return localToISO(end)>=oldest;
 }
 function canGoForward(){return summaryOffset<0;}
-function setSummaryRange(range){summaryRange=range;summaryOffset=0;document.querySelectorAll('.range-btn').forEach(b=>b.classList.toggle('active',b.dataset.range===range));renderSummary();}
+function setSummaryRange(range){summaryRange=range;summaryOffset=0;document.querySelectorAll(’.range-btn’).forEach(b=>b.classList.toggle(‘active’,b.dataset.range===range));renderSummary();}
 function summaryNav(dir){summaryOffset+=dir;renderSummary();}
 
+// Plugin do asymetrycznego przesunięcia słupka Akcent w prawo.
+// Działa po narysowaniu słupków przez Chart.js — przesuwa dataset[1] (Akcent)
+// tak, by jego lewa krawędź pokrywała się z centrum głównego słupka (Dystans).
+const accentShiftPlugin = {
+id: ‘accentShift’,
+afterDraw(chart) {
+const ctx = chart.ctx;
+const datasetAccent = chart.data.datasets[1];
+if (!datasetAccent) return;
+
+```
+const meta0 = chart.getDatasetMeta(0); // Dystans
+const meta1 = chart.getDatasetMeta(1); // Akcent
+
+if (!meta0.data.length || !meta1.data.length) return;
+
+ctx.save();
+// Rysuj ponownie słupki Akcent, przesunięte w prawo
+meta1.data.forEach((bar, i) => {
+  const mainBar = meta0.data[i];
+  if (!mainBar) return;
+  const val = chart.data.datasets[1].data[i];
+  if (!val || val <= 0) return;
+
+  // Oblicz prawą krawędź słupka głównego
+  const mainRight = mainBar.x + mainBar.width / 2;
+  const accentW = bar.width;
+
+  // Nowa pozycja: lewa krawędź Akcentu = prawy środek słupka głównego
+  // Tzn. słupek Akcent zaczyna się od centrum Dystansu i wychodzi w prawo
+  const newX = mainRight + accentW * 0.1; // lekkie wcięcie dla czytelności
+  const shiftX = newX - (bar.x - bar.width / 2) - accentW / 2;
+
+  // Ukryj oryginalny słupek Akcent (narysowany przez Chart.js)
+  // i narysuj go ponownie w nowej pozycji
+  const { base, y, width, height } = bar;
+  const x = bar.x + shiftX;
+
+  ctx.fillStyle = 'rgba(255,159,64,0.92)';
+  ctx.strokeStyle = 'rgba(220,130,30,1)';
+  ctx.lineWidth = 1;
+
+  const radius = 4;
+  const left = x - width / 2;
+  const top = y;
+  const right = x + width / 2;
+  const bottom = base;
+
+  if (right - left <= 0 || bottom - top <= 0) return;
+
+  ctx.beginPath();
+  ctx.moveTo(left + radius, top);
+  ctx.lineTo(right - radius, top);
+  ctx.quadraticCurveTo(right, top, right, top + radius);
+  ctx.lineTo(right, bottom);
+  ctx.lineTo(left, bottom);
+  ctx.lineTo(left, top + radius);
+  ctx.quadraticCurveTo(left, top, left + radius, top);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
+});
+ctx.restore();
+```
+
+}
+};
+
+// Zarejestruj plugin globalnie
+Chart.register(accentShiftPlugin);
+
 function renderSummary(){
-  const{labels,total,accent,weekRanges,totalDist,totalAccent,count,accentPct,start,end}=aggregateForPeriod();
-  document.getElementById('sum-period-label').textContent=formatPeriodLabel(start,end);
-  document.getElementById('sum-prev').disabled=!canGoBack();
-  document.getElementById('sum-next').disabled=!canGoForward();
-  document.getElementById('stat-total').textContent=totalDist.toFixed(2)+' km';
-  document.getElementById('stat-accent').textContent=totalAccent.toFixed(2)+' km';
-  document.getElementById('stat-count').textContent=count;
-  document.getElementById('stat-accent-pct').textContent=accentPct.toFixed(1)+' %';
+const{labels,total,accent,weekRanges,totalDist,totalAccent,count,accentPct,start,end}=aggregateForPeriod();
+document.getElementById(‘sum-period-label’).textContent=formatPeriodLabel(start,end);
+document.getElementById(‘sum-prev’).disabled=!canGoBack();
+document.getElementById(‘sum-next’).disabled=!canGoForward();
+document.getElementById(‘stat-total’).textContent=totalDist.toFixed(2)+’ km’;
+document.getElementById(‘stat-accent’).textContent=totalAccent.toFixed(2)+’ km’;
+document.getElementById(‘stat-count’).textContent=count;
+document.getElementById(‘stat-accent-pct’).textContent=accentPct.toFixed(1)+’ %’;
 
-  const ctx=document.getElementById('summary-chart').getContext('2d');
-  if(summaryChart){summaryChart.destroy();summaryChart=null;}
-  Chart.defaults.font.family="'Syne', sans-serif";
+const ctx=document.getElementById(‘summary-chart’).getContext(‘2d’);
+if(summaryChart){summaryChart.destroy();summaryChart=null;}
+Chart.defaults.font.family=”‘Syne’, sans-serif”;
 
-  const maxVal=Math.max(...total,0.1);
-  const magnitude=Math.pow(10,Math.floor(Math.log10(maxVal/5)));
-  const niceStep=Math.ceil((maxVal/5)/magnitude)*magnitude;
-  const yMax=Math.ceil(maxVal/niceStep)*niceStep+niceStep;
+const maxVal=Math.max(…total,0.1);
+const magnitude=Math.pow(10,Math.floor(Math.log10(maxVal/5)));
+const niceStep=Math.ceil((maxVal/5)/magnitude)*magnitude;
+const yMax=Math.ceil(maxVal/niceStep)*niceStep+niceStep;
 
-  summaryChart=new Chart(ctx,{
-    type:'bar',
-    data:{
-      labels,
-      datasets:[
-        {
-          label:'Dystans całkowity',
-          data:total,
-          backgroundColor:'rgba(164,198,229,0.85)',
-          borderColor:'rgba(130,170,205,1)',
-          borderWidth:1,
-          borderRadius:4,
-          borderSkipped:'bottom',
-          barPercentage:0.75,
-          categoryPercentage:0.85,
-          order:2,
-        },
-        {
-          label:'Akcent',
-          data:accent,
-          backgroundColor:'rgba(255,159,64,0.9)',
-          borderColor:'rgba(220,130,30,1)',
-          borderWidth:1,
-          borderRadius:4,
-          borderSkipped:'bottom',
-          barPercentage:0.42,
-          categoryPercentage:0.85,
-          order:1,
-        }
-      ]
-    },
-    options:{
-      responsive:true,
-      maintainAspectRatio:false,
-      grouped:false,
-      interaction:{mode:'index',intersect:false},
-      plugins:{
-        legend:{display:false},
-        tooltip:{
-          backgroundColor:'#1f2937',titleColor:'#f9fafb',bodyColor:'#d1d5db',
-          padding:10,cornerRadius:6,
-          titleFont:{family:"'Syne',sans-serif",size:12,weight:'bold'},
-          bodyFont:{family:"'DM Mono',monospace",size:11},
-          callbacks:{
-            title(items){
-              const idx=items[0].dataIndex;
-              if(summaryRange==='12weeks'&&weekRanges[idx])return`${labels[idx]}  (${weekRanges[idx]})`;
-              return items[0].label;
-            },
-            label(item){
-              const val=item.parsed.y;if(val===0)return null;
-              return`  ${item.dataset.label}: ${val.toFixed(2)} km`;
-            }
-          }
-        }
-      },
-      scales:{
-        x:{
-          grid:{display:false},border:{display:false},
-          ticks:{font:{family:"'DM Mono',monospace",size:10},color:'#8a8580',maxRotation:summaryRange==='12weeks'?35:0,autoSkip:true,maxTicksLimit:summaryRange==='month'?15:16}
-        },
-        y:{
-          beginAtZero:true,max:yMax,border:{display:false},
-          grid:{color:'rgba(0,0,0,0.07)',lineWidth:1},
-          ticks:{font:{family:"'DM Mono',monospace",size:10},color:'#8a8580',stepSize:niceStep,callback:v=>v>0?v+' km':'0'}
-        }
-      }
-    }
-  });
+summaryChart=new Chart(ctx,{
+type:‘bar’,
+data:{
+labels,
+datasets:[
+{
+label:‘Dystans całkowity’,
+data:total,
+backgroundColor:‘rgba(164,198,229,0.88)’,
+borderColor:‘rgba(120,165,200,1)’,
+borderWidth:1,
+borderRadius:4,
+borderSkipped:‘bottom’,
+barPercentage:0.78,
+categoryPercentage:0.85,
+order:2,
+},
+{
+// Słupek Akcent — rysowany przez Chart.js jako “placeholder”,
+// a faktyczne renderowanie z przesunięciem obsługuje accentShiftPlugin.
+// Ustawiamy backgroundColor na transparent, żeby Chart.js nie rysował
+// swojej wersji słupka (plugin rysuje własną kopię).
+label:‘Akcent’,
+data:accent,
+backgroundColor:‘rgba(255,159,64,0)’,    // transparent — plugin rysuje
+borderColor:‘rgba(0,0,0,0)’,
+borderWidth:0,
+borderRadius:4,
+borderSkipped:‘bottom’,
+barPercentage:0.40,
+categoryPercentage:0.85,
+order:1,
+}
+]
+},
+options:{
+responsive:true,
+maintainAspectRatio:false,
+grouped:false,
+interaction:{mode:‘index’,intersect:false},
+plugins:{
+legend:{display:false},
+accentShift:{},   // nasz plugin
+tooltip:{
+backgroundColor:’#1f2937’,titleColor:’#f9fafb’,bodyColor:’#d1d5db’,
+padding:10,cornerRadius:6,
+titleFont:{family:”‘Syne’,sans-serif”,size:12,weight:‘bold’},
+bodyFont:{family:”‘DM Mono’,monospace”,size:11},
+callbacks:{
+title(items){
+const idx=items[0].dataIndex;
+if(summaryRange===‘12weeks’&&weekRanges[idx])return`${labels[idx]}  (${weekRanges[idx]})`;
+return items[0].label;
+},
+label(item){
+const val=item.parsed.y;if(val===0)return null;
+return`  ${item.dataset.label}: ${val.toFixed(2)} km`;
+}
+}
+}
+},
+scales:{
+x:{
+grid:{display:false},border:{display:false},
+ticks:{font:{family:”‘DM Mono’,monospace”,size:10},color:’#8a8580’,maxRotation:summaryRange===‘12weeks’?35:0,autoSkip:true,maxTicksLimit:summaryRange===‘month’?15:16}
+},
+y:{
+beginAtZero:true,max:yMax,border:{display:false},
+grid:{color:‘rgba(0,0,0,0.07)’,lineWidth:1},
+ticks:{font:{family:”‘DM Mono’,monospace”,size:10},color:’#8a8580’,stepSize:niceStep,callback:v=>v>0?v+’ km’:‘0’}
+}
+}
+}
+});
 }
 
 // ═══ INIT ═══
@@ -1093,5 +1278,6 @@ loadProfileUI();
 renderEndurance();
 renderPlanned();
 </script>
+
 </body>
 </html>
