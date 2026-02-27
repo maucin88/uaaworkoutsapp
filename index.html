@@ -579,6 +579,9 @@
         <span style="display:flex;align-items:center;gap:0.35rem;"><span style="width:12px;height:12px;border-radius:3px;background:rgba(164,198,229,0.9);display:inline-block;"></span>Dystans całkowity</span>
         <span style="display:flex;align-items:center;gap:0.35rem;"><span style="width:12px;height:12px;border-radius:3px;background:rgba(255,159,64,0.9);display:inline-block;"></span>Akcent</span>
       </div>
+      <div style="text-align:right;margin-top:0.75rem;">
+        <button class="show-all-link" onclick="openHistory()">Zobacz historię →</button>
+      </div>
     </div>
   </div>
 
@@ -858,13 +861,14 @@ function hrCellHTML(hr){if(!hr)return`<span style="color:var(--border);">—</sp
 function buildTableHTML(rows,mode){
   const sortable=mode==='full';
   if(rows.length===0)return`<div class="empty-state"><div class="big">🏃</div><p class="font-semibold" style="color:var(--muted);">Brak treningów</p></div>`;
-  const compactCols=[{key:'date',label:'Data'},{key:'activity',label:'Akt.'},{key:'type',label:'Typ'},{key:'',label:'Zadanie',taskCol:true},{key:'',label:'Kom.',komCol:true},{key:'rpe',label:'RPE'},{key:'distance',label:'Dystans'},{key:'time',label:'Czas'},{key:'pace',label:'Tempo'},{key:'',label:'Tętno'},{key:'',label:''}];
-  const fullCols=[{key:'date',label:'Data'},{key:'activity',label:'Akt.'},{key:'type',label:'Typ'},{key:'',label:'Zadanie',taskCol:true},{key:'',label:'Kom.',komCol:true},{key:'rpe',label:'RPE'},{key:'distance',label:'Dystans'},{key:'time',label:'Czas'},{key:'pace',label:'Tempo'},{key:'',label:'Tętno'},{key:'',label:'Strefy',zoneCol:true},{key:'',label:''}];
+  const compactCols=[{key:'date',label:'Data'},{key:'activity',label:'Akt.'},{key:'type',label:'Typ'},{key:'',label:'Zadanie',taskCol:true},{key:'',label:'Komentarz',komCol:true},{key:'rpe',label:'RPE'},{key:'distance',label:'Dystans'},{key:'',label:'Akc.',akcCol:true},{key:'time',label:'Czas'},{key:'pace',label:'Tempo'},{key:'',label:'Tętno'},{key:'',label:''}];
+  const fullCols=[{key:'date',label:'Data'},{key:'activity',label:'Akt.'},{key:'type',label:'Typ'},{key:'',label:'Zadanie',taskCol:true},{key:'',label:'Komentarz',komCol:true},{key:'rpe',label:'RPE'},{key:'distance',label:'Dystans'},{key:'',label:'Akc.',akcCol:true},{key:'time',label:'Czas'},{key:'pace',label:'Tempo'},{key:'',label:'Tętno'},{key:'',label:'Strefy',zoneCol:true},{key:'',label:''}];
   const cols=mode==='compact'?compactCols:fullCols;
   const thead=`<table class="data-table"><thead><tr>`+cols.map(h=>{
     if(h.zoneCol)return`<th class="zone-col-th" style="width:2.2rem;text-align:center;">Strefy<button class="zone-toggle-btn" id="zone-col-btn" onclick="toggleZoneCol()" title="Pokaż/ukryj">+</button></th>`;
     if(h.taskCol)return`<th style="min-width:120px;max-width:170px;">${h.label}</th>`;
-    if(h.komCol)return`<th style="min-width:100px;max-width:170px;">${h.label}</th>`;
+    if(h.komCol)return`<th style="min-width:120px;max-width:200px;">${h.label}</th>`;
+    if(h.akcCol)return`<th style="white-space:nowrap;">${h.label}</th>`;
     if(!h.key||!sortable)return`<th>${h.label}</th>`;
     const cls=hSortCol===h.key?(hSortDir==='asc'?'sort-asc':'sort-desc'):'';
     return`<th data-col="${h.key}" class="sortable ${cls}">${h.label}<span class="sort-icon"></span></th>`;
@@ -873,9 +877,9 @@ function buildTableHTML(rows,mode){
     const pace=calcPaceStr(t.distance,t.durationSeconds),dur=formatDuration(t.durationSeconds),dot=rpeDotStyle(t.rpe);
     const rpeCell=t.rpe?`<span class="rpe-dot" style="background:${dot.bg};color:${dot.color};border:1.5px solid ${dot.border};">${t.rpe}</span>`:`<span style="color:var(--border);">—</span>`;
     const taskHTML=t.task?`<div class="task-cell" style="font-size:0.65rem;">${escHtml(t.task)}</div>`:`<div class="task-cell empty" style="font-size:0.65rem;">—</div>`;
-    if(mode==='compact'){return`<tr><td class="mono" style="white-space:nowrap;font-size:0.7rem;">${formatDatePLShort(t.date)}</td><td><span class="tag-sm tag-activity">${escHtml(t.activity||'—')}</span></td><td><span class="tag-sm ${typeTagClass(t.type)}">${typeTagAbbr(t.type)}</span></td><td style="min-width:120px;max-width:170px;">${taskHTML}</td><td style="min-width:100px;max-width:170px;">${commentCellHTML(t.note,t.commentExcl)}</td><td>${rpeCell}</td><td class="mono">${t.distance} km</td><td class="mono">${dur}</td><td class="mono">${pace?pace+' /km':'—'}</td><td>${hrCellHTML(t.hr)}</td><td style="white-space:nowrap;"><button class="row-btn" onclick="editTraining(${t.id})">Edytuj</button><button class="row-btn del" onclick="deleteTraining(${t.id})">Usuń</button></td></tr>`;}
+    if(mode==='compact'){return`<tr><td class="mono" style="white-space:nowrap;font-size:0.7rem;">${formatDatePLShort(t.date)}</td><td><span class="tag-sm tag-activity">${escHtml(t.activity||'—')}</span></td><td><span class="tag-sm ${typeTagClass(t.type)}">${typeTagAbbr(t.type)}</span></td><td style="min-width:120px;max-width:170px;">${taskHTML}</td><td style="min-width:120px;max-width:200px;">${commentCellHTML(t.note,t.commentExcl)}</td><td>${rpeCell}</td><td class="mono">${t.distance} km</td><td class="mono" style="color:#c2410c;">${t.accent>0?t.accent+' km':'—'}</td><td class="mono">${dur}</td><td class="mono">${pace?pace+' /km':'—'}</td><td>${hrCellHTML(t.hr)}</td><td style="white-space:nowrap;"><button class="row-btn" onclick="editTraining(${t.id})">Edytuj</button><button class="row-btn del" onclick="deleteTraining(${t.id})">Usuń</button></td></tr>`;}
     const col=!zoneColExpanded;
-    return`<tr><td class="mono" style="white-space:nowrap;font-size:0.7rem;">${formatDatePLShort(t.date)}</td><td><span class="tag-sm tag-activity">${escHtml(t.activity||'—')}</span></td><td><span class="tag-sm ${typeTagClass(t.type)}">${typeTagAbbr(t.type)}</span></td><td style="min-width:120px;max-width:170px;">${taskHTML}</td><td style="min-width:100px;max-width:170px;">${commentCellHTML(t.note,t.commentExcl)}</td><td>${rpeCell}</td><td class="mono">${t.distance} km</td><td class="mono">${dur}</td><td class="mono">${pace?pace+' /km':'—'}</td><td>${hrCellHTML(t.hr)}</td><td class="zone-col-td" style="max-width:${col?'0':'300px'};overflow:${col?'hidden':'visible'};padding:${col?'0.5rem 0':'0.5rem 0.65rem'};"><div class="zone-col-content" style="display:${col?'none':'block'};">${zoneTimesHTML(t.zoneTimes)}</div></td><td style="white-space:nowrap;"><button class="row-btn" onclick="editTraining(${t.id})">Edytuj</button><button class="row-btn del" onclick="deleteTraining(${t.id})">Usuń</button></td></tr>`;
+    return`<tr><td class="mono" style="white-space:nowrap;font-size:0.7rem;">${formatDatePLShort(t.date)}</td><td><span class="tag-sm tag-activity">${escHtml(t.activity||'—')}</span></td><td><span class="tag-sm ${typeTagClass(t.type)}">${typeTagAbbr(t.type)}</span></td><td style="min-width:120px;max-width:170px;">${taskHTML}</td><td style="min-width:120px;max-width:200px;">${commentCellHTML(t.note,t.commentExcl)}</td><td>${rpeCell}</td><td class="mono">${t.distance} km</td><td class="mono" style="color:#c2410c;">${t.accent>0?t.accent+' km':'—'}</td><td class="mono">${dur}</td><td class="mono">${pace?pace+' /km':'—'}</td><td>${hrCellHTML(t.hr)}</td><td class="zone-col-td" style="max-width:${col?'0':'300px'};overflow:${col?'hidden':'visible'};padding:${col?'0.5rem 0':'0.5rem 0.65rem'};"><div class="zone-col-content" style="display:${col?'none':'block'};">${zoneTimesHTML(t.zoneTimes)}</div></td><td style="white-space:nowrap;"><button class="row-btn" onclick="editTraining(${t.id})">Edytuj</button><button class="row-btn del" onclick="deleteTraining(${t.id})">Usuń</button></td></tr>`;
   }).join('');
   return thead+tbody+'</tbody></table>';
 }
@@ -1020,19 +1024,27 @@ function renderSummary(){
   const niceStep=Math.ceil((maxVal/5)/magnitude)*magnitude;
   const yMax=Math.ceil(maxVal/niceStep)*niceStep+niceStep;
 
-  // Plugin przesuwający słupek Akcent w prawo o ~25% szerokości słupka Dystansu
+  // Plugin: słupek Akcent tej samej szerokości co Dystans,
+  // zaczyna się w 1/4 szerokości słupka dystansu → wychodzi za prawy brzeg o 25%
   const accentShiftPlugin={
     id:'accentShift',
-    afterDraw(chart){
+    beforeDraw(chart){
       const ds0=chart.getDatasetMeta(0); // dystans
       const ds1=chart.getDatasetMeta(1); // akcent
       if(!ds0||!ds1)return;
       ds0.data.forEach((bar0,i)=>{
         const bar1=ds1.data[i];
         if(!bar0||!bar1)return;
-        const shift=bar0.width*0.25;
-        // Przesuwamy środek słupka akcentu w prawo
-        bar1.x=bar0.x+shift;
+        const w=bar0.width;
+        // Ustaw tę samą szerokość
+        bar1.width=w;
+        bar1.base=bar0.base;
+        // Środek słupka akcentu = środek dystansu + 1/4 szerokości
+        // → lewy brzeg = środek_dystansu - w/2 + w/4 = środek_dystansu - w/4
+        // → prawy brzeg = środek_dystansu + w/4 + w/2 = środek_dystansu + 3w/4
+        // Dystans prawy brzeg = środek_dystansu + w/2
+        // Więc akcent wychodzi o w/4 = 25% szerokości
+        bar1.x=bar0.x+w*0.25;
       });
     }
   };
@@ -1063,7 +1075,7 @@ function renderSummary(){
           borderWidth:1,
           borderRadius:4,
           borderSkipped:'bottom',
-          barPercentage:0.42,
+          barPercentage:0.75,
           categoryPercentage:0.85,
           order:1,
         }
@@ -1119,3 +1131,4 @@ renderPlanned();
 </script>
 </body>
 </html>
+
