@@ -697,6 +697,8 @@ function migrateData(){
 // ═══ DATE HELPERS ═══
 function todayISO(){const n=new Date();return `${n.getFullYear()}-${String(n.getMonth()+1).padStart(2,'0')}-${String(n.getDate()).padStart(2,'0')}`;}
 function formatDatePL(iso){if(!iso||iso==='')return'—';const[y,m,d]=iso.split('-');return`${d}.${m}.${y}`;}
+function formatDatePLShort(iso){if(!iso||iso==='')return'—';const[y,m,d]=iso.split('-');return`${d}.${m}.${y.slice(2)}`;}
+function typeTagAbbr(type){const t=(type||'').toLowerCase();const map={'baza tlenowa':'BT','ciągły':'CG','interwałowy':'IT','zabawa biegowa':'ZB','inny':'NN','około progowy':'OP'};return map[t]||type||'—';}
 function parseDatePL(s){if(!s||!s.trim())return null;const p=s.trim().split('.');if(p.length!==3)return null;const d=p[0].padStart(2,'0'),m=p[1].padStart(2,'0'),y=p[2];if(y.length!==4||isNaN(+y)||isNaN(+m)||isNaN(+d))return null;return`${y}-${m}-${d}`;}
 function isoToLocal(iso){const[y,m,d]=iso.split('-').map(Number);return new Date(y,m-1,d);}
 function localToISO(dt){return`${dt.getFullYear()}-${String(dt.getMonth()+1).padStart(2,'0')}-${String(dt.getDate()).padStart(2,'0')}`;}
@@ -845,7 +847,7 @@ window.editTraining=function(id){enterEditMode(id);};
 // ═══ DISPLAY HELPERS ═══
 function escHtml(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function typeTagClass(type){const t=(type||'').toLowerCase();if(t==='baza tlenowa')return'tag-type-blue';if(t==='interwałowy'||t==='około progowy')return'tag-type-orange';return'tag-type-green';}
-function commentCellHTML(note,excl){if(!note||!note.trim())return`<span style="color:var(--border);">—</span>`;const icon=excl?`<span style="display:inline-flex;align-items:center;gap:0.1rem;font-size:0.95rem;">💬<span style="font-size:0.82rem;font-weight:900;color:#b45309;">❗</span></span>`:`<span style="font-size:0.95rem;">💬</span>`;return`<span class="comment-cell" onclick="this.classList.toggle('open');event.stopPropagation();">${icon}<div class="tooltip-box">${escHtml(note)}</div></span>`;}
+function commentCellHTML(note,excl){if(!note||!note.trim())return`<span style="color:var(--border);font-size:0.68rem;">—</span>`;const flag=excl?`<span style="font-size:0.72rem;vertical-align:middle;margin-right:0.15rem;">❗</span>`:'';return`<span style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--ink);line-height:1.35;word-break:break-word;">${flag}${escHtml(note)}</span>`;}
 function zoneTimesHTML(zt){const p=[];for(let z=1;z<=5;z++){const s=zt&&zt[z]?zt[z]:0;p.push(`<span>S${z}-${s>0?formatDuration(s):'00:00'}</span>`);}return`<div class="zone-time-cell">${p.join('')}</div>`;}
 function hrCellHTML(hr){if(!hr)return`<span style="color:var(--border);">—</span>`;return`<span class="hr-cell">♥ ${hr} bpm</span>`;}
 
@@ -853,12 +855,13 @@ function hrCellHTML(hr){if(!hr)return`<span style="color:var(--border);">—</sp
 function buildTableHTML(rows,mode){
   const sortable=mode==='full';
   if(rows.length===0)return`<div class="empty-state"><div class="big">🏃</div><p class="font-semibold" style="color:var(--muted);">Brak treningów</p></div>`;
-  const compactCols=[{key:'date',label:'Data'},{key:'activity',label:'Akt.'},{key:'type',label:'Typ'},{key:'',label:'Zadanie',taskCol:true},{key:'rpe',label:'RPE'},{key:'distance',label:'Dystans'},{key:'time',label:'Czas'},{key:'pace',label:'Tempo'},{key:'',label:'Kom.'},{key:'',label:'Tętno'},{key:'',label:''}];
-  const fullCols=[{key:'date',label:'Data'},{key:'activity',label:'Akt.'},{key:'type',label:'Typ'},{key:'',label:'Zadanie',taskCol:true},{key:'rpe',label:'RPE'},{key:'distance',label:'Dystans'},{key:'time',label:'Czas'},{key:'pace',label:'Tempo'},{key:'',label:'Kom.'},{key:'',label:'Tętno'},{key:'',label:'Strefy',zoneCol:true},{key:'',label:''}];
+  const compactCols=[{key:'date',label:'Data'},{key:'activity',label:'Akt.'},{key:'type',label:'Typ'},{key:'',label:'Zadanie',taskCol:true},{key:'',label:'Kom.',komCol:true},{key:'rpe',label:'RPE'},{key:'distance',label:'Dystans'},{key:'time',label:'Czas'},{key:'pace',label:'Tempo'},{key:'',label:'Tętno'},{key:'',label:''}];
+  const fullCols=[{key:'date',label:'Data'},{key:'activity',label:'Akt.'},{key:'type',label:'Typ'},{key:'',label:'Zadanie',taskCol:true},{key:'',label:'Kom.',komCol:true},{key:'rpe',label:'RPE'},{key:'distance',label:'Dystans'},{key:'time',label:'Czas'},{key:'pace',label:'Tempo'},{key:'',label:'Tętno'},{key:'',label:'Strefy',zoneCol:true},{key:'',label:''}];
   const cols=mode==='compact'?compactCols:fullCols;
   const thead=`<table class="data-table"><thead><tr>`+cols.map(h=>{
     if(h.zoneCol)return`<th class="zone-col-th" style="width:2.2rem;text-align:center;">Strefy<button class="zone-toggle-btn" id="zone-col-btn" onclick="toggleZoneCol()" title="Pokaż/ukryj">+</button></th>`;
-    if(h.taskCol)return`<th style="min-width:140px;max-width:190px;">${h.label}</th>`;
+    if(h.taskCol)return`<th style="min-width:120px;max-width:170px;">${h.label}</th>`;
+    if(h.komCol)return`<th style="min-width:100px;max-width:170px;">${h.label}</th>`;
     if(!h.key||!sortable)return`<th>${h.label}</th>`;
     const cls=hSortCol===h.key?(hSortDir==='asc'?'sort-asc':'sort-desc'):'';
     return`<th data-col="${h.key}" class="sortable ${cls}">${h.label}<span class="sort-icon"></span></th>`;
@@ -866,10 +869,10 @@ function buildTableHTML(rows,mode){
   const tbody=rows.map(t=>{
     const pace=calcPaceStr(t.distance,t.durationSeconds),dur=formatDuration(t.durationSeconds),dot=rpeDotStyle(t.rpe);
     const rpeCell=t.rpe?`<span class="rpe-dot" style="background:${dot.bg};color:${dot.color};border:1.5px solid ${dot.border};">${t.rpe}</span>`:`<span style="color:var(--border);">—</span>`;
-    const taskHTML=t.task?`<div class="task-cell">${escHtml(t.task)}</div>`:`<div class="task-cell empty">—</div>`;
-    if(mode==='compact'){return`<tr><td class="mono" style="white-space:nowrap;">${formatDatePL(t.date)}</td><td><span class="tag-sm tag-activity">${escHtml(t.activity||'—')}</span></td><td><span class="tag-sm ${typeTagClass(t.type)}">${escHtml(t.type||'—')}</span></td><td style="min-width:140px;max-width:190px;">${taskHTML}</td><td>${rpeCell}</td><td class="mono">${t.distance} km</td><td class="mono">${dur}</td><td class="mono">${pace?pace+' /km':'—'}</td><td>${commentCellHTML(t.note,t.commentExcl)}</td><td>${hrCellHTML(t.hr)}</td><td style="white-space:nowrap;"><button class="row-btn" onclick="editTraining(${t.id})">Edytuj</button><button class="row-btn del" onclick="deleteTraining(${t.id})">Usuń</button></td></tr>`;}
+    const taskHTML=t.task?`<div class="task-cell" style="font-size:0.65rem;">${escHtml(t.task)}</div>`:`<div class="task-cell empty" style="font-size:0.65rem;">—</div>`;
+    if(mode==='compact'){return`<tr><td class="mono" style="white-space:nowrap;font-size:0.7rem;">${formatDatePLShort(t.date)}</td><td><span class="tag-sm tag-activity">${escHtml(t.activity||'—')}</span></td><td><span class="tag-sm ${typeTagClass(t.type)}">${typeTagAbbr(t.type)}</span></td><td style="min-width:120px;max-width:170px;">${taskHTML}</td><td style="min-width:100px;max-width:170px;">${commentCellHTML(t.note,t.commentExcl)}</td><td>${rpeCell}</td><td class="mono">${t.distance} km</td><td class="mono">${dur}</td><td class="mono">${pace?pace+' /km':'—'}</td><td>${hrCellHTML(t.hr)}</td><td style="white-space:nowrap;"><button class="row-btn" onclick="editTraining(${t.id})">Edytuj</button><button class="row-btn del" onclick="deleteTraining(${t.id})">Usuń</button></td></tr>`;}
     const col=!zoneColExpanded;
-    return`<tr><td class="mono" style="white-space:nowrap;">${formatDatePL(t.date)}</td><td><span class="tag-sm tag-activity">${escHtml(t.activity||'—')}</span></td><td><span class="tag-sm ${typeTagClass(t.type)}">${escHtml(t.type||'—')}</span></td><td style="min-width:140px;max-width:190px;">${taskHTML}</td><td>${rpeCell}</td><td class="mono">${t.distance} km</td><td class="mono">${dur}</td><td class="mono">${pace?pace+' /km':'—'}</td><td>${commentCellHTML(t.note,t.commentExcl)}</td><td>${hrCellHTML(t.hr)}</td><td class="zone-col-td" style="max-width:${col?'0':'300px'};overflow:${col?'hidden':'visible'};padding:${col?'0.5rem 0':'0.5rem 0.65rem'};"><div class="zone-col-content" style="display:${col?'none':'block'};">${zoneTimesHTML(t.zoneTimes)}</div></td><td style="white-space:nowrap;"><button class="row-btn" onclick="editTraining(${t.id})">Edytuj</button><button class="row-btn del" onclick="deleteTraining(${t.id})">Usuń</button></td></tr>`;
+    return`<tr><td class="mono" style="white-space:nowrap;font-size:0.7rem;">${formatDatePLShort(t.date)}</td><td><span class="tag-sm tag-activity">${escHtml(t.activity||'—')}</span></td><td><span class="tag-sm ${typeTagClass(t.type)}">${typeTagAbbr(t.type)}</span></td><td style="min-width:120px;max-width:170px;">${taskHTML}</td><td style="min-width:100px;max-width:170px;">${commentCellHTML(t.note,t.commentExcl)}</td><td>${rpeCell}</td><td class="mono">${t.distance} km</td><td class="mono">${dur}</td><td class="mono">${pace?pace+' /km':'—'}</td><td>${hrCellHTML(t.hr)}</td><td class="zone-col-td" style="max-width:${col?'0':'300px'};overflow:${col?'hidden':'visible'};padding:${col?'0.5rem 0':'0.5rem 0.65rem'};"><div class="zone-col-content" style="display:${col?'none':'block'};">${zoneTimesHTML(t.zoneTimes)}</div></td><td style="white-space:nowrap;"><button class="row-btn" onclick="editTraining(${t.id})">Edytuj</button><button class="row-btn del" onclick="deleteTraining(${t.id})">Usuń</button></td></tr>`;
   }).join('');
   return thead+tbody+'</tbody></table>';
 }
@@ -1029,6 +1032,7 @@ function renderSummary(){
           borderSkipped:'bottom',
           barPercentage:0.75,
           categoryPercentage:0.85,
+          xAxisID:'x',
           order:2,
         },
         {
@@ -1041,6 +1045,7 @@ function renderSummary(){
           borderSkipped:'bottom',
           barPercentage:0.42,
           categoryPercentage:0.85,
+          xAxisID:'x2',
           order:1,
         }
       ]
@@ -1074,6 +1079,10 @@ function renderSummary(){
         x:{
           grid:{display:false},border:{display:false},
           ticks:{font:{family:"'DM Mono',monospace",size:10},color:'#8a8580',maxRotation:summaryRange==='12weeks'?35:0,autoSkip:true,maxTicksLimit:summaryRange==='month'?15:16}
+        },
+        x2:{
+          grid:{display:false},border:{display:false},display:false,
+          offset:true,
         },
         y:{
           beginAtZero:true,max:yMax,border:{display:false},
