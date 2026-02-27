@@ -181,6 +181,9 @@
       font-size: 0.65rem; border-radius: 3px; padding: 0.1rem 0.42rem; white-space: nowrap;
       text-transform: lowercase;
     }
+    .tag-sm.tag-type-blue, .tag-sm.tag-type-green, .tag-sm.tag-type-orange {
+      text-transform: uppercase; font-weight: 600; letter-spacing: 0.04em;
+    }
     .tag-activity    { background: #ede9fe; color: #5b21b6; }
     .tag-type-blue   { background: #dbeafe; color: #1e40af; }
     .tag-type-green  { background: #dcfce7; color: #15803d; }
@@ -1017,8 +1020,26 @@ function renderSummary(){
   const niceStep=Math.ceil((maxVal/5)/magnitude)*magnitude;
   const yMax=Math.ceil(maxVal/niceStep)*niceStep+niceStep;
 
+  // Plugin przesuwający słupek Akcent w prawo o ~25% szerokości słupka Dystansu
+  const accentShiftPlugin={
+    id:'accentShift',
+    afterDraw(chart){
+      const ds0=chart.getDatasetMeta(0); // dystans
+      const ds1=chart.getDatasetMeta(1); // akcent
+      if(!ds0||!ds1)return;
+      ds0.data.forEach((bar0,i)=>{
+        const bar1=ds1.data[i];
+        if(!bar0||!bar1)return;
+        const shift=bar0.width*0.25;
+        // Przesuwamy środek słupka akcentu w prawo
+        bar1.x=bar0.x+shift;
+      });
+    }
+  };
+
   summaryChart=new Chart(ctx,{
     type:'bar',
+    plugins:[accentShiftPlugin],
     data:{
       labels,
       datasets:[
@@ -1032,7 +1053,6 @@ function renderSummary(){
           borderSkipped:'bottom',
           barPercentage:0.75,
           categoryPercentage:0.85,
-          xAxisID:'x',
           order:2,
         },
         {
@@ -1045,7 +1065,6 @@ function renderSummary(){
           borderSkipped:'bottom',
           barPercentage:0.42,
           categoryPercentage:0.85,
-          xAxisID:'x2',
           order:1,
         }
       ]
@@ -1079,10 +1098,6 @@ function renderSummary(){
         x:{
           grid:{display:false},border:{display:false},
           ticks:{font:{family:"'DM Mono',monospace",size:10},color:'#8a8580',maxRotation:summaryRange==='12weeks'?35:0,autoSkip:true,maxTicksLimit:summaryRange==='month'?15:16}
-        },
-        x2:{
-          grid:{display:false},border:{display:false},display:false,
-          offset:true,
         },
         y:{
           beginAtZero:true,max:yMax,border:{display:false},
