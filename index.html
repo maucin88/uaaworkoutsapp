@@ -309,6 +309,44 @@
     ::-webkit-scrollbar { width:5px; height:5px; }
     ::-webkit-scrollbar-track { background:transparent; }
     ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+    /* Profile inner tabs */
+    .profile-inner-tab-bar { display: flex; gap: 0; border-bottom: 1.5px solid var(--border); margin-bottom: 1rem; }
+    .profile-inner-tab-btn {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.7rem;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      padding: 0.45rem 0.9rem; border-bottom: 2.5px solid transparent;
+      color: var(--muted); transition: color 0.15s, border-color 0.15s;
+      background: none; border-top: none; border-left: none; border-right: none;
+      cursor: pointer; white-space: nowrap; margin-bottom: -1.5px;
+    }
+    .profile-inner-tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+    .profile-inner-tab-btn:hover:not(.active) { color: var(--ink); }
+    .profile-inner-tab-content { display: none; }
+    .profile-inner-tab-content.active { display: block; }
+    /* Import panel toggle */
+    .import-panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      cursor: pointer; user-select: none; padding: 0.1rem 0;
+    }
+    .import-panel-header:hover .section-title { color: var(--ink); }
+    .import-chevron { font-size: 0.65rem; color: var(--muted); transition: transform 0.2s; }
+    .import-chevron.open { transform: rotate(180deg); }
+    .import-panel-body { display: none; margin-top: 0.75rem; }
+    .import-panel-body.open { display: block; }
+    /* Records table */
+    .records-table { width: 100%; border-collapse: collapse; font-family: 'DM Mono', monospace; font-size: 0.8rem; margin-top: 0.75rem; }
+    .records-table th { background: var(--ink); color: var(--paper); padding: 0.4rem 0.6rem; text-align: left; font-family: 'Syne', sans-serif; font-size: 0.62rem; letter-spacing: 0.07em; text-transform: uppercase; font-weight: 700; }
+    .records-table td { padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .records-table td:first-child { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.75rem; color: var(--ink); white-space: nowrap; }
+    .records-table input { font-size: 0.8rem; padding: 0.25rem 0.4rem; text-align: center; }
+    .record-history-btn { font-family: 'DM Mono', monospace; font-size: 0.62rem; padding: 0.15rem 0.4rem; border-radius: 3px; border: 1px solid var(--border); background: none; color: var(--muted); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+    .record-history-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .record-hist-table { width: 100%; border-collapse: collapse; font-family: 'DM Mono', monospace; font-size: 0.75rem; margin-top: 0.5rem; }
+    .record-hist-table th { background: #f5f2ec; color: var(--muted); padding: 0.3rem 0.5rem; font-size: 0.6rem; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700; font-family: 'Syne', sans-serif; border-bottom: 1px solid var(--border); }
+    .record-hist-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #f0ece4; color: var(--ink); }
+    .record-hist-panel { background: #f5f2ec; border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem 0.75rem; margin-top: 0.35rem; max-height: 180px; overflow-y: auto; }
+    /* Seasonal notes textarea */
+    .seasonal-textarea { resize: vertical; min-height: 120px; font-family: 'DM Mono', monospace; font-size: 0.82rem; }
     .summary-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.25rem; }
     .range-btn {
       font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.72rem;
@@ -588,49 +626,120 @@
   <!-- PROFIL -->
   <div id="tab-profile" class="tab-content">
     <h2 class="text-lg font-bold mb-4">Profil</h2>
+
+    <!-- DANE FIZYCZNE -->
     <div class="profile-card">
       <div class="section-title">Dane fizyczne</div>
+      <div class="grid grid-cols-2 gap-3 mb-3">
+        <div><label>Nazwa użytkownika</label><input type="text" id="p-name" placeholder="np. Marek" /></div>
+        <div><label>Data urodzenia</label><input type="date" id="p-birthdate" /></div>
+      </div>
       <div class="grid grid-cols-2 gap-3">
         <div><label>Wzrost (cm)</label><input type="number" id="p-height" placeholder="175" min="100" max="250" /></div>
         <div><label>Waga (kg)</label><input type="number" id="p-weight" placeholder="70.0" step="0.1" min="30" max="300" /></div>
       </div>
-    </div>
-    <div class="profile-card">
-      <div class="section-title">Strefy treningowe</div>
-      <div style="overflow-x:auto;border-radius:8px;border:1.5px solid var(--border);">
-        <table class="zone-table">
-          <thead>
-            <tr>
-              <th rowspan="2" style="text-align:left;padding-left:0.75rem;">Strefa</th>
-              <th colspan="2">Tętno (BPM)</th><th colspan="2">Tempo (min/km)</th><th colspan="2">Moc (W)</th>
-            </tr>
-            <tr style="background:#222;"><th>Min</th><th>Max</th><th>Min</th><th>Max</th><th>Min</th><th>Max</th></tr>
-          </thead>
-          <tbody id="zone-tbody"></tbody>
-        </table>
-      </div>
-      <div class="validation-error" id="zone-error">⚠️ Minimum strefy wyższej musi być większe niż maksimum strefy niższej.</div>
       <div style="margin-top:1rem;display:flex;align-items:center;gap:1rem;">
         <button class="btn-primary" onclick="saveProfile()">Zapisz profil</button>
         <span class="mono text-xs" id="profile-saved" style="color:#2e7d32;display:none;">✓ Zapisano</span>
       </div>
     </div>
+
+    <!-- DANE TRENINGOWE (tabbed) -->
     <div class="profile-card">
-      <div class="section-title">Import danych (CSV)</div>
-      <p class="mono" style="font-size:0.73rem;color:var(--muted);margin-bottom:0.75rem;line-height:1.65;">
-        Separator: <strong>średnik (;)</strong> · Kodowanie: <strong>UTF-8 lub Windows-1250</strong><br>
-        Kolumny (0–14): <strong>Data · Aktywność · Typ · Dystans · Akcent · Czas · RPE · Zadanie · Notatka · Tętno · S1–S5</strong>
-      </p>
-      <label class="import-box" for="csv-file-input">
-        <input type="file" id="csv-file-input" accept=".csv,.txt" onchange="handleCsvImport(event)" />
-        <div style="font-size:2rem;margin-bottom:0.35rem;">📂</div>
-        <div class="font-bold" style="font-size:0.85rem;">Kliknij lub upuść plik CSV</div>
-        <div class="mono" style="font-size:0.7rem;color:var(--muted);margin-top:0.25rem;">UTF-8 lub Windows-1250, separator średnik (;)</div>
-      </label>
-      <div class="import-log" id="import-log"></div>
-      <div style="margin-top:0.75rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
-        <button class="btn-secondary" style="font-size:0.72rem;padding:0.4rem 0.9rem;" onclick="downloadSampleCsv()">⬇ Pobierz przykładowy CSV</button>
-        <button class="btn-secondary" style="font-size:0.72rem;padding:0.4rem 0.9rem;color:#c62828;border-color:#fca5a5;" onclick="clearAllTrainings()">🗑 Wyczyść wszystkie treningi</button>
+      <div class="section-title" style="margin-bottom:0.5rem;">Dane treningowe</div>
+      <div class="profile-inner-tab-bar">
+        <button class="profile-inner-tab-btn active" data-itab="notes" onclick="switchInnerTab('notes')">Notatki sezonowe</button>
+        <button class="profile-inner-tab-btn" data-itab="zones" onclick="switchInnerTab('zones')">Strefy treningowe</button>
+        <button class="profile-inner-tab-btn" data-itab="records" onclick="switchInnerTab('records')">Rekordy życiowe</button>
+      </div>
+
+      <!-- NOTATKI SEZONOWE -->
+      <div class="profile-inner-tab-content active" id="itab-notes">
+        <div style="margin-bottom:0.75rem;">
+          <label>Sezon / Cel główny</label>
+          <textarea id="notes-season" class="seasonal-textarea" placeholder="Opisz główny cel sezonu, plan treningowy, priorytety..."></textarea>
+        </div>
+        <div style="margin-bottom:0.75rem;">
+          <label>Uwagi i obserwacje</label>
+          <textarea id="notes-observations" class="seasonal-textarea" placeholder="Bieżące obserwacje, słabe punkty, nad czym pracować..."></textarea>
+        </div>
+        <div>
+          <label>Kontuzje / Przerwy</label>
+          <textarea id="notes-injuries" class="seasonal-textarea" style="min-height:80px;" placeholder="Historia kontuzji, przerw w treningu..."></textarea>
+        </div>
+        <div style="margin-top:0.75rem;display:flex;align-items:center;gap:1rem;">
+          <button class="btn-primary" onclick="saveNotes()">Zapisz notatki</button>
+          <span class="mono text-xs" id="notes-saved" style="color:#2e7d32;display:none;">✓ Zapisano</span>
+        </div>
+      </div>
+
+      <!-- STREFY TRENINGOWE -->
+      <div class="profile-inner-tab-content" id="itab-zones">
+        <div style="overflow-x:auto;border-radius:8px;border:1.5px solid var(--border);">
+          <table class="zone-table">
+            <thead>
+              <tr>
+                <th rowspan="2" style="text-align:left;padding-left:0.75rem;">Strefa</th>
+                <th colspan="2">Tętno (BPM)</th>
+                <th colspan="2">Intensywność</th>
+                <th colspan="2">Moc (W)</th>
+              </tr>
+              <tr style="background:#222;"><th>Min</th><th>Max</th><th>Typ</th><th>Tempo</th><th>Min</th><th>Max</th></tr>
+            </thead>
+            <tbody id="zone-tbody"></tbody>
+          </table>
+        </div>
+        <div class="validation-error" id="zone-error">⚠️ Minimum strefy wyższej musi być większe niż maksimum strefy niższej.</div>
+        <div style="margin-top:1rem;display:flex;align-items:center;gap:1rem;">
+          <button class="btn-primary" onclick="saveProfile()">Zapisz strefy</button>
+          <span class="mono text-xs" id="zones-saved" style="color:#2e7d32;display:none;">✓ Zapisano</span>
+        </div>
+      </div>
+
+      <!-- REKORDY ŻYCIOWE -->
+      <div class="profile-inner-tab-content" id="itab-records">
+        <div style="overflow-x:auto;border-radius:8px;border:1.5px solid var(--border);">
+          <table class="records-table">
+            <thead>
+              <tr>
+                <th>Dystans</th>
+                <th>Wynik (HH:MM:SS)</th>
+                <th>Data</th>
+                <th style="width:80px;text-align:center;">Historia</th>
+              </tr>
+            </thead>
+            <tbody id="records-tbody"></tbody>
+          </table>
+        </div>
+        <div style="margin-top:0.75rem;display:flex;align-items:center;gap:1rem;">
+          <button class="btn-primary" onclick="saveRecords()">Zapisz rekordy</button>
+          <span class="mono text-xs" id="records-saved" style="color:#2e7d32;display:none;">✓ Zapisano</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMPORT DANYCH (collapsible) -->
+    <div class="profile-card">
+      <div class="import-panel-header" onclick="toggleImportPanel()">
+        <div class="section-title" style="margin:0;">Import danych</div>
+        <span class="import-chevron" id="import-chevron">▼</span>
+      </div>
+      <div class="import-panel-body" id="import-panel-body">
+        <p class="mono" style="font-size:0.73rem;color:var(--muted);margin-bottom:0.75rem;line-height:1.65;">
+          Separator: <strong>średnik (;)</strong> · Kodowanie: <strong>UTF-8 lub Windows-1250</strong><br>
+          Kolumny (0–14): <strong>Data · Aktywność · Typ · Dystans · Akcent · Czas · RPE · Zadanie · Notatka · Tętno · S1–S5</strong>
+        </p>
+        <label class="import-box" for="csv-file-input">
+          <input type="file" id="csv-file-input" accept=".csv,.txt" onchange="handleCsvImport(event)" />
+          <div style="font-size:2rem;margin-bottom:0.35rem;">📂</div>
+          <div class="font-bold" style="font-size:0.85rem;">Kliknij lub upuść plik CSV</div>
+          <div class="mono" style="font-size:0.7rem;color:var(--muted);margin-top:0.25rem;">UTF-8 lub Windows-1250, separator średnik (;)</div>
+        </label>
+        <div class="import-log" id="import-log"></div>
+        <div style="margin-top:0.75rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <button class="btn-secondary" style="font-size:0.72rem;padding:0.4rem 0.9rem;" onclick="downloadAllCsv()">⬇ Pobierz CSV</button>
+          <button class="btn-secondary" style="font-size:0.72rem;padding:0.4rem 0.9rem;color:#c62828;border-color:#fca5a5;" onclick="clearAllTrainings()">🗑 Wyczyść wszystkie treningi</button>
+        </div>
       </div>
     </div>
   </div>
@@ -926,12 +1035,100 @@ function downloadSampleCsv(){const rows=['Data;Aktywność;Typ;Dystans;Akcent;Cz
 function clearAllTrainings(){if(!confirm('Usunąć WSZYSTKIE treningi?'))return;saveTrainings([]);renderEndurance();const log=document.getElementById('import-log');log.style.display='block';log.innerHTML=`<div style="color:#fca5a5;">🗑 Wszystkie treningi zostały usunięte.</div>`;}
 
 // ═══ PROFILE ═══
-function buildZoneTable(){const tbody=document.getElementById('zone-tbody');tbody.innerHTML='';ZONE_DISPLAY.forEach(({num,label,cls})=>{const tr=document.createElement('tr');tr.innerHTML=`<td><span class="${cls}">${label}</span></td><td><input type="number" id="z${num}-bpm-min" placeholder="—" min="0" oninput="validateZones()"/></td><td><input type="number" id="z${num}-bpm-max" placeholder="—" min="0" oninput="validateZones()"/></td><td><input type="text" id="z${num}-pace-min" placeholder="5:00"/></td><td><input type="text" id="z${num}-pace-max" placeholder="6:30"/></td><td><input type="number" id="z${num}-power-min" placeholder="—" min="0" oninput="validateZones()"/></td><td><input type="number" id="z${num}-power-max" placeholder="—" min="0" oninput="validateZones()"/></td>`;tbody.appendChild(tr);});}
+function buildZoneTable(){const tbody=document.getElementById('zone-tbody');tbody.innerHTML='';ZONE_DISPLAY.forEach(({num,label,cls})=>{const tr=document.createElement('tr');tr.innerHTML=`<td><span class="${cls}">${label}</span></td><td><input type="number" id="z${num}-bpm-min" placeholder="—" min="0" oninput="validateZones()"/></td><td><input type="number" id="z${num}-bpm-max" placeholder="—" min="0" oninput="validateZones()"/></td><td><input type="text" id="z${num}-pace-min" placeholder="EASY"/></td><td><input type="text" id="z${num}-pace-max" placeholder="5:30"/></td><td><input type="number" id="z${num}-power-min" placeholder="—" min="0" oninput="validateZones()"/></td><td><input type="number" id="z${num}-power-max" placeholder="—" min="0" oninput="validateZones()"/></td>`;tbody.appendChild(tr);});}
 function validateZones(){let v=true;for(let z=1;z<=4;z++){const bm=parseInt(document.getElementById(`z${z}-bpm-max`).value)||0,bm2=parseInt(document.getElementById(`z${z+1}-bpm-min`).value)||0,pm=parseInt(document.getElementById(`z${z}-power-max`).value)||0,pm2=parseInt(document.getElementById(`z${z+1}-power-min`).value)||0;if((bm>0&&bm2>0&&bm2<=bm)||(pm>0&&pm2>0&&pm2<=pm)){v=false;break;}}document.getElementById('zone-error').style.display=v?'none':'block';return v;}
-function saveProfile(){if(!validateZones())return;const p={height:document.getElementById('p-height').value,weight:document.getElementById('p-weight').value,zones:{}};for(let z=1;z<=5;z++){p.zones[z]={bpmMin:document.getElementById(`z${z}-bpm-min`).value,bpmMax:document.getElementById(`z${z}-bpm-max`).value,powerMin:document.getElementById(`z${z}-power-min`).value,powerMax:document.getElementById(`z${z}-power-max`).value,paceMin:document.getElementById(`z${z}-pace-min`).value,paceMax:document.getElementById(`z${z}-pace-max`).value};}saveProfileData(p);const el=document.getElementById('profile-saved');el.style.display='inline';setTimeout(()=>el.style.display='none',2500);}
-function loadProfileUI(){const p=loadProfile();if(p.height)document.getElementById('p-height').value=p.height;if(p.weight)document.getElementById('p-weight').value=p.weight;if(p.zones){for(let z=1;z<=5;z++){const zd=p.zones[z];if(!zd)continue;document.getElementById(`z${z}-bpm-min`).value=zd.bpmMin||'';document.getElementById(`z${z}-bpm-max`).value=zd.bpmMax||'';document.getElementById(`z${z}-power-min`).value=zd.powerMin||'';document.getElementById(`z${z}-power-max`).value=zd.powerMax||'';document.getElementById(`z${z}-pace-min`).value=zd.paceMin||'';document.getElementById(`z${z}-pace-max`).value=zd.paceMax||'';}}}
+function saveProfile(){if(!validateZones())return;const p=loadProfile();p.name=document.getElementById('p-name').value;p.birthdate=document.getElementById('p-birthdate').value;p.height=document.getElementById('p-height').value;p.weight=document.getElementById('p-weight').value;p.zones={};for(let z=1;z<=5;z++){p.zones[z]={bpmMin:document.getElementById(`z${z}-bpm-min`).value,bpmMax:document.getElementById(`z${z}-bpm-max`).value,powerMin:document.getElementById(`z${z}-power-min`).value,powerMax:document.getElementById(`z${z}-power-max`).value,paceMin:document.getElementById(`z${z}-pace-min`).value,paceMax:document.getElementById(`z${z}-pace-max`).value};}saveProfileData(p);const el=document.getElementById('profile-saved');el.style.display='inline';setTimeout(()=>el.style.display='none',2500);const el2=document.getElementById('zones-saved');if(el2){el2.style.display='inline';setTimeout(()=>el2.style.display='none',2500);}}\nfunction loadProfileUI(){const p=loadProfile();if(p.name)document.getElementById('p-name').value=p.name;if(p.birthdate)document.getElementById('p-birthdate').value=p.birthdate;if(p.height)document.getElementById('p-height').value=p.height;if(p.weight)document.getElementById('p-weight').value=p.weight;if(p.zones){for(let z=1;z<=5;z++){const zd=p.zones[z];if(!zd)continue;document.getElementById(`z${z}-bpm-min`).value=zd.bpmMin||'';document.getElementById(`z${z}-bpm-max`).value=zd.bpmMax||'';document.getElementById(`z${z}-power-min`).value=zd.powerMin||'';document.getElementById(`z${z}-power-max`).value=zd.powerMax||'';document.getElementById(`z${z}-pace-min`).value=zd.paceMin||'';document.getElementById(`z${z}-pace-max`).value=zd.paceMax||'';}}}
 
-// ═══════════════════════════════════════════════════════════
+// ═══ INNER TABS (Dane treningowe) ═══
+function switchInnerTab(name){document.querySelectorAll('.profile-inner-tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.itab===name));document.querySelectorAll('.profile-inner-tab-content').forEach(c=>c.classList.remove('active'));document.getElementById('itab-'+name).classList.add('active');}
+
+// ═══ IMPORT PANEL TOGGLE ═══
+function toggleImportPanel(){const body=document.getElementById('import-panel-body');const chev=document.getElementById('import-chevron');const open=body.classList.toggle('open');chev.classList.toggle('open',open);}
+
+// ═══ SEASONAL NOTES ═══
+const NOTES_KEY='trainlog_notes_v1';
+function loadNotes(){try{return JSON.parse(localStorage.getItem(NOTES_KEY))||{};}catch{return{};}}
+function saveNotesData(d){localStorage.setItem(NOTES_KEY,JSON.stringify(d));}
+function saveNotes(){const d={season:document.getElementById('notes-season').value,observations:document.getElementById('notes-observations').value,injuries:document.getElementById('notes-injuries').value};saveNotesData(d);const el=document.getElementById('notes-saved');el.style.display='inline';setTimeout(()=>el.style.display='none',2500);}
+function loadNotesUI(){const n=loadNotes();document.getElementById('notes-season').value=n.season||'';document.getElementById('notes-observations').value=n.observations||'';document.getElementById('notes-injuries').value=n.injuries||'';}
+
+// ═══ RECORDS (Rekordy życiowe) ═══
+const RECORDS_KEY='trainlog_records_v1';
+const RECORD_EVENTS=[{id:'marathon',label:'Maraton'},{id:'half',label:'Półmaraton'},{id:'10k',label:'10 KM'},{id:'5k',label:'5 KM'},{id:'mile',label:'Mila'},{id:'1k',label:'1 KM'},{id:'400m',label:'400 M'}];
+function loadRecords(){try{return JSON.parse(localStorage.getItem(RECORDS_KEY))||{};}catch{return{};}}
+function saveRecordsData(d){localStorage.setItem(RECORDS_KEY,JSON.stringify(d));}
+let openHistoryRow=null;
+function buildRecordsTable(){
+  const tbody=document.getElementById('records-tbody');
+  const recs=loadRecords();
+  tbody.innerHTML=RECORD_EVENTS.map(ev=>{
+    const cur=recs[ev.id]||{};
+    return`<tr>
+      <td>${ev.label}</td>
+      <td><input type="text" id="rec-${ev.id}-result" placeholder="HH:MM:SS" value="${escHtml(cur.result||'')}" style="max-width:130px;"/></td>
+      <td><input type="date" id="rec-${ev.id}-date" value="${escHtml(cur.date||'')}" style="max-width:150px;"/></td>
+      <td style="text-align:center;"><button class="record-history-btn" onclick="toggleRecordHistory('${ev.id}','${escHtml(ev.label)}')">Historia</button></td>
+    </tr>
+    <tr id="rechist-${ev.id}" style="display:none;">
+      <td colspan="4" style="padding:0 0.6rem 0.6rem;"><div class="record-hist-panel" id="rechist-panel-${ev.id}"></div></td>
+    </tr>`;
+  }).join('');
+}
+function toggleRecordHistory(evId,label){
+  const row=document.getElementById('rechist-'+evId);
+  const panel=document.getElementById('rechist-panel-'+evId);
+  const isOpen=row.style.display!=='none';
+  // Close all
+  RECORD_EVENTS.forEach(e=>{document.getElementById('rechist-'+e.id).style.display='none';});
+  if(isOpen)return;
+  // Build history
+  const recs=loadRecords();
+  const hist=(recs[evId]&&recs[evId].history)||[];
+  if(hist.length===0){panel.innerHTML=`<div style="font-family:'DM Mono',monospace;font-size:0.72rem;color:var(--muted);padding:0.3rem;">Brak historii dla ${label}.</div>`;row.style.display='';return;}
+  const rows=hist.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(h=>`<tr><td>${formatDatePL(h.date)}</td><td class="mono">${escHtml(h.result)}</td></tr>`).join('');
+  panel.innerHTML=`<table class="record-hist-table"><thead><tr><th>Data</th><th>Wynik</th></tr></thead><tbody>${rows}</tbody></table>`;
+  row.style.display='';
+}
+function saveRecords(){
+  const recs=loadRecords();
+  RECORD_EVENTS.forEach(ev=>{
+    const result=(document.getElementById(`rec-${ev.id}-result`).value||'').trim();
+    const date=(document.getElementById(`rec-${ev.id}-date`).value||'').trim();
+    if(!recs[ev.id])recs[ev.id]={history:[]};
+    if(result){
+      const prev=recs[ev.id].result||'';
+      const prevDate=recs[ev.id].date||'';
+      // If there's a previous result that differs, push to history
+      if(prev&&(prev!==result||prevDate!==date)){
+        if(!recs[ev.id].history)recs[ev.id].history=[];
+        recs[ev.id].history.push({result:prev,date:prevDate,savedAt:new Date().toISOString()});
+      }
+      recs[ev.id].result=result;
+      recs[ev.id].date=date;
+    }
+  });
+  saveRecordsData(recs);
+  buildRecordsTable();
+  const el=document.getElementById('records-saved');el.style.display='inline';setTimeout(()=>el.style.display='none',2500);
+}
+function loadRecordsUI(){buildRecordsTable();}
+
+// ═══ EXPORT ALL CSV ═══
+function downloadAllCsv(){
+  const trainings=loadTrainings();
+  if(trainings.length===0){alert('Brak danych do eksportu.');return;}
+  const header='Data;Aktywność;Typ;Dystans;Akcent;Czas;RPE;Zadanie;Notatka;Tętno;S1;S2;S3;S4;S5';
+  const rows=trainings.slice().sort((a,b)=>a.date.localeCompare(b.date)).map(t=>{
+    const datePL=formatDatePL(t.date);
+    const dur=t.durationSeconds?formatDuration(t.durationSeconds):'';
+    const zt=t.zoneTimes||{};
+    const s=[1,2,3,4,5].map(z=>zt[z]?formatDuration(zt[z]):'').join(';');
+    return[datePL,t.activity||'',t.type||'',String(t.distance||'').replace('.',','),String(t.accent||0).replace('.',','),dur,t.rpe||'',t.task||'',t.note||'',t.hr||'',s].join(';');
+  });
+  const bom='\uFEFF';
+  const blob=new Blob([bom+[header,...rows].join('\n')],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='trainlog_export.csv';a.click();URL.revokeObjectURL(url);
+}
 // SUMMARY — Chart.js overlapping bars (grouped:false)
 // ═══════════════════════════════════════════════════════════
 let summaryRange='week', summaryOffset=0, summaryChart=null;
@@ -1126,6 +1323,8 @@ migrateData();
 seedData();
 buildZoneTable();
 loadProfileUI();
+loadNotesUI();
+loadRecordsUI();
 renderEndurance();
 renderPlanned();
 </script>
